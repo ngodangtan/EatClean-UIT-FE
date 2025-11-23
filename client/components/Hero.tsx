@@ -101,9 +101,7 @@ export default function Hero() {
                 One Step Solution
               </span>
               <br />
-              <span className="text-black">
-                for all your dietary needs.
-              </span>
+              <span className="text-black">for all your dietary needs.</span>
             </h2>
 
             <p className="text-xl sm:text-2xl lg:text-[32px] font-bold text-[#8A8585] leading-relaxed lg:leading-[43px] font-satoshi max-w-2xl">
