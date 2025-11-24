@@ -18,7 +18,7 @@ export default function Register() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     setFormData({
       ...formData,
@@ -141,9 +141,7 @@ export default function Register() {
                     {formData.email && (
                       <button
                         type="button"
-                        onClick={() =>
-                          setFormData({ ...formData, email: "" })
-                        }
+                        onClick={() => setFormData({ ...formData, email: "" })}
                         className="absolute right-4 top-1/2 -translate-y-1/2"
                       >
                         <svg
@@ -356,10 +354,7 @@ export default function Register() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        d="M12 15L7 10H17L12 15Z"
-                        fill="#1D1B20"
-                      />
+                      <path d="M12 15L7 10H17L12 15Z" fill="#1D1B20" />
                     </svg>
                   </div>
                 </div>
