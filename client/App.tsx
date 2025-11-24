@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import CreatePlan from "./pages/CreatePlan";
 import Recipes from "./pages/Recipes";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/create-plan" element={<CreatePlan />} />
           <Route path="/recipes" element={<Recipes />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/terms" element={<NotFound />} />
           <Route path="/privacy" element={<NotFound />} />
