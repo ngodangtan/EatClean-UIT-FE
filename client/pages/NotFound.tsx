@@ -16,7 +16,8 @@ export default function NotFound() {
               Page Not Found
             </h2>
             <p className="text-xl sm:text-2xl lg:text-3xl text-gray-text font-satoshi max-w-2xl mx-auto">
-              The page you're looking for doesn't exist or is under construction.
+              The page you're looking for doesn't exist or is under
+              construction.
             </p>
             <Link
               to="/"
