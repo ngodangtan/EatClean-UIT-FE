@@ -98,7 +98,12 @@ export default function CreatePlan() {
       setCurrentStep(currentStep + 1);
     } else if (currentStep === 6 && desiredWeight) {
       setCurrentStep(currentStep + 1);
-    } else if (currentStep > 1 && currentStep !== 5 && currentStep !== 6 && answers[currentStep - 1]) {
+    } else if (
+      currentStep > 1 &&
+      currentStep !== 5 &&
+      currentStep !== 6 &&
+      answers[currentStep - 1]
+    ) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -118,10 +123,10 @@ export default function CreatePlan() {
     currentStep === 1
       ? selectedGoal
       : currentStep === 5
-      ? height && weight
-      : currentStep === 6
-      ? desiredWeight
-      : answers[currentStep - 1];
+        ? height && weight
+        : currentStep === 6
+          ? desiredWeight
+          : answers[currentStep - 1];
 
   return (
     <div className="min-h-screen bg-[#F3F3FD] relative overflow-hidden">
