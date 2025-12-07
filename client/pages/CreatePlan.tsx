@@ -146,6 +146,17 @@ const questions = [
     question: "Sleep duration",
     answers: ["< 6h", "6 - 8h", "> 8h"],
   },
+  {
+    id: 8,
+    question: "Do you have any of these diseases?",
+    type: "multi-select",
+    answers: [
+      "Diabetes",
+      "High blood pressure",
+      "Heart disease",
+      "None of the above",
+    ],
+  },
 ];
 
 export default function CreatePlan() {
