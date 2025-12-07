@@ -55,6 +55,31 @@ const questions = [
       },
     ],
   },
+  {
+    id: 3,
+    question: "What is your favorite meal?",
+    type: "image-cards",
+    answers: [
+      {
+        id: "breakfast",
+        title: "Breakfast",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/1307c400d01744e13a8a6cae272b6d4f551d32c3?width=786",
+      },
+      {
+        id: "lunch",
+        title: "Lunch",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/1918192814c4a48cb8e8dbc3fd60a7508789e7c5?width=788",
+      },
+      {
+        id: "dinner",
+        title: "Dinner",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/06d6b235c0730c2039ee476a8b946ad41c45a9fe?width=786",
+      },
+    ],
+  },
 ];
 
 export default function CreatePlan() {
@@ -315,7 +340,45 @@ export default function CreatePlan() {
             </>
           )}
 
-          {currentStep > 3 && (
+          {currentStep === 4 && (
+            <>
+              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+                {questions[2].question}
+              </h1>
+
+              <div className="flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-16 max-w-6xl mx-auto">
+                {questions[2].answers.map((option: any) => (
+                  <button
+                    key={option.id}
+                    onClick={() => handleAnswerSelect(option.id)}
+                    className={`group relative bg-white rounded-[20px] overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105 w-full md:w-[394px] ${
+                      answers[currentStep - 1] === option.id
+                        ? "ring-4 ring-[#2596BE] shadow-2xl scale-105"
+                        : "shadow-lg"
+                    }`}
+                  >
+                    <div className="relative">
+                      <img
+                        src={option.image}
+                        alt={option.title}
+                        className="w-full aspect-[393/459] object-cover rounded-t-[53px]"
+                      />
+                      {answers[currentStep - 1] === option.id && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#2596BE]/20 to-transparent rounded-t-[53px]" />
+                      )}
+                    </div>
+                    <div className="p-4 sm:p-6 bg-[#E8F4F8] rounded-b-[20px]">
+                      <h3 className="text-2xl sm:text-3xl lg:text-[42px] font-bold text-black text-left font-satoshi leading-tight">
+                        {option.title}
+                      </h3>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
+          {currentStep > 4 && (
             <div className="text-center">
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black mb-8 font-satoshi">
                 Step {currentStep}
