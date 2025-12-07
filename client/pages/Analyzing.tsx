@@ -34,14 +34,18 @@ export default function Analyzing() {
         <div className="w-full max-w-6xl mx-auto">
           {/* Main heading */}
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi max-w-4xl mx-auto leading-tight">
-            We are analyzing your profile to create a personalized muscle gain plan
+            We are analyzing your profile to create a personalized muscle gain
+            plan
           </h1>
 
           {/* Loading indicator */}
           <div className="flex justify-center mb-12 sm:mb-16 lg:mb-20">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
               {/* Circular progress */}
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
+              <svg
+                className="w-full h-full transform -rotate-90"
+                viewBox="0 0 200 200"
+              >
                 {/* Background circle */}
                 <circle
                   cx="100"
@@ -52,7 +56,7 @@ export default function Analyzing() {
                   strokeWidth="8"
                   strokeDasharray="4 4"
                 />
-                
+
                 {/* Progress circle */}
                 <circle
                   cx="100"
@@ -65,10 +69,16 @@ export default function Analyzing() {
                   strokeLinecap="round"
                   className="transition-all duration-300"
                 />
-                
+
                 {/* Gradient definition */}
                 <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <linearGradient
+                    id="gradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
                     <stop offset="0%" stopColor="#2596BE" />
                     <stop offset="100%" stopColor="#6F3AFA" />
                   </linearGradient>
@@ -92,23 +102,32 @@ export default function Analyzing() {
 
             <ul className="space-y-6 sm:space-y-8">
               <li className="flex items-start gap-3 sm:gap-4">
-                <span className="text-2xl sm:text-3xl text-[#2596BE] flex-shrink-0">•</span>
+                <span className="text-2xl sm:text-3xl text-[#2596BE] flex-shrink-0">
+                  •
+                </span>
                 <p className="text-lg sm:text-xl lg:text-2xl text-black font-satoshi leading-relaxed">
-                  Based on your answers, you can gain about 1 kg of lean mass in the first two weeks
+                  Based on your answers, you can gain about 1 kg of lean mass in
+                  the first two weeks
                 </p>
               </li>
 
               <li className="flex items-start gap-3 sm:gap-4">
-                <span className="text-2xl sm:text-3xl text-[#2596BE] flex-shrink-0">•</span>
+                <span className="text-2xl sm:text-3xl text-[#2596BE] flex-shrink-0">
+                  •
+                </span>
                 <p className="text-lg sm:text-xl lg:text-2xl text-black font-satoshi leading-relaxed">
-                  87% of similar users achieved their fitness goals within planned periods
+                  87% of similar users achieved their fitness goals within
+                  planned periods
                 </p>
               </li>
 
               <li className="flex items-start gap-3 sm:gap-4">
-                <span className="text-2xl sm:text-3xl text-[#2596BE] flex-shrink-0">•</span>
+                <span className="text-2xl sm:text-3xl text-[#2596BE] flex-shrink-0">
+                  •
+                </span>
                 <p className="text-lg sm:text-xl lg:text-2xl text-black font-satoshi leading-relaxed">
-                  Your profile is perfect for a high-protein muscle building diet
+                  Your profile is perfect for a high-protein muscle building
+                  diet
                 </p>
               </li>
             </ul>

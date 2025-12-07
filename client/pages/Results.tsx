@@ -214,9 +214,7 @@ export default function Results() {
                             {meal.name}
                           </span>
                           <br />
-                          <span className="text-black">
-                            {meal.description}
-                          </span>
+                          <span className="text-black">{meal.description}</span>
                           <br />
                           <span className="text-black">{meal.benefits}</span>
                         </p>
