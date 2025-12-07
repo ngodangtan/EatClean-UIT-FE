@@ -146,7 +146,7 @@ const questions = [
 export default function CreatePlan() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
-  const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+  const [answers, setAnswers] = useState<{ [key: number]: string | string[] }>({});
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [desiredWeight, setDesiredWeight] = useState("");
