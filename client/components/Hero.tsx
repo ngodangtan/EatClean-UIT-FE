@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
-    <section className="relative pt-32 sm:pt-40 lg:pt-48 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
+    <section className="relative pt-40 sm:pt-48 lg:pt-56 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <svg
           className="absolute top-20 sm:top-32 lg:top-48 left-1/2 -translate-x-1/2 w-full max-w-[1116px] h-auto opacity-50"

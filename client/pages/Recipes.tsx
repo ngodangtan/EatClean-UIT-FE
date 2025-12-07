@@ -66,7 +66,7 @@ export default function Recipes() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Header />
 
-      <main className="flex-grow px-4 sm:px-8 lg:px-16 xl:px-32 py-8 sm:py-12 lg:py-16 mt-16 sm:mt-20 lg:mt-24">
+      <main className="flex-grow px-4 sm:px-8 lg:px-16 xl:px-32 py-8 sm:py-12 lg:py-16 mt-32 sm:mt-40 lg:mt-48">
         <div className="max-w-[1728px] mx-auto">
           <div className="bg-white rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] p-6 sm:p-8 lg:p-12 relative">
             <h2 className="text-xl sm:text-2xl lg:text-[32px] font-black bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] bg-clip-text text-transparent font-satoshi mb-6 sm:mb-8">
