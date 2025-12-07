@@ -15,8 +15,7 @@ export default function Analyzing() {
           clearInterval(interval);
           // After analysis is complete, redirect to results page
           setTimeout(() => {
-            // TODO: Navigate to results/meal plan page
-            // navigate("/meal-plan");
+            navigate("/results");
           }, 1000);
           return 100;
         }

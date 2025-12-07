@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CreatePlan from "./pages/CreatePlan";
 import Analyzing from "./pages/Analyzing";
+import Results from "./pages/Results";
 import Recipes from "./pages/Recipes";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/create-plan" element={<CreatePlan />} />
           <Route path="/analyzing" element={<Analyzing />} />
+          <Route path="/results" element={<Results />} />
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
