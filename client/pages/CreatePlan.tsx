@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import { useLocation } from "wouter";
 
 const goals = [
   {
@@ -228,6 +229,7 @@ const questions = [
 ];
 
 export default function CreatePlan() {
+  const [, setLocation] = useLocation();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
   const [answers, setAnswers] = useState<{ [key: number]: string | string[] }>(
@@ -239,6 +241,12 @@ export default function CreatePlan() {
   const totalSteps = 15;
 
   const handleNext = () => {
+    if (currentStep === 15) {
+      // After completing step 15, navigate to analyzing page
+      setLocation("/analyzing");
+      return;
+    }
+
     if (currentStep === 1 && selectedGoal) {
       setCurrentStep(2);
     } else if (currentStep === 5 && height && weight) {
