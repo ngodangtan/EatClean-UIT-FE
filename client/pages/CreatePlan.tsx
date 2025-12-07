@@ -123,10 +123,13 @@ export default function CreatePlan() {
       setCurrentStep(currentStep + 1);
     } else if (currentStep === 6 && desiredWeight) {
       setCurrentStep(currentStep + 1);
+    } else if (currentStep === 7) {
+      setCurrentStep(currentStep + 1);
     } else if (
       currentStep > 1 &&
       currentStep !== 5 &&
       currentStep !== 6 &&
+      currentStep !== 7 &&
       answers[currentStep - 1]
     ) {
       setCurrentStep(currentStep + 1);
@@ -151,7 +154,9 @@ export default function CreatePlan() {
         ? height && weight
         : currentStep === 6
           ? desiredWeight
-          : answers[currentStep - 1];
+          : currentStep === 7
+            ? true
+            : answers[currentStep - 1];
 
   return (
     <div className="min-h-screen bg-[#F3F3FD] relative overflow-hidden">
