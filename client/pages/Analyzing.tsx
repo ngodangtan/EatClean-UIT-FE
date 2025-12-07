@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "wouter";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export default function Analyzing() {
-  const [, setLocation] = useNavigate();
+  const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function Analyzing() {
           // After analysis is complete, redirect to results page
           setTimeout(() => {
             // TODO: Navigate to results/meal plan page
-            // setLocation("/meal-plan");
+            // navigate("/meal-plan");
           }, 1000);
           return 100;
         }
@@ -25,7 +25,7 @@ export default function Analyzing() {
     }, 200);
 
     return () => clearInterval(interval);
-  }, [setLocation]);
+  }, [navigate]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
