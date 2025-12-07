@@ -217,7 +217,9 @@ export default function CreatePlan() {
           ? desiredWeight
           : currentStep === 7
             ? true
-            : answers[currentStep - 1];
+            : currentStep === 10
+              ? Array.isArray(answers[currentStep - 1]) && (answers[currentStep - 1] as string[]).length > 0
+              : answers[currentStep - 1];
 
   return (
     <div className="min-h-screen bg-[#F3F3FD] relative overflow-hidden">
