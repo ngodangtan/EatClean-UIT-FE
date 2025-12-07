@@ -179,7 +179,32 @@ export default function CreatePlan() {
   };
 
   const handleAnswerSelect = (answer: string) => {
-    setAnswers({ ...answers, [currentStep - 1]: answer });
+    const currentQuestion = questions.find(q => {
+      if (currentStep === 2) return q.id === 1;
+      if (currentStep === 3) return q.id === 2;
+      if (currentStep === 4) return q.id === 3;
+      if (currentStep === 8) return q.id === 4;
+      if (currentStep === 9) return q.id === 5;
+      if (currentStep === 10) return q.id === 6;
+      return false;
+    });
+
+    if (currentQuestion?.type === "multi-select") {
+      const currentAnswers = (answers[currentStep - 1] as string[]) || [];
+      if (currentAnswers.includes(answer)) {
+        setAnswers({
+          ...answers,
+          [currentStep - 1]: currentAnswers.filter((a) => a !== answer),
+        });
+      } else {
+        setAnswers({
+          ...answers,
+          [currentStep - 1]: [...currentAnswers, answer],
+        });
+      }
+    } else {
+      setAnswers({ ...answers, [currentStep - 1]: answer });
+    }
   };
 
   const progressPercentage = (currentStep / totalSteps) * 100;
