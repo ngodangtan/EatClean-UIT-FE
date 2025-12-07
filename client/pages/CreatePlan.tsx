@@ -237,7 +237,7 @@ export default function CreatePlan() {
           ? desiredWeight
           : currentStep === 7
             ? true
-            : currentStep === 10
+            : currentStep === 10 || currentStep === 12
               ? Array.isArray(answers[currentStep - 1]) &&
                 (answers[currentStep - 1] as string[]).length > 0
               : answers[currentStep - 1];
