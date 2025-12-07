@@ -130,6 +130,17 @@ const questions = [
       },
     ],
   },
+  {
+    id: 6,
+    question: "What is your work schedule?",
+    type: "multi-select",
+    answers: [
+      "Regular office hours (9-5)",
+      "Flexible hours",
+      "Night shifts",
+      "Irregular schedule",
+    ],
+  },
 ];
 
 export default function CreatePlan() {
