@@ -907,7 +907,38 @@ export default function CreatePlan() {
             </>
           )}
 
-          {currentStep > 12 && (
+          {currentStep === 13 && (
+            <>
+              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+                {questions[8].question}
+              </h1>
+
+              <div className="flex flex-col items-center gap-6 sm:gap-8 max-w-4xl mx-auto">
+                {questions[8].answers.map((option: any) => (
+                  <button
+                    key={option.id}
+                    onClick={() => handleAnswerSelect(option.id)}
+                    className={`w-full flex items-center justify-between px-8 py-6 sm:py-8 rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] transition-all duration-300 hover:shadow-2xl hover:scale-105 ${
+                      answers[currentStep - 1] === option.id
+                        ? "bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white ring-4 ring-[#2596BE]/30 scale-105"
+                        : "bg-white text-black hover:bg-gray-50"
+                    }`}
+                  >
+                    <span className="text-2xl sm:text-3xl lg:text-[40px] font-bold font-satoshi tracking-wide flex-1 text-left pl-4 sm:pl-8">
+                      {option.title}
+                    </span>
+                    <img
+                      src={option.image}
+                      alt={option.title}
+                      className="w-32 h-24 sm:w-40 sm:h-32 lg:w-64 lg:h-48 rounded-[30px] object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
+          {currentStep > 13 && (
             <div className="text-center">
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black mb-8 font-satoshi">
                 Step {currentStep}
