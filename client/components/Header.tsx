@@ -64,13 +64,13 @@ export default function Header() {
                 </div>
 
                 <Link
-                  to="/register"
+                  to="/login"
                   className={`text-base lg:text-[25px] font-bold font-satoshi transition-colors relative ${
-                    isRegisterPage ? "text-[#4461F2]" : "text-black"
+                    isLoginPage ? "text-[#4461F2]" : "text-black"
                   }`}
                 >
-                  Register
-                  {isRegisterPage && (
+                  Log in
+                  {isLoginPage && (
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-[#4461F2]" />
                   )}
                 </Link>
@@ -78,10 +78,10 @@ export default function Header() {
             )}
 
             <Link
-              to="/login"
+              to={isLoginPage ? "/register" : "/login"}
               className="px-6 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-4 rounded-xl sm:rounded-[14.5px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-base sm:text-xl lg:text-[29px] font-black font-satoshi hover:shadow-lg transition-all hover:scale-105"
             >
-              Log In
+              {isLoginPage ? "Register" : "Log In"}
             </Link>
           </div>
         </div>
