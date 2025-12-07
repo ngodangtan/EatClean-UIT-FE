@@ -488,7 +488,65 @@ export default function CreatePlan() {
             </>
           )}
 
-          {currentStep > 6 && (
+          {currentStep === 7 && (
+            <>
+              <div className="max-w-4xl mx-auto">
+                <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 font-satoshi leading-tight">
+                  You will reach {desiredWeight} kg on {(() => {
+                    const today = new Date();
+                    const currentW = parseFloat(weight) || 0;
+                    const desiredW = parseFloat(desiredWeight) || 0;
+                    const weightDiff = Math.abs(currentW - desiredW);
+                    const weeksNeeded = Math.ceil(weightDiff / 0.5);
+                    const targetDate = new Date(today);
+                    targetDate.setDate(today.getDate() + (weeksNeeded * 7));
+                    return targetDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+                  })()}
+                </h1>
+
+                <div className="relative max-w-2xl mx-auto mb-8 sm:mb-12">
+                  <img
+                    src="https://api.builder.io/api/v1/image/assets/TEMP/252758dc50b1c1b1fbdb8602025aabd0c313ccf9?width=1132"
+                    alt="Weight progress chart"
+                    className="w-full h-auto"
+                  />
+
+                  <div className="absolute left-8 sm:left-12 bottom-8 sm:bottom-12 flex flex-col items-center">
+                    <div className="px-6 py-3 rounded-[18px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white mb-2">
+                      <span className="text-2xl sm:text-3xl lg:text-[36px] font-black font-satoshi">
+                        {weight}kg
+                      </span>
+                    </div>
+                    <span className="text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi text-black">
+                      Today
+                    </span>
+                  </div>
+
+                  <div className="absolute right-8 sm:right-12 top-8 sm:top-12 flex flex-col items-center">
+                    <div className="px-6 py-3 rounded-[18px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white mb-2">
+                      <span className="text-2xl sm:text-3xl lg:text-[36px] font-black font-satoshi">
+                        {desiredWeight}kg
+                      </span>
+                    </div>
+                    <span className="text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi text-black">
+                      Goal
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex justify-center">
+                  <button
+                    onClick={handleNext}
+                    className="px-8 py-4 rounded-[18px] text-2xl sm:text-3xl lg:text-[36px] font-black font-satoshi bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white hover:shadow-2xl hover:scale-105 transition-all"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+
+          {currentStep > 7 && (
             <div className="text-center">
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black mb-8 font-satoshi">
                 Step {currentStep}
