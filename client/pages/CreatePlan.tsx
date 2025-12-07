@@ -517,15 +517,19 @@ export default function CreatePlan() {
             <>
               <div className="max-w-4xl mx-auto">
                 <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 font-satoshi leading-tight">
-                  You will reach {desiredWeight} kg on {(() => {
+                  You will reach {desiredWeight} kg on{" "}
+                  {(() => {
                     const today = new Date();
                     const currentW = parseFloat(weight) || 0;
                     const desiredW = parseFloat(desiredWeight) || 0;
                     const weightDiff = Math.abs(currentW - desiredW);
                     const weeksNeeded = Math.ceil(weightDiff / 0.5);
                     const targetDate = new Date(today);
-                    targetDate.setDate(today.getDate() + (weeksNeeded * 7));
-                    return targetDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+                    targetDate.setDate(today.getDate() + weeksNeeded * 7);
+                    return targetDate.toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                    });
                   })()}
                 </h1>
 
