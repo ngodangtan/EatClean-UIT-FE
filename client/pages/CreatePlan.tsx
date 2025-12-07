@@ -151,7 +151,9 @@ const questions = [
 export default function CreatePlan() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
-  const [answers, setAnswers] = useState<{ [key: number]: string | string[] }>({});
+  const [answers, setAnswers] = useState<{ [key: number]: string | string[] }>(
+    {},
+  );
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [desiredWeight, setDesiredWeight] = useState("");
@@ -184,7 +186,7 @@ export default function CreatePlan() {
   };
 
   const handleAnswerSelect = (answer: string) => {
-    const currentQuestion = questions.find(q => {
+    const currentQuestion = questions.find((q) => {
       if (currentStep === 2) return q.id === 1;
       if (currentStep === 3) return q.id === 2;
       if (currentStep === 4) return q.id === 3;
@@ -224,7 +226,8 @@ export default function CreatePlan() {
           : currentStep === 7
             ? true
             : currentStep === 10
-              ? Array.isArray(answers[currentStep - 1]) && (answers[currentStep - 1] as string[]).length > 0
+              ? Array.isArray(answers[currentStep - 1]) &&
+                (answers[currentStep - 1] as string[]).length > 0
               : answers[currentStep - 1];
 
   return (
@@ -733,7 +736,8 @@ export default function CreatePlan() {
 
               <div className="flex flex-col items-center gap-6 sm:gap-8 max-w-2xl mx-auto">
                 {questions[5].answers.map((answer) => {
-                  const currentAnswers = (answers[currentStep - 1] as string[]) || [];
+                  const currentAnswers =
+                    (answers[currentStep - 1] as string[]) || [];
                   const isSelected = currentAnswers.includes(answer as string);
 
                   return (
