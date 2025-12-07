@@ -30,7 +30,7 @@ export default function Analyzing() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Header />
 
-      <main className="flex-grow flex items-center justify-center px-4 py-8 sm:py-12 lg:py-16">
+      <main className="flex-grow flex items-center justify-center px-4 py-8 sm:py-12 lg:py-16 mt-32 sm:mt-40 lg:mt-48">
         <div className="w-full max-w-6xl mx-auto">
           {/* Main heading */}
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi max-w-4xl mx-auto leading-tight">
