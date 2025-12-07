@@ -206,6 +206,11 @@ const questions = [
       },
     ],
   },
+  {
+    id: 10,
+    question: "How many meals per day do you prefer?",
+    answers: ["2 meals", "3 meals", "4+ meals"],
+  },
 ];
 
 export default function CreatePlan() {
