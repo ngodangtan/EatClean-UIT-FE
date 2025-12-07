@@ -86,12 +86,16 @@ export default function CreatePlan() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
   const totalSteps = 15;
 
   const handleNext = () => {
     if (currentStep === 1 && selectedGoal) {
       setCurrentStep(2);
-    } else if (currentStep > 1 && answers[currentStep - 1]) {
+    } else if (currentStep === 5 && height && weight) {
+      setCurrentStep(currentStep + 1);
+    } else if (currentStep > 1 && currentStep !== 5 && answers[currentStep - 1]) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -108,7 +112,11 @@ export default function CreatePlan() {
 
   const progressPercentage = (currentStep / totalSteps) * 100;
   const canProceed =
-    currentStep === 1 ? selectedGoal : answers[currentStep - 1];
+    currentStep === 1
+      ? selectedGoal
+      : currentStep === 5
+      ? height && weight
+      : answers[currentStep - 1];
 
   return (
     <div className="min-h-screen bg-[#F3F3FD] relative overflow-hidden">
@@ -378,7 +386,63 @@ export default function CreatePlan() {
             </>
           )}
 
-          {currentStep > 4 && (
+          {currentStep === 5 && (
+            <>
+              <div className="max-w-2xl mx-auto space-y-8 sm:space-y-12">
+                <div>
+                  <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-6 sm:mb-8 font-satoshi leading-tight">
+                    How tall are you?
+                  </h2>
+                  <div className="relative max-w-md mx-auto">
+                    <input
+                      type="number"
+                      value={height}
+                      onChange={(e) => setHeight(e.target.value)}
+                      placeholder=""
+                      className="w-full px-6 py-6 sm:py-7 rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] text-center text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-[#2596BE]/30 transition-all"
+                    />
+                    <span className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi text-black pointer-events-none">
+                      cm
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-6 sm:mb-8 font-satoshi leading-tight">
+                    What is your current weight?
+                  </h2>
+                  <div className="relative max-w-md mx-auto">
+                    <input
+                      type="number"
+                      value={weight}
+                      onChange={(e) => setWeight(e.target.value)}
+                      placeholder=""
+                      className="w-full px-6 py-6 sm:py-7 rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] text-center text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-[#2596BE]/30 transition-all"
+                    />
+                    <span className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi text-black pointer-events-none">
+                      kg
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex justify-center mt-8 sm:mt-12">
+                  <button
+                    onClick={handleNext}
+                    disabled={!height || !weight}
+                    className={`px-8 py-4 rounded-[18px] text-2xl sm:text-3xl lg:text-[36px] font-black font-satoshi transition-all ${
+                      height && weight
+                        ? "bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white hover:shadow-2xl hover:scale-105"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    }`}
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+
+          {currentStep > 5 && (
             <div className="text-center">
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black mb-8 font-satoshi">
                 Step {currentStep}
