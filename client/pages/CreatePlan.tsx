@@ -141,6 +141,11 @@ const questions = [
       "Irregular schedule",
     ],
   },
+  {
+    id: 7,
+    question: "Sleep duration",
+    answers: ["< 6h", "6 - 8h", "> 8h"],
+  },
 ];
 
 export default function CreatePlan() {
@@ -186,6 +191,7 @@ export default function CreatePlan() {
       if (currentStep === 8) return q.id === 4;
       if (currentStep === 9) return q.id === 5;
       if (currentStep === 10) return q.id === 6;
+      if (currentStep === 11) return q.id === 7;
       return false;
     });
 
