@@ -108,9 +108,7 @@ export default function Recipes() {
                   />
                   <div className="flex-1">
                     <p className="text-base sm:text-lg lg:text-[27px] leading-relaxed lg:leading-[64px] font-satoshi">
-                      <span className="font-bold text-black">
-                        {meal.name}
-                      </span>
+                      <span className="font-bold text-black">{meal.name}</span>
                       <br />
                       <span className="text-black">{meal.description}</span>
                       <br />
