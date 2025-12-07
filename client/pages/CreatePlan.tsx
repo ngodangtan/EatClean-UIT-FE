@@ -255,6 +255,7 @@ export default function CreatePlan() {
       if (currentStep === 10) return q.id === 6;
       if (currentStep === 11) return q.id === 7;
       if (currentStep === 12) return q.id === 8;
+      if (currentStep === 13) return q.id === 9;
       return false;
     });
 
