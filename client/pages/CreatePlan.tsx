@@ -211,6 +211,20 @@ const questions = [
     question: "How many meals per day do you prefer?",
     answers: ["2 meals", "3 meals", "4+ meals"],
   },
+  {
+    id: 11,
+    question: "What cuisine do you prefer?",
+    type: "multi-select",
+    answers: [
+      "Vietnamese",
+      "Chinese",
+      "Japanese",
+      "Thai",
+      "French",
+      "Korean",
+      "American",
+    ],
+  },
 ];
 
 export default function CreatePlan() {
@@ -262,6 +276,7 @@ export default function CreatePlan() {
       if (currentStep === 12) return q.id === 8;
       if (currentStep === 13) return q.id === 9;
       if (currentStep === 14) return q.id === 10;
+      if (currentStep === 15) return q.id === 11;
       return false;
     });
 
@@ -293,7 +308,7 @@ export default function CreatePlan() {
           ? desiredWeight
           : currentStep === 7
             ? true
-            : currentStep === 10 || currentStep === 12
+            : currentStep === 10 || currentStep === 12 || currentStep === 15
               ? Array.isArray(answers[currentStep - 1]) &&
                 (answers[currentStep - 1] as string[]).length > 0
               : answers[currentStep - 1];
