@@ -30,7 +30,31 @@ const questions = [
       "Have you tried to eat healthy before but couldn't keep it consistent?",
     answers: ["Yes", "No"],
   },
-  // Add more questions here as needed
+  {
+    id: 2,
+    question: "What time of the day do you usually feel hungry?",
+    type: "image-cards",
+    answers: [
+      {
+        id: "morning",
+        title: "Morning",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/2f2e1af706541255dfc9333ace28d2daff17bed2?width=786",
+      },
+      {
+        id: "afternoon",
+        title: "Afternoon",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/2e59f96d127461c0dfa6cc35923481f4a8435473?width=788",
+      },
+      {
+        id: "evening",
+        title: "Evening",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/e5c50936d14dd6057fd858d7477cec3356357abe?width=786",
+      },
+    ],
+  },
 ];
 
 export default function CreatePlan() {
