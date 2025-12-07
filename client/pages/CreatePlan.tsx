@@ -26,7 +26,8 @@ const goals = [
 const questions = [
   {
     id: 1,
-    question: "Have you tried to eat healthy before but couldn't keep it consistent?",
+    question:
+      "Have you tried to eat healthy before but couldn't keep it consistent?",
     answers: ["Yes", "No"],
   },
   // Add more questions here as needed
@@ -57,7 +58,8 @@ export default function CreatePlan() {
   };
 
   const progressPercentage = (currentStep / totalSteps) * 100;
-  const canProceed = currentStep === 1 ? selectedGoal : answers[currentStep - 1];
+  const canProceed =
+    currentStep === 1 ? selectedGoal : answers[currentStep - 1];
 
   return (
     <div className="min-h-screen bg-[#F3F3FD] relative overflow-hidden">
