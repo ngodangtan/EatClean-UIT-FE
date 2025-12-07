@@ -100,7 +100,10 @@ export default function Profile() {
                 Security
               </h2>
 
-              <button className="w-full flex items-center justify-between p-4 sm:p-6 hover:bg-gray-50 rounded-lg transition-colors group">
+              <button
+                onClick={() => navigate("/change-password")}
+                className="w-full flex items-center justify-between p-4 sm:p-6 hover:bg-gray-50 rounded-lg transition-colors group"
+              >
                 <span className="text-lg sm:text-xl lg:text-[38px] font-medium text-[#0D141C] font-inter">
                   Change Password
                 </span>
