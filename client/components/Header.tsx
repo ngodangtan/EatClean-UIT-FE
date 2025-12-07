@@ -42,6 +42,37 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-4 lg:gap-6">
+            {!isRegisterPage && !isLoginPage && (
+              <Link
+                to="/profile"
+                className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#DB4444] rounded-full hover:shadow-lg transition-all hover:scale-105"
+                aria-label="Profile"
+              >
+                <svg
+                  className="w-12 h-12 sm:w-14 sm:h-14"
+                  viewBox="0 0 50 50"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect width="50" height="50" rx="25" fill="#DB4444" />
+                  <path
+                    d="M32.8125 35.9375V33.3333C32.8125 31.952 32.3296 30.6272 31.4701 29.6505C30.6105 28.6737 29.4447 28.125 28.2292 28.125H20.2083C18.9928 28.125 17.827 28.6737 16.9674 29.6505C16.1079 30.6272 15.625 31.952 15.625 33.3333V35.9375"
+                    stroke="white"
+                    strokeWidth="2.34375"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M25 23.4375C27.5888 23.4375 29.6875 21.3388 29.6875 18.75C29.6875 16.1612 27.5888 14.0625 25 14.0625C22.4112 14.0625 20.3125 16.1612 20.3125 18.75C20.3125 21.3388 22.4112 23.4375 25 23.4375Z"
+                    stroke="white"
+                    strokeWidth="2.34375"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+            )}
+
             {(isRegisterPage || isLoginPage) && (
               <>
                 <div className="hidden sm:flex items-center gap-2">
