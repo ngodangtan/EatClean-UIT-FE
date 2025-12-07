@@ -891,7 +891,8 @@ export default function CreatePlan() {
 
               <div className="flex flex-col items-center gap-6 sm:gap-8 max-w-2xl mx-auto">
                 {questions[7].answers.map((answer) => {
-                  const currentAnswers = (answers[currentStep - 1] as string[]) || [];
+                  const currentAnswers =
+                    (answers[currentStep - 1] as string[]) || [];
                   const isSelected = currentAnswers.includes(answer as string);
 
                   return (
@@ -993,7 +994,8 @@ export default function CreatePlan() {
 
               <div className="flex flex-col items-center gap-6 sm:gap-8 max-w-2xl mx-auto">
                 {questions[10].answers.map((answer) => {
-                  const currentAnswers = (answers[currentStep - 1] as string[]) || [];
+                  const currentAnswers =
+                    (answers[currentStep - 1] as string[]) || [];
                   const isSelected = currentAnswers.includes(answer as string);
 
                   return (
