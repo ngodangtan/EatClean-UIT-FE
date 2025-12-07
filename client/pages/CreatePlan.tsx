@@ -105,6 +105,31 @@ const questions = [
       },
     ],
   },
+  {
+    id: 5,
+    question: "Describe your average day",
+    type: "image-cards",
+    answers: [
+      {
+        id: "sedentary",
+        title: "Predominantly sedentary lifestyle",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/a7fc6ad4d37a83234d15ee309b6d5d6d2679f29a?width=786",
+      },
+      {
+        id: "balanced",
+        title: "Balanced (sit, short walk and light exercise)",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/b7c01cac1a5edf9f81c2ae0db1b33bae760ff655?width=788",
+      },
+      {
+        id: "physical",
+        title: "Physical work (hard work)",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/c049cfc6f9ff0045c8b01b8ea5c9b5b67310ae62?width=786",
+      },
+    ],
+  },
 ];
 
 export default function CreatePlan() {
@@ -618,7 +643,45 @@ export default function CreatePlan() {
             </>
           )}
 
-          {currentStep > 8 && (
+          {currentStep === 9 && (
+            <>
+              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+                {questions[4].question}
+              </h1>
+
+              <div className="flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-16 max-w-6xl mx-auto">
+                {questions[4].answers.map((option: any) => (
+                  <button
+                    key={option.id}
+                    onClick={() => handleAnswerSelect(option.id)}
+                    className={`group relative bg-white rounded-[20px] overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105 w-full md:w-[394px] ${
+                      answers[currentStep - 1] === option.id
+                        ? "ring-4 ring-[#2596BE] shadow-2xl scale-105"
+                        : "shadow-lg"
+                    }`}
+                  >
+                    <div className="relative">
+                      <img
+                        src={option.image}
+                        alt={option.title}
+                        className="w-full aspect-[393/459] object-cover rounded-t-[53px]"
+                      />
+                      {answers[currentStep - 1] === option.id && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#2596BE]/20 to-transparent rounded-t-[53px]" />
+                      )}
+                    </div>
+                    <div className="p-4 sm:p-6 bg-[#E8F4F8] rounded-b-[20px] min-h-[100px] flex items-center">
+                      <h3 className="text-xl sm:text-2xl lg:text-[32px] font-bold text-black text-left font-satoshi leading-tight">
+                        {option.title}
+                      </h3>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
+          {currentStep > 9 && (
             <div className="text-center">
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black mb-8 font-satoshi">
                 Step {currentStep}
