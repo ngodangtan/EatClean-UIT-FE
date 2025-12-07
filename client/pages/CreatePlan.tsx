@@ -157,6 +157,55 @@ const questions = [
       "None of the above",
     ],
   },
+  {
+    id: 9,
+    question: "Pick your primary diet preference",
+    type: "image-cards",
+    answers: [
+      {
+        id: "keto",
+        title: "Keto / Low‑carb",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/a7b5c5f2c3a9b2f23aa0a8bf263b0ee0726d3e73?width=517",
+      },
+      {
+        id: "balanced",
+        title: "Balanced / Mediterranean",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/a7b5c5f2c3a9b2f23aa0a8bf263b0ee0726d3e73?width=517",
+      },
+      {
+        id: "protein",
+        title: "High‑protein",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/a7b5c5f2c3a9b2f23aa0a8bf263b0ee0726d3e73?width=517",
+      },
+      {
+        id: "paleo",
+        title: "Paleo",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/a7b5c5f2c3a9b2f23aa0a8bf263b0ee0726d3e73?width=517",
+      },
+      {
+        id: "vegan",
+        title: "Vegan",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/a7b5c5f2c3a9b2f23aa0a8bf263b0ee0726d3e73?width=517",
+      },
+      {
+        id: "vegetarian",
+        title: "Vegetarian",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/a7b5c5f2c3a9b2f23aa0a8bf263b0ee0726d3e73?width=517",
+      },
+      {
+        id: "none",
+        title: "None",
+        image:
+          "https://api.builder.io/api/v1/image/assets/TEMP/a7b5c5f2c3a9b2f23aa0a8bf263b0ee0726d3e73?width=517",
+      },
+    ],
+  },
 ];
 
 export default function CreatePlan() {
