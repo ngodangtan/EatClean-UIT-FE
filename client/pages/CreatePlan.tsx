@@ -719,7 +719,52 @@ export default function CreatePlan() {
             </>
           )}
 
-          {currentStep > 9 && (
+          {currentStep === 10 && (
+            <>
+              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+                {questions[5].question}
+              </h1>
+
+              <div className="flex flex-col items-center gap-6 sm:gap-8 max-w-2xl mx-auto">
+                {questions[5].answers.map((answer) => {
+                  const currentAnswers = (answers[currentStep - 1] as string[]) || [];
+                  const isSelected = currentAnswers.includes(answer as string);
+
+                  return (
+                    <button
+                      key={answer as string}
+                      onClick={() => handleAnswerSelect(answer as string)}
+                      className={`w-full px-8 py-6 sm:py-8 rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] transition-all duration-300 hover:shadow-2xl hover:scale-105 ${
+                        isSelected
+                          ? "bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white ring-4 ring-[#2596BE]/30 scale-105"
+                          : "bg-white text-black hover:bg-gray-50"
+                      }`}
+                    >
+                      <span className="text-2xl sm:text-3xl lg:text-[40px] font-bold font-satoshi tracking-wide">
+                        {answer}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="flex justify-center mt-8 sm:mt-12">
+                <button
+                  onClick={handleNext}
+                  disabled={!canProceed}
+                  className={`px-8 py-4 rounded-[18px] text-2xl sm:text-3xl lg:text-[36px] font-black font-satoshi transition-all ${
+                    canProceed
+                      ? "bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white hover:shadow-2xl hover:scale-105"
+                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  }`}
+                >
+                  Continue
+                </button>
+              </div>
+            </>
+          )}
+
+          {currentStep > 10 && (
             <div className="text-center">
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black mb-8 font-satoshi">
                 Step {currentStep}
