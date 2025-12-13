@@ -1,20 +1,90 @@
 import Header from "@/components/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     rePassword: "",
+    username: "",
+    phone: "",
     fullName: "",
     gender: "",
     birthday: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setError(null);
+
+    // Validation
+    if (!formData.email || !formData.password || !formData.fullName) {
+      setError("Email, password, and full name are required");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+
+    if (formData.password !== formData.rePassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          username: formData.username || undefined,
+          phone: formData.phone || undefined,
+          fullName: formData.fullName,
+          gender: formData.gender || undefined,
+          birthday: formData.birthday || undefined,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Registration failed");
+      }
+
+      // Store token if provided
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
+
+      setSuccess(true);
+      // Redirect to login or home after 1.5 seconds
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (
@@ -124,6 +194,22 @@ export default function Register() {
                 Welcome User
               </h2>
 
+              {error && (
+                <div className="mb-4 p-4 rounded-[10px] bg-red-50 border border-red-200">
+                  <p className="text-red-600 text-sm sm:text-base font-satoshi">
+                    {error}
+                  </p>
+                </div>
+              )}
+
+              {success && (
+                <div className="mb-4 p-4 rounded-[10px] bg-green-50 border border-green-200">
+                  <p className="text-green-600 text-sm sm:text-base font-satoshi">
+                    Registration successful! Redirecting to login...
+                  </p>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                 <div className="relative">
                   <label className="block text-sm sm:text-base lg:text-[18px] font-medium text-[#4F555A] mb-2 tracking-wide font-satoshi">
@@ -142,6 +228,116 @@ export default function Register() {
                       <button
                         type="button"
                         onClick={() => setFormData({ ...formData, email: "" })}
+                        className="absolute right-4 top-1/2 -translate-y-1/2"
+                      >
+                        <svg
+                          className="w-6 h-6"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect
+                            x="3.45693"
+                            y="3.45657"
+                            width="17.2829"
+                            height="17.2829"
+                            rx="8.64147"
+                            stroke="#667085"
+                            strokeWidth="0.987597"
+                          />
+                          <path
+                            d="M14.6112 9.87805L9.87866 14.6106"
+                            stroke="#667085"
+                            strokeWidth="0.987597"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M14.6132 14.6135L9.87671 9.87598"
+                            stroke="#667085"
+                            strokeWidth="0.987597"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <label className="block text-sm sm:text-base lg:text-[18px] font-medium text-[#4F555A] mb-2 tracking-wide font-satoshi">
+                    Username (Optional)
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="username"
+                      value={formData.username}
+                      onChange={handleChange}
+                      className="w-full px-5 py-4 lg:py-5 rounded-[10px] bg-[#EAF0F7] text-black font-satoshi text-base focus:outline-none focus:ring-2 focus:ring-[#2596BE]"
+                    />
+                    {formData.username && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setFormData({ ...formData, username: "" })
+                        }
+                        className="absolute right-4 top-1/2 -translate-y-1/2"
+                      >
+                        <svg
+                          className="w-6 h-6"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect
+                            x="3.45693"
+                            y="3.45657"
+                            width="17.2829"
+                            height="17.2829"
+                            rx="8.64147"
+                            stroke="#667085"
+                            strokeWidth="0.987597"
+                          />
+                          <path
+                            d="M14.6112 9.87805L9.87866 14.6106"
+                            stroke="#667085"
+                            strokeWidth="0.987597"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M14.6132 14.6135L9.87671 9.87598"
+                            stroke="#667085"
+                            strokeWidth="0.987597"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <label className="block text-sm sm:text-base lg:text-[18px] font-medium text-[#4F555A] mb-2 tracking-wide font-satoshi">
+                    Phone Number (Optional)
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-5 py-4 lg:py-5 rounded-[10px] bg-[#EAF0F7] text-black font-satoshi text-base focus:outline-none focus:ring-2 focus:ring-[#2596BE]"
+                    />
+                    {formData.phone && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setFormData({ ...formData, phone: "" })
+                        }
                         className="absolute right-4 top-1/2 -translate-y-1/2"
                       >
                         <svg
@@ -399,9 +595,36 @@ export default function Register() {
 
                 <button
                   type="submit"
-                  className="w-full py-4 lg:py-5 rounded-[10px] bg-[#2596BE] text-white text-base sm:text-lg lg:text-[19px] font-bold tracking-wide font-satoshi hover:bg-[#1e7a9e] transition-colors shadow-lg hover:shadow-xl"
+                  disabled={isLoading || success}
+                  className="w-full py-4 lg:py-5 rounded-[10px] bg-[#2596BE] text-white text-base sm:text-lg lg:text-[19px] font-bold tracking-wide font-satoshi hover:bg-[#1e7a9e] transition-colors shadow-lg hover:shadow-xl disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Register
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <svg
+                        className="animate-spin h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Registering...
+                    </span>
+                  ) : (
+                    "Register"
+                  )}
                 </button>
               </form>
             </div>
