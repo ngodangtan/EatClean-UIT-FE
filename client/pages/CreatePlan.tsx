@@ -261,7 +261,10 @@ export default function CreatePlan() {
         cuisinePreference: answers[14],
       };
 
-      localStorage.setItem("healthProfileData", JSON.stringify(healthProfileData));
+      localStorage.setItem(
+        "healthProfileData",
+        JSON.stringify(healthProfileData),
+      );
       navigate("/analyzing");
       return;
     }

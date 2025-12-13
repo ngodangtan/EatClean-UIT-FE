@@ -50,7 +50,9 @@ export default function Analyzing() {
         // Get the health profile data from localStorage
         const healthDataStr = localStorage.getItem("healthProfileData");
         if (!healthDataStr) {
-          setError("No health profile data found. Please complete the questionnaire.");
+          setError(
+            "No health profile data found. Please complete the questionnaire.",
+          );
           setTimeout(() => navigate("/create-plan"), 2000);
           return;
         }
@@ -107,7 +109,9 @@ export default function Analyzing() {
         }
 
         if (!response.ok) {
-          throw new Error(responseData.message || "Failed to create health profile");
+          throw new Error(
+            responseData.message || "Failed to create health profile",
+          );
         }
 
         // Clean up localStorage
