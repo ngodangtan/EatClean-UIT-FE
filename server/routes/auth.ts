@@ -1,19 +1,13 @@
 import { Router, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, User, ApiError } from "@shared/api";
 
 const router = Router();
 
 // In-memory user store (in production, use a database)
-interface StoredUser {
-  id: string;
-  email: string;
+interface StoredUser extends User {
   password: string;
-  fullName: string;
-  username?: string;
-  phone?: string;
-  gender?: string;
-  birthday?: string;
 }
 
 const users: Map<string, StoredUser> = new Map();

@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { LoginRequest, LoginResponse, ApiError, API_BASE } from "@shared/api";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,10 +42,10 @@ export default function Login() {
         body: JSON.stringify({
           email: formData.email,
           password: formData.password,
-        }),
+        } as LoginRequest),
       });
 
-      let data;
+      let data: LoginResponse | ApiError;
       try {
         data = await response.json();
       } catch {
@@ -54,14 +55,16 @@ export default function Login() {
       }
 
       if (!response.ok) {
-        throw new Error(data.message || "Login failed");
+        const errorData = data as ApiError;
+        throw new Error(errorData.message || "Login failed");
       }
 
       // Store token and user info
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        if (data.user) {
-          localStorage.setItem("user", JSON.stringify(data.user));
+      const successData = data as LoginResponse;
+      if (successData.token) {
+        localStorage.setItem("token", successData.token);
+        if (successData.user) {
+          localStorage.setItem("user", JSON.stringify(successData.user));
         }
       }
 
