@@ -60,6 +60,9 @@ export default function Analyzing() {
         const healthData = JSON.parse(healthDataStr);
         const token = localStorage.getItem("token");
 
+        console.log("Health data from storage:", healthData);
+        console.log("Token from storage:", token);
+
         if (!token) {
           setError("Please log in to continue");
           setTimeout(() => navigate("/login"), 2000);
