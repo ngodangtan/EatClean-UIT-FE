@@ -63,13 +63,21 @@ const extractUserIdFromToken = (token: string): string | null => {
 // POST /health-profile - Create or update health profile
 router.post("/", (req: Request, res: Response) => {
   try {
+    console.log("=== Health Profile API Request ===");
+    console.log("Headers:", req.headers);
     const authHeader = req.headers.authorization;
+    console.log("Auth header:", authHeader);
+
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      console.error("Missing or invalid Authorization header");
       return res.status(401).json({ message: "Unauthorized" });
     }
 
     const token = authHeader.substring(7);
+    console.log("Token (first 20 chars):", token.substring(0, 20) + "...");
+
     const userId = extractUserIdFromToken(token);
+    console.log("Extracted userId:", userId);
 
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
