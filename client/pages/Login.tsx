@@ -44,7 +44,14 @@ export default function Login() {
         }),
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error(
+          "Invalid response from server. Please try again later."
+        );
+      }
 
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
