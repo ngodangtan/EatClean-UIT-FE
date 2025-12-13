@@ -94,7 +94,10 @@ export default function Analyzing() {
             : [healthData.cuisinePreference],
         };
 
-        console.log("Sending API request to /api/health-profile with data:", apiData);
+        console.log(
+          "Sending API request to /api/health-profile with data:",
+          apiData,
+        );
         console.log("Authorization header:", `Bearer ${token}`);
 
         // Call the API

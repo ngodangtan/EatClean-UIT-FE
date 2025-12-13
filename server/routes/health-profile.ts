@@ -51,7 +51,10 @@ const healthProfileSchema = z.object({
 // Middleware to extract userId from JWT token
 const extractUserIdFromToken = (token: string): string | null => {
   try {
-    console.log("Verifying token with secret:", process.env.JWT_SECRET || "supersecret_change_me");
+    console.log(
+      "Verifying token with secret:",
+      process.env.JWT_SECRET || "supersecret_change_me",
+    );
     const secret = process.env.JWT_SECRET || "supersecret_change_me";
     const decoded = jwt.verify(token, secret) as { userId: string };
     console.log("Token decoded successfully:", decoded);
