@@ -95,14 +95,21 @@ router.post("/", (req: Request, res: Response) => {
 
     console.log("Token verification successful for userId:", userId);
 
+    console.log("Request body received:");
+    console.log("Raw body:", JSON.stringify(req.body, null, 2));
+
     // Validate request body
     const validation = healthProfileSchema.safeParse(req.body);
     if (!validation.success) {
+      console.error("Validation errors:", validation.error.errors);
       return res.status(400).json({
         message: "Invalid health profile data",
         errors: validation.error.errors,
       });
     }
+
+    console.log("Validation passed. Data to be saved:");
+    console.table(validation.data);
 
     const now = new Date().toISOString();
     const id = Math.random().toString(36).substring(7);
