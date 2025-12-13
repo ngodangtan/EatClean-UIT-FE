@@ -56,9 +56,13 @@ const extractUserIdFromToken = (token: string): string | null => {
       process.env.JWT_SECRET || "supersecret_change_me",
     );
     const secret = process.env.JWT_SECRET || "supersecret_change_me";
-    const decoded = jwt.verify(token, secret) as { userId: string };
+    const decoded = jwt.verify(token, secret) as {
+      userId?: string;
+      id?: string;
+    };
     console.log("Token decoded successfully:", decoded);
-    return decoded.userId || null;
+    // Accept both userId and id fields from token
+    return decoded.userId || decoded.id || null;
   } catch (error) {
     console.error("Token verification error:", error);
     return null;
