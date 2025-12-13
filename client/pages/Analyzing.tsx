@@ -94,6 +94,9 @@ export default function Analyzing() {
             : [healthData.cuisinePreference],
         };
 
+        console.log("Sending API request to /api/health-profile with data:", apiData);
+        console.log("Authorization header:", `Bearer ${token}`);
+
         // Call the API
         const response = await fetch("/api/health-profile", {
           method: "POST",
@@ -103,6 +106,9 @@ export default function Analyzing() {
           },
           body: JSON.stringify(apiData),
         });
+
+        console.log("API Response status:", response.status);
+        console.log("API Response ok:", response.ok);
 
         // Check response status first
         if (!response.ok) {
