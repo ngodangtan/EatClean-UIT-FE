@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 import { z } from "zod";
 
 const router = Router();
@@ -47,17 +48,14 @@ const healthProfileSchema = z.object({
   cuisinePreference: z.array(z.string()),
 });
 
-// Middleware to extract userId from JWT token (simplified)
+// Middleware to extract userId from JWT token
 const extractUserIdFromToken = (token: string): string | null => {
   try {
-    // In production, use proper JWT verification
-    // For now, extract from token structure
-    const parts = token.split(".");
-    if (parts.length !== 3) return null;
-
-    const decoded = JSON.parse(Buffer.from(parts[1], "base64").toString());
+    const secret = process.env.JWT_SECRET || "supersecret_change_me";
+    const decoded = jwt.verify(token, secret) as { userId: string };
     return decoded.userId || null;
   } catch (error) {
+    console.error("Token verification error:", error);
     return null;
   }
 };
