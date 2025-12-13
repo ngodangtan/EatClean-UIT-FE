@@ -335,9 +335,7 @@ export default function Register() {
                     {formData.phone && (
                       <button
                         type="button"
-                        onClick={() =>
-                          setFormData({ ...formData, phone: "" })
-                        }
+                        onClick={() => setFormData({ ...formData, phone: "" })}
                         className="absolute right-4 top-1/2 -translate-y-1/2"
                       >
                         <svg
