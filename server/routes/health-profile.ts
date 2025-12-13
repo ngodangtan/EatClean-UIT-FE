@@ -91,7 +91,7 @@ router.post("/", (req: Request, res: Response) => {
 
     // Check if profile already exists for this user
     const existingProfile = Array.from(healthProfiles.values()).find(
-      (p) => p.userId === userId
+      (p) => p.userId === userId,
     );
 
     if (existingProfile) {
@@ -148,7 +148,7 @@ router.get("/", (req: Request, res: Response) => {
     }
 
     const profile = Array.from(healthProfiles.values()).find(
-      (p) => p.userId === userId
+      (p) => p.userId === userId,
     );
 
     if (!profile) {
@@ -180,7 +180,7 @@ router.delete("/", (req: Request, res: Response) => {
     }
 
     const profileToDelete = Array.from(healthProfiles.values()).find(
-      (p) => p.userId === userId
+      (p) => p.userId === userId,
     );
 
     if (!profileToDelete) {

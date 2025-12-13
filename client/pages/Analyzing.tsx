@@ -108,11 +108,11 @@ export default function Analyzing() {
             responseData = await response.json();
           } catch {
             throw new Error(
-              `Server returned ${response.status}: ${response.statusText}`
+              `Server returned ${response.status}: ${response.statusText}`,
             );
           }
           throw new Error(
-            responseData.message || "Failed to create health profile"
+            responseData.message || "Failed to create health profile",
           );
         }
 
