@@ -1,12 +1,27 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const isRegisterPage = location.pathname === "/register";
   const isLoginPage = location.pathname === "/login";
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-page-bg/80 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#F3F3FD]/80 backdrop-blur-sm">
       <div className="max-w-[1728px] mx-auto px-4 sm:px-8 lg:px-16 xl:px-32 py-4 sm:py-6 lg:py-8">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 sm:gap-4">
@@ -42,78 +57,100 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-4 lg:gap-6">
-            {!isRegisterPage && !isLoginPage && (
-              <Link
-                to="/profile"
-                className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#DB4444] rounded-full hover:shadow-lg transition-all hover:scale-105"
-                aria-label="Profile"
-              >
-                <svg
-                  className="w-12 h-12 sm:w-14 sm:h-14"
-                  viewBox="0 0 50 50"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+            {isLoggedIn && !isRegisterPage && !isLoginPage ? (
+              <div className="relative group">
+                <Link
+                  to="/profile"
+                  className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#DB4444] rounded-full hover:shadow-lg transition-all hover:scale-105"
+                  aria-label="Profile"
                 >
-                  <rect width="50" height="50" rx="25" fill="#DB4444" />
-                  <path
-                    d="M32.8125 35.9375V33.3333C32.8125 31.952 32.3296 30.6272 31.4701 29.6505C30.6105 28.6737 29.4447 28.125 28.2292 28.125H20.2083C18.9928 28.125 17.827 28.6737 16.9674 29.6505C16.1079 30.6272 15.625 31.952 15.625 33.3333V35.9375"
-                    stroke="white"
-                    strokeWidth="2.34375"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M25 23.4375C27.5888 23.4375 29.6875 21.3388 29.6875 18.75C29.6875 16.1612 27.5888 14.0625 25 14.0625C22.4112 14.0625 20.3125 16.1612 20.3125 18.75C20.3125 21.3388 22.4112 23.4375 25 23.4375Z"
-                    stroke="white"
-                    strokeWidth="2.34375"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
-            )}
-
-            {(isRegisterPage || isLoginPage) && (
-              <>
-                <div className="hidden sm:flex items-center gap-2">
-                  <span className="text-base lg:text-[25px] font-medium text-black font-satoshi">
-                    English
-                  </span>
                   <svg
-                    className="w-3 h-3 lg:w-4 lg:h-4 fill-[#9CA3AF]"
-                    viewBox="0 0 15 10"
+                    className="w-12 h-12 sm:w-14 sm:h-14"
+                    viewBox="0 0 50 50"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
+                    <rect width="50" height="50" rx="25" fill="#DB4444" />
                     <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M0.425679 0.461782C0.993088 -0.153927 1.91304 -0.153927 2.48045 0.461782L7.26483 5.65343L12.0492 0.461782C12.6166 -0.153927 13.5366 -0.153927 14.104 0.461782C14.6714 1.07749 14.6714 2.07575 14.104 2.69146L8.29222 8.99796C7.72481 9.61366 6.80486 9.61366 6.23745 8.99795L0.425679 2.69146C-0.14173 2.07575 -0.14173 1.07749 0.425679 0.461782Z"
-                      fill="#9CA3AF"
+                      d="M32.8125 35.9375V33.3333C32.8125 31.952 32.3296 30.6272 31.4701 29.6505C30.6105 28.6737 29.4447 28.125 28.2292 28.125H20.2083C18.9928 28.125 17.827 28.6737 16.9674 29.6505C16.1079 30.6272 15.625 31.952 15.625 33.3333V35.9375"
+                      stroke="white"
+                      strokeWidth="2.34375"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M25 23.4375C27.5888 23.4375 29.6875 21.3388 29.6875 18.75C29.6875 16.1612 27.5888 14.0625 25 14.0625C22.4112 14.0625 20.3125 16.1612 20.3125 18.75C20.3125 21.3388 22.4112 23.4375 25 23.4375Z"
+                      stroke="white"
+                      strokeWidth="2.34375"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
-                </div>
-
-                <Link
-                  to="/login"
-                  className={`text-base lg:text-[25px] font-bold font-satoshi transition-colors relative ${
-                    isLoginPage ? "text-[#4461F2]" : "text-black"
-                  }`}
-                >
-                  Log in
-                  {isLoginPage && (
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-[#4461F2]" />
-                  )}
                 </Link>
+                <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                  <div className="py-2">
+                    <Link
+                      to="/profile"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Profile
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <>
+                {(isRegisterPage || isLoginPage) && (
+                  <>
+                    <div className="hidden sm:flex items-center gap-2">
+                      <span className="text-base lg:text-[25px] font-medium text-black font-satoshi">
+                        English
+                      </span>
+                      <svg
+                        className="w-3 h-3 lg:w-4 lg:h-4 fill-[#9CA3AF]"
+                        viewBox="0 0 15 10"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M0.425679 0.461782C0.993088 -0.153927 1.91304 -0.153927 2.48045 0.461782L7.26483 5.65343L12.0492 0.461782C12.6166 -0.153927 13.5366 -0.153927 14.104 0.461782C14.6714 1.07749 14.6714 2.07575 14.104 2.69146L8.29222 8.99796C7.72481 9.61366 6.80486 9.61366 6.23745 8.99795L0.425679 2.69146C-0.14173 2.07575 -0.14173 1.07749 0.425679 0.461782Z"
+                          fill="#9CA3AF"
+                        />
+                      </svg>
+                    </div>
+
+                    <Link
+                      to="/login"
+                      className={`text-base lg:text-[25px] font-bold font-satoshi transition-colors relative ${
+                        isLoginPage ? "text-[#4461F2]" : "text-black"
+                      }`}
+                    >
+                      Log in
+                      {isLoginPage && (
+                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-[#4461F2]" />
+                      )}
+                    </Link>
+                  </>
+                )}
+
+                {!isLoggedIn && (
+                  <Link
+                    to={isLoginPage ? "/register" : "/login"}
+                    className="px-6 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-4 rounded-xl sm:rounded-[14.5px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-base sm:text-xl lg:text-[29px] font-black font-satoshi hover:shadow-lg transition-all hover:scale-105"
+                  >
+                    {isLoginPage ? "Register" : "Log In"}
+                  </Link>
+                )}
               </>
             )}
-
-            <Link
-              to={isLoginPage ? "/register" : "/login"}
-              className="px-6 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-4 rounded-xl sm:rounded-[14.5px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-base sm:text-xl lg:text-[29px] font-black font-satoshi hover:shadow-lg transition-all hover:scale-105"
-            >
-              {isLoginPage ? "Register" : "Log In"}
-            </Link>
           </div>
         </div>
       </div>
