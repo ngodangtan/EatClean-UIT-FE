@@ -69,7 +69,7 @@ export default function Register() {
         data = await response.json();
       } catch {
         throw new Error(
-          "Invalid response from server. Please try again later."
+          "Invalid response from server. Please try again later.",
         );
       }
 

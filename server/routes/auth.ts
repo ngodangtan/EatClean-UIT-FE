@@ -105,15 +105,8 @@ router.post("/register", (req: Request, res: Response) => {
       });
     }
 
-    const {
-      email,
-      password,
-      fullName,
-      username,
-      phone,
-      gender,
-      birthday,
-    } = validation.data;
+    const { email, password, fullName, username, phone, gender, birthday } =
+      validation.data;
 
     // Check if user already exists
     for (const u of users.values()) {

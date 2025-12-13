@@ -49,7 +49,7 @@ export default function Login() {
         data = await response.json();
       } catch {
         throw new Error(
-          "Invalid response from server. Please try again later."
+          "Invalid response from server. Please try again later.",
         );
       }
 
