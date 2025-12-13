@@ -148,6 +148,15 @@ export default function Analyzing() {
 
       <main className="flex-grow flex items-center justify-center px-4 py-8 sm:py-12 lg:py-16 mt-32 sm:mt-40 lg:mt-48">
         <div className="w-full max-w-6xl mx-auto">
+          {/* Error message */}
+          {error && (
+            <div className="mb-8 p-6 rounded-[20px] bg-red-50 border-2 border-red-200 max-w-2xl mx-auto">
+              <p className="text-red-600 text-lg sm:text-xl font-satoshi text-center">
+                {error}
+              </p>
+            </div>
+          )}
+
           {/* Main heading */}
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi max-w-4xl mx-auto leading-tight">
             We are analyzing your profile to create a personalized muscle gain
