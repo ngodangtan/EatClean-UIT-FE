@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import authRouter from "./routes/auth";
+import healthProfileRouter from "./routes/health-profile";
 
 export function createServer() {
   const app = express();
@@ -22,6 +23,9 @@ export function createServer() {
 
   // Authentication routes
   app.use("/api/auth", authRouter);
+
+  // Health profile routes
+  app.use("/api/health-profile", healthProfileRouter);
 
   return app;
 }
