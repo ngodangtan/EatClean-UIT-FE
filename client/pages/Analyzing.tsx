@@ -95,7 +95,10 @@ export default function Analyzing() {
         };
 
         console.log("=== Sending API request to /api/health-profile ===");
-        console.log("Authorization header:", `Bearer ${token.substring(0, 50)}...`);
+        console.log(
+          "Authorization header:",
+          `Bearer ${token.substring(0, 50)}...`,
+        );
         console.log("Request body - All parameters:");
         console.table({
           goal: apiData.goal,

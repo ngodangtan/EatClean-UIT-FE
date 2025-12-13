@@ -129,7 +129,10 @@ router.post("/", (req: Request, res: Response) => {
       healthProfiles.set(existingProfile.id, updatedProfile);
 
       console.log("✓ Profile updated successfully for userId:", userId);
-      console.log("Updated profile saved:", JSON.stringify(updatedProfile, null, 2));
+      console.log(
+        "Updated profile saved:",
+        JSON.stringify(updatedProfile, null, 2),
+      );
 
       return res.status(200).json({
         ok: true,
