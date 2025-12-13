@@ -3,11 +3,127 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+// Helper function to map goal values
+const mapGoal = (goal: string) => {
+  const goalMap: { [key: string]: string } = {
+    "lose-weight": "lose-weight",
+    "muscle-gain": "gain-weight",
+    "improve-health": "improve-health",
+  };
+  return goalMap[goal] || goal;
+};
+
+// Helper function to map activity level
+const mapActivityLevel = (level: string) => {
+  const levelMap: { [key: string]: string } = {
+    low: "sedentary",
+    moderate: "moderately-active",
+    high: "very-active",
+  };
+  return levelMap[level] || "moderately-active";
+};
+
+// Helper function to map sleep duration
+const mapSleepDuration = (duration: string) => {
+  if (duration === "< 6h") return 5;
+  if (duration === "6 - 8h") return 7;
+  if (duration === "> 8h") return 9;
+  return 7;
+};
+
+// Helper function to map meals per day
+const mapMealsPerDay = (meals: string) => {
+  if (meals === "2 meals") return 2;
+  if (meals === "3 meals") return 3;
+  if (meals === "4+ meals") return 4;
+  return 3;
+};
+
 export default function Analyzing() {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const createHealthProfile = async () => {
+      try {
+        // Get the health profile data from localStorage
+        const healthDataStr = localStorage.getItem("healthProfileData");
+        if (!healthDataStr) {
+          setError("No health profile data found. Please complete the questionnaire.");
+          setTimeout(() => navigate("/create-plan"), 2000);
+          return;
+        }
+
+        const healthData = JSON.parse(healthDataStr);
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          setError("Please log in to continue");
+          setTimeout(() => navigate("/login"), 2000);
+          return;
+        }
+
+        // Map and prepare the data for the API
+        const apiData = {
+          goal: mapGoal(healthData.goal),
+          triedHealthyBefore: healthData.triedHealthyBefore,
+          hungryTime: healthData.hungryTime,
+          favoriteMeal: healthData.favoriteMeal,
+          height: healthData.height,
+          currentWeight: healthData.currentWeight,
+          desiredWeight: healthData.desiredWeight,
+          activityLevel: mapActivityLevel(healthData.activityLevel),
+          averageDay: healthData.averageDay,
+          workSchedule: Array.isArray(healthData.workSchedule)
+            ? healthData.workSchedule.join(", ")
+            : healthData.workSchedule,
+          sleepDuration: mapSleepDuration(healthData.sleepDuration),
+          diseases: Array.isArray(healthData.diseases)
+            ? healthData.diseases
+            : [healthData.diseases],
+          dietPreference: healthData.dietPreference,
+          mealsPerDay: mapMealsPerDay(healthData.mealsPerDay),
+          cuisinePreference: Array.isArray(healthData.cuisinePreference)
+            ? healthData.cuisinePreference
+            : [healthData.cuisinePreference],
+        };
+
+        // Call the API
+        const response = await fetch("/api/health-profile", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(apiData),
+        });
+
+        let responseData;
+        try {
+          responseData = await response.json();
+        } catch {
+          throw new Error("Invalid response from server");
+        }
+
+        if (!response.ok) {
+          throw new Error(responseData.message || "Failed to create health profile");
+        }
+
+        // Clean up localStorage
+        localStorage.removeItem("healthProfileData");
+
+        // Continue with progress animation after successful API call
+      } catch (err) {
+        console.error("Error creating health profile:", err);
+        setError(err instanceof Error ? err.message : "An error occurred");
+        // Still continue with animation even if API fails
+      }
+    };
+
+    // Start the API call immediately
+    createHealthProfile();
+
     // Simulate progress animation
     const interval = setInterval(() => {
       setProgress((prev) => {
