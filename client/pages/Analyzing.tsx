@@ -94,11 +94,26 @@ export default function Analyzing() {
             : [healthData.cuisinePreference],
         };
 
-        console.log(
-          "Sending API request to /api/health-profile with data:",
-          apiData,
-        );
-        console.log("Authorization header:", `Bearer ${token}`);
+        console.log("=== Sending API request to /api/health-profile ===");
+        console.log("Authorization header:", `Bearer ${token.substring(0, 50)}...`);
+        console.log("Request body - All parameters:");
+        console.table({
+          goal: apiData.goal,
+          triedHealthyBefore: apiData.triedHealthyBefore,
+          hungryTime: apiData.hungryTime,
+          favoriteMeal: apiData.favoriteMeal,
+          height: apiData.height,
+          currentWeight: apiData.currentWeight,
+          desiredWeight: apiData.desiredWeight,
+          activityLevel: apiData.activityLevel,
+          averageDay: apiData.averageDay,
+          workSchedule: apiData.workSchedule,
+          sleepDuration: apiData.sleepDuration,
+          diseases: apiData.diseases.join(", "),
+          dietPreference: apiData.dietPreference,
+          mealsPerDay: apiData.mealsPerDay,
+          cuisinePreference: apiData.cuisinePreference.join(", "),
+        });
 
         // Call the API
         const response = await fetch("/api/health-profile", {
