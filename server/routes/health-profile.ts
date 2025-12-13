@@ -80,8 +80,11 @@ router.post("/", (req: Request, res: Response) => {
     console.log("Extracted userId:", userId);
 
     if (!userId) {
+      console.error("Failed to extract userId from token");
       return res.status(401).json({ message: "Unauthorized" });
     }
+
+    console.log("Token verification successful for userId:", userId);
 
     // Validate request body
     const validation = healthProfileSchema.safeParse(req.body);
