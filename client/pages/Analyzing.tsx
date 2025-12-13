@@ -101,18 +101,31 @@ export default function Analyzing() {
           body: JSON.stringify(apiData),
         });
 
+        // Check response status first
+        if (!response.ok) {
+          let responseData;
+          try {
+            responseData = await response.json();
+          } catch {
+            throw new Error(
+              `Server returned ${response.status}: ${response.statusText}`
+            );
+          }
+          throw new Error(
+            responseData.message || "Failed to create health profile"
+          );
+        }
+
+        // Parse successful response
         let responseData;
         try {
           responseData = await response.json();
-        } catch {
-          throw new Error("Invalid response from server");
+        } catch (err) {
+          console.error("Failed to parse response:", err);
+          throw new Error("Invalid response format from server");
         }
 
-        if (!response.ok) {
-          throw new Error(
-            responseData.message || "Failed to create health profile",
-          );
-        }
+        console.log("Health profile created successfully:", responseData);
 
         // Clean up localStorage
         localStorage.removeItem("healthProfileData");
