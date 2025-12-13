@@ -242,7 +242,26 @@ export default function CreatePlan() {
 
   const handleNext = () => {
     if (currentStep === 15) {
-      // After completing step 15, navigate to analyzing page
+      // After completing step 15, save data to localStorage and navigate to analyzing page
+      const healthProfileData = {
+        goal: selectedGoal,
+        triedHealthyBefore: answers[1] === "Yes",
+        hungryTime: answers[2],
+        favoriteMeal: answers[3],
+        height: parseFloat(height),
+        currentWeight: parseFloat(weight),
+        desiredWeight: parseFloat(desiredWeight),
+        activityLevel: answers[7],
+        averageDay: answers[8],
+        workSchedule: answers[9],
+        sleepDuration: answers[10],
+        diseases: answers[11],
+        dietPreference: answers[12],
+        mealsPerDay: answers[13],
+        cuisinePreference: answers[14],
+      };
+
+      localStorage.setItem("healthProfileData", JSON.stringify(healthProfileData));
       navigate("/analyzing");
       return;
     }
