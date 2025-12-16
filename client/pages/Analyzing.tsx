@@ -41,11 +41,14 @@ const mapMealsPerDay = (meals: string) => {
 
 export default function Analyzing() {
   const navigate = useNavigate();
-  const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const createHealthProfile = async () => {
+      const timeout = 3 * 60 * 1000; // 3 minutes in milliseconds
+      let timeoutId: NodeJS.Timeout;
+
       try {
         // Get the health profile data from localStorage
         const healthDataStr = localStorage.getItem("healthProfileData");
@@ -53,6 +56,7 @@ export default function Analyzing() {
           setError(
             "No health profile data found. Please complete the questionnaire.",
           );
+          setIsLoading(false);
           setTimeout(() => navigate("/create-plan"), 2000);
           return;
         }
@@ -65,6 +69,7 @@ export default function Analyzing() {
 
         if (!token) {
           setError("Please log in to continue");
+          setIsLoading(false);
           setTimeout(() => navigate("/login"), 2000);
           return;
         }
@@ -118,7 +123,13 @@ export default function Analyzing() {
           cuisinePreference: apiData.cuisinePreference.join(", "),
         });
 
-        // Call the API
+        // Create an abort controller for the fetch request
+        const controller = new AbortController();
+        timeoutId = setTimeout(() => {
+          controller.abort();
+        }, timeout);
+
+        // Call the API with timeout
         const response = await fetch("/api/health-profile", {
           method: "POST",
           headers: {
@@ -126,7 +137,10 @@ export default function Analyzing() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(apiData),
+          signal: controller.signal,
         });
+
+        clearTimeout(timeoutId);
 
         console.log("API Response status:", response.status);
         console.log("API Response ok:", response.ok);
@@ -160,33 +174,36 @@ export default function Analyzing() {
         // Clean up localStorage
         localStorage.removeItem("healthProfileData");
 
-        // Continue with progress animation after successful API call
+        // Set loading to false and redirect after a short delay
+        setIsLoading(false);
+        setTimeout(() => {
+          navigate("/results");
+        }, 1000);
       } catch (err) {
+        clearTimeout(timeoutId);
         console.error("Error creating health profile:", err);
-        setError(err instanceof Error ? err.message : "An error occurred");
-        // Still continue with animation even if API fails
+
+        if (err instanceof Error) {
+          if (err.name === "AbortError") {
+            setError(
+              "Request timeout. The analysis took too long. Please try again.",
+            );
+          } else {
+            setError(err.message);
+          }
+        } else {
+          setError("An error occurred");
+        }
+        setIsLoading(false);
       }
     };
 
     // Start the API call immediately
     createHealthProfile();
 
-    // Simulate progress animation
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          // After analysis is complete, redirect to results page
-          setTimeout(() => {
-            navigate("/results");
-          }, 1000);
-          return 100;
-        }
-        return prev + 5;
-      });
-    }, 200);
-
-    return () => clearInterval(interval);
+    return () => {
+      // Cleanup if component unmounts
+    };
   }, [navigate]);
 
   return (
