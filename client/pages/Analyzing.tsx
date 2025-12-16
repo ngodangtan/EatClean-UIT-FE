@@ -3,46 +3,51 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-// Helper function to map goal values
-const mapGoal = (goal: string) => {
-  const goalMap: { [key: string]: string } = {
-    "lose-weight": "lose-weight",
-    "muscle-gain": "gain-weight",
-    "improve-health": "improve-health",
-  };
-  return goalMap[goal] || goal;
-};
+interface Macros {
+  protein: number;
+  carbs: number;
+  fat: number;
+}
 
-// Helper function to map activity level
-const mapActivityLevel = (level: string) => {
-  const levelMap: { [key: string]: string } = {
-    low: "sedentary",
-    moderate: "moderately-active",
-    high: "very-active",
-  };
-  return levelMap[level] || "moderately-active";
-};
+interface Meal {
+  mealType: string;
+  name: string;
+  description: string;
+  ingredients: string[];
+  benefits: string[];
+  calories: number;
+  macros: Macros;
+}
 
-// Helper function to map sleep duration
-const mapSleepDuration = (duration: string) => {
-  if (duration === "< 6h") return 5;
-  if (duration === "6 - 8h") return 7;
-  if (duration === "> 8h") return 9;
-  return 7;
-};
+interface DayPlan {
+  day: number;
+  title: string;
+  theme: string;
+  macros: Macros;
+  totalCalories: number;
+  meals: Meal[];
+  tips: string[];
+}
 
-// Helper function to map meals per day
-const mapMealsPerDay = (meals: string) => {
-  if (meals === "2 meals") return 2;
-  if (meals === "3 meals") return 3;
-  if (meals === "4+ meals") return 4;
-  return 3;
-};
+interface MealPlan {
+  _id: string;
+  userId: string;
+  healthProfileId: string;
+  title: string;
+  aiModel: string;
+  days: DayPlan[];
+  prompt: string;
+  rawAiResponse: string;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default function Analyzing() {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
 
   useEffect(() => {
     const createHealthProfile = async () => {
