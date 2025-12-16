@@ -50,27 +50,12 @@ export default function Analyzing() {
   const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
 
   useEffect(() => {
-    const createHealthProfile = async () => {
+    const generateMealPlan = async () => {
       const timeout = 3 * 60 * 1000; // 3 minutes in milliseconds
       let timeoutId: NodeJS.Timeout;
 
       try {
-        // Get the health profile data from localStorage
-        const healthDataStr = localStorage.getItem("healthProfileData");
-        if (!healthDataStr) {
-          setError(
-            "No health profile data found. Please complete the questionnaire.",
-          );
-          setIsLoading(false);
-          setTimeout(() => navigate("/create-plan"), 2000);
-          return;
-        }
-
-        const healthData = JSON.parse(healthDataStr);
         const token = localStorage.getItem("token");
-
-        console.log("Health data from storage:", healthData);
-        console.log("Token from storage:", token);
 
         if (!token) {
           setError("Please log in to continue");
@@ -79,54 +64,11 @@ export default function Analyzing() {
           return;
         }
 
-        // Map and prepare the data for the API
-        const apiData = {
-          goal: mapGoal(healthData.goal),
-          triedHealthyBefore: healthData.triedHealthyBefore,
-          hungryTime: healthData.hungryTime,
-          favoriteMeal: healthData.favoriteMeal,
-          height: healthData.height,
-          currentWeight: healthData.currentWeight,
-          desiredWeight: healthData.desiredWeight,
-          activityLevel: mapActivityLevel(healthData.activityLevel),
-          averageDay: healthData.averageDay,
-          workSchedule: Array.isArray(healthData.workSchedule)
-            ? healthData.workSchedule.join(", ")
-            : healthData.workSchedule,
-          sleepDuration: mapSleepDuration(healthData.sleepDuration),
-          diseases: Array.isArray(healthData.diseases)
-            ? healthData.diseases
-            : [healthData.diseases],
-          dietPreference: healthData.dietPreference,
-          mealsPerDay: mapMealsPerDay(healthData.mealsPerDay),
-          cuisinePreference: Array.isArray(healthData.cuisinePreference)
-            ? healthData.cuisinePreference
-            : [healthData.cuisinePreference],
-        };
-
-        console.log("=== Sending API request to /api/health-profile ===");
+        console.log("=== Sending API request to /api/meal-plans/generate ===");
         console.log(
           "Authorization header:",
           `Bearer ${token.substring(0, 50)}...`,
         );
-        console.log("Request body - All parameters:");
-        console.table({
-          goal: apiData.goal,
-          triedHealthyBefore: apiData.triedHealthyBefore,
-          hungryTime: apiData.hungryTime,
-          favoriteMeal: apiData.favoriteMeal,
-          height: apiData.height,
-          currentWeight: apiData.currentWeight,
-          desiredWeight: apiData.desiredWeight,
-          activityLevel: apiData.activityLevel,
-          averageDay: apiData.averageDay,
-          workSchedule: apiData.workSchedule,
-          sleepDuration: apiData.sleepDuration,
-          diseases: apiData.diseases.join(", "),
-          dietPreference: apiData.dietPreference,
-          mealsPerDay: apiData.mealsPerDay,
-          cuisinePreference: apiData.cuisinePreference.join(", "),
-        });
 
         // Create an abort controller for the fetch request
         const controller = new AbortController();
@@ -134,14 +76,12 @@ export default function Analyzing() {
           controller.abort();
         }, timeout);
 
-        // Call the API with timeout
-        const response = await fetch("/api/health-profile", {
+        // Call the meal plan generation API with timeout
+        const response = await fetch("/api/meal-plans/generate", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(apiData),
           signal: controller.signal,
         });
 
@@ -161,7 +101,7 @@ export default function Analyzing() {
             );
           }
           throw new Error(
-            responseData.message || "Failed to create health profile",
+            responseData.message || "Failed to generate meal plan",
           );
         }
 
@@ -174,24 +114,26 @@ export default function Analyzing() {
           throw new Error("Invalid response format from server");
         }
 
-        console.log("Health profile created successfully:", responseData);
+        console.log("Meal plan generated successfully:", responseData);
+
+        // Store the meal plan data
+        if (responseData.mealPlan) {
+          setMealPlan(responseData.mealPlan);
+        }
 
         // Clean up localStorage
         localStorage.removeItem("healthProfileData");
 
-        // Set loading to false and redirect after a short delay
+        // Set loading to false
         setIsLoading(false);
-        setTimeout(() => {
-          navigate("/results");
-        }, 1000);
       } catch (err) {
         clearTimeout(timeoutId);
-        console.error("Error creating health profile:", err);
+        console.error("Error generating meal plan:", err);
 
         if (err instanceof Error) {
           if (err.name === "AbortError") {
             setError(
-              "Request timeout. The analysis took too long. Please try again.",
+              "Request timeout. The meal plan generation took too long. Please try again.",
             );
           } else {
             setError(err.message);
@@ -204,7 +146,7 @@ export default function Analyzing() {
     };
 
     // Start the API call immediately
-    createHealthProfile();
+    generateMealPlan();
 
     return () => {
       // Cleanup if component unmounts
