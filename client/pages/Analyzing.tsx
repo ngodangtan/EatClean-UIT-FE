@@ -228,60 +228,76 @@ export default function Analyzing() {
           </h1>
 
           {/* Loading indicator */}
-          <div className="flex justify-center mb-12 sm:mb-16 lg:mb-20">
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-              {/* Circular progress */}
-              <svg
-                className="w-full h-full transform -rotate-90"
-                viewBox="0 0 200 200"
-              >
-                {/* Background circle */}
-                <circle
-                  cx="100"
-                  cy="100"
-                  r="85"
-                  fill="none"
-                  stroke="#E5E7EB"
-                  strokeWidth="8"
-                  strokeDasharray="4 4"
-                />
+          {isLoading && (
+            <div className="flex justify-center mb-12 sm:mb-16 lg:mb-20">
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                <style>{`
+                  @keyframes spin {
+                    from {
+                      transform: rotate(0deg);
+                    }
+                    to {
+                      transform: rotate(360deg);
+                    }
+                  }
+                  .animate-spin-slow {
+                    animation: spin 3s linear infinite;
+                  }
+                `}</style>
+                {/* Spinning circle loading */}
+                <svg
+                  className="w-full h-full animate-spin-slow"
+                  viewBox="0 0 200 200"
+                >
+                  {/* Background circle */}
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    fill="none"
+                    stroke="#E5E7EB"
+                    strokeWidth="8"
+                  />
 
-                {/* Progress circle */}
-                <circle
-                  cx="100"
-                  cy="100"
-                  r="85"
-                  fill="none"
-                  stroke="url(#gradient)"
-                  strokeWidth="12"
-                  strokeDasharray={`${(progress / 100) * 534} 534`}
-                  strokeLinecap="round"
-                  className="transition-all duration-300"
-                />
+                  {/* Spinning circle */}
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    fill="none"
+                    stroke="url(#gradient)"
+                    strokeWidth="12"
+                    strokeDasharray="80 534"
+                    strokeLinecap="round"
+                  />
 
-                {/* Gradient definition */}
-                <defs>
-                  <linearGradient
-                    id="gradient"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%"
-                  >
-                    <stop offset="0%" stopColor="#2596BE" />
-                    <stop offset="100%" stopColor="#6F3AFA" />
-                  </linearGradient>
-                </defs>
-              </svg>
+                  {/* Gradient definition */}
+                  <defs>
+                    <linearGradient
+                      id="gradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" stopColor="#2596BE" />
+                      <stop offset="100%" stopColor="#6F3AFA" />
+                    </linearGradient>
+                  </defs>
+                </svg>
 
-              {/* Percentage text */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[#2596BE] font-satoshi">
-                  {progress}%
-                </span>
+                {/* Loading text */}
+                <div className="absolute inset-0 flex items-center justify-center flex-col gap-2">
+                  <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2596BE] font-satoshi">
+                    Analyzing...
+                  </span>
+                  <span className="text-xs sm:text-sm lg:text-base text-gray-500 font-satoshi">
+                    This may take up to 3 minutes
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Information card */}
           <div className="max-w-3xl mx-auto bg-white rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] p-8 sm:p-10 lg:p-12">
