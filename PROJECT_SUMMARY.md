@@ -34,6 +34,7 @@
 ## Technology Stack
 
 ### Frontend
+
 - **React 18.3.1** - UI framework
 - **Vite 7.1.2** - Build tool and dev server
 - **React Router DOM 6.30.1** - Client-side routing
@@ -44,6 +45,7 @@
 - **TypeScript 5.9.2** - Type safety
 
 ### Backend
+
 - **Express.js 5.1.0** - Web framework
 - **jsonwebtoken 9.0.3** - JWT token generation and verification
 - **Zod 3.25.76** - Schema validation
@@ -51,6 +53,7 @@
 - **CORS 2.8.5** - Cross-origin resource sharing
 
 ### Development & Testing
+
 - **Vitest 3.2.4** - Test runner
 - **TypeScript** - Type checking and compilation
 - **Prettier 3.6.2** - Code formatting
@@ -124,9 +127,11 @@ root/
 ### 1. Authentication Endpoints (`server/routes/auth.ts`)
 
 #### POST `/api/auth/login`
+
 Authenticates a user and returns a JWT token.
 
 **Request:**
+
 ```json
 {
   "email": "user@example.com",
@@ -135,6 +140,7 @@ Authenticates a user and returns a JWT token.
 ```
 
 **Response (Success - 200):**
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -151,6 +157,7 @@ Authenticates a user and returns a JWT token.
 ```
 
 **Response (Failure - 401):**
+
 ```json
 {
   "message": "Invalid email or password"
@@ -158,15 +165,18 @@ Authenticates a user and returns a JWT token.
 ```
 
 **Key Features:**
+
 - Email and password validation using Zod
 - In-memory user lookup
 - JWT token generation with 7-day expiration
 - Password stored in plain text (NOT production-ready)
 
 #### POST `/api/auth/register`
+
 Creates a new user account.
 
 **Request:**
+
 ```json
 {
   "email": "newuser@example.com",
@@ -180,14 +190,18 @@ Creates a new user account.
 ```
 
 **Response (Success - 201):**
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "user": { /* user object */ }
+  "user": {
+    /* user object */
+  }
 }
 ```
 
 **Key Features:**
+
 - Full user registration with optional fields
 - Email uniqueness validation
 - Password minimum 6 characters
@@ -197,15 +211,18 @@ Creates a new user account.
 ### 2. Health Profile Endpoints (`server/routes/health-profile.ts`)
 
 #### POST `/api/health-profile`
+
 Creates or updates a user's health profile (requires authentication).
 
 **Headers:**
+
 ```
 Authorization: Bearer {jwt_token}
 Content-Type: application/json
 ```
 
 **Request:**
+
 ```json
 {
   "goal": "muscle-gain",
@@ -227,6 +244,7 @@ Content-Type: application/json
 ```
 
 **Response (Success - 201/200):**
+
 ```json
 {
   "ok": true,
@@ -240,13 +258,14 @@ Content-Type: application/json
     "desiredWeight": 85,
     "activityLevel": "moderately-active",
     "createdAt": "2024-01-15T10:30:00.000Z",
-    "updatedAt": "2024-01-15T10:30:00.000Z",
+    "updatedAt": "2024-01-15T10:30:00.000Z"
     /* ... all other fields ... */
   }
 }
 ```
 
 **Response (Failure - 401):**
+
 ```json
 {
   "message": "Unauthorized"
@@ -254,6 +273,7 @@ Content-Type: application/json
 ```
 
 **Key Features:**
+
 - JWT token verification
 - Zod schema validation for all 15 health parameters
 - Creates new profile or updates existing
@@ -261,12 +281,14 @@ Content-Type: application/json
 - In-memory storage
 
 #### GET `/api/health-profile`
+
 Retrieves the user's health profile (requires authentication).
 
 **Response (Success - 200):**
 Returns the user's health profile object.
 
 **Response (Failure - 404):**
+
 ```json
 {
   "message": "Health profile not found"
@@ -274,9 +296,11 @@ Returns the user's health profile object.
 ```
 
 #### DELETE `/api/health-profile`
+
 Deletes the user's health profile (requires authentication).
 
 **Response (Success - 200):**
+
 ```json
 {
   "ok": true
@@ -290,6 +314,7 @@ Deletes the user's health profile (requires authentication).
 ### 1. Authentication Flow
 
 #### Login Page (`client/pages/Login.tsx`)
+
 - Email and password input fields
 - Email format validation
 - Error message display
@@ -299,6 +324,7 @@ Deletes the user's health profile (requires authentication).
 - Link to registration page
 
 #### Register Page (`client/pages/Register.tsx`)
+
 - Extended user information collection
 - Optional fields: username, phone, gender, birthday
 - Password confirmation validation
@@ -307,7 +333,9 @@ Deletes the user's health profile (requires authentication).
 - Redirect to login on success
 
 #### Header Navigation (`client/components/Header.tsx`)
+
 Dynamic header based on authentication status:
+
 - **Not authenticated**: Shows Login and Register buttons
 - **Authenticated**: Shows user profile icon with dropdown menu
   - Profile link
@@ -335,6 +363,7 @@ Dynamic header based on authentication status:
 15. **Cuisine Preferences** - Multi-select from Vietnamese, Chinese, Japanese, Thai, French, Korean, American
 
 **Features:**
+
 - Progress bar showing current step
 - Back/Next navigation buttons
 - Step validation before proceeding
@@ -346,6 +375,7 @@ Dynamic header based on authentication status:
 **Purpose:** Bridge between questionnaire and API integration
 
 **Key Features:**
+
 - Retrieves health data from `localStorage`
 - Maps local format to API format:
   - Goal value transformation
@@ -361,6 +391,7 @@ Dynamic header based on authentication status:
 - Automatic redirect to `/results` page
 
 **Data Transformations:**
+
 ```javascript
 // Goal mapping
 'lose-weight' → 'lose-weight'
@@ -434,32 +465,38 @@ Dynamic header based on authentication status:
 
 ```javascript
 // After Login/Registration
-localStorage.setItem('token', 'jwt_token_here');
-localStorage.setItem('user', JSON.stringify({
-  id: '...',
-  email: '...',
-  fullName: '...',
-  // ... other user fields
-}));
+localStorage.setItem("token", "jwt_token_here");
+localStorage.setItem(
+  "user",
+  JSON.stringify({
+    id: "...",
+    email: "...",
+    fullName: "...",
+    // ... other user fields
+  }),
+);
 
 // During Questionnaire
-localStorage.setItem('healthProfileData', JSON.stringify({
-  goal: 'muscle-gain',
-  triedHealthyBefore: true,
-  hungryTime: 'morning',
-  favoriteMeal: 'lunch',
-  height: 180,
-  currentWeight: 75,
-  desiredWeight: 85,
-  activityLevel: 'moderate',
-  averageDay: 'balanced',
-  workSchedule: ['Regular office hours (9-5)'],
-  sleepDuration: '6 - 8h',
-  diseases: ['None of the above'],
-  dietPreference: 'balanced',
-  mealsPerDay: '3 meals',
-  cuisinePreference: ['Vietnamese', 'Thai']
-}));
+localStorage.setItem(
+  "healthProfileData",
+  JSON.stringify({
+    goal: "muscle-gain",
+    triedHealthyBefore: true,
+    hungryTime: "morning",
+    favoriteMeal: "lunch",
+    height: 180,
+    currentWeight: 75,
+    desiredWeight: 85,
+    activityLevel: "moderate",
+    averageDay: "balanced",
+    workSchedule: ["Regular office hours (9-5)"],
+    sleepDuration: "6 - 8h",
+    diseases: ["None of the above"],
+    dietPreference: "balanced",
+    mealsPerDay: "3 meals",
+    cuisinePreference: ["Vietnamese", "Thai"],
+  }),
+);
 ```
 
 ---
@@ -467,12 +504,14 @@ localStorage.setItem('healthProfileData', JSON.stringify({
 ## Authentication & Security
 
 ### JWT Token Management
+
 - **Token Format:** HS256 (HMAC SHA-256)
 - **Payload:** `{ userId: string }`
 - **Expiration:** 7 days
 - **Secret:** Stored in `JWT_SECRET` environment variable (default: "supersecret_change_me")
 
 ### Token Verification Process
+
 ```javascript
 const token = authHeader.substring(7); // Remove "Bearer " prefix
 const decoded = jwt.verify(token, secret); // Verify & decode
@@ -480,7 +519,9 @@ const userId = decoded.userId; // Extract user ID
 ```
 
 ### Protected Routes
+
 Only the health profile endpoints require authentication:
+
 - `POST /api/health-profile` (requires valid token)
 - `GET /api/health-profile` (requires valid token)
 - `DELETE /api/health-profile` (requires valid token)
@@ -492,20 +533,24 @@ Only the health profile endpoints require authentication:
 ### Backend Error Handling
 
 **Validation Errors (400):**
+
 - Invalid email format
 - Password minimum length
 - Required field missing
 - Invalid health profile data
 
 **Authentication Errors (401):**
+
 - Missing or invalid Authorization header
 - Invalid JWT token
 - Token verification failure
 
 **Conflict Errors (409):**
+
 - User email already exists during registration
 
 **Server Errors (500):**
+
 - JSON parsing errors
 - Token signing errors
 - Unexpected exceptions
@@ -513,6 +558,7 @@ Only the health profile endpoints require authentication:
 ### Frontend Error Handling
 
 **Login/Register:**
+
 - Inline error messages
 - Email format validation
 - Password length validation
@@ -520,6 +566,7 @@ Only the health profile endpoints require authentication:
 - Graceful JSON parsing error handling
 
 **Analyzing Page:**
+
 - Health data existence check
 - Token availability check
 - HTTP status validation before JSON parsing
@@ -532,6 +579,7 @@ Only the health profile endpoints require authentication:
 ## Server Configuration
 
 ### Main Server Setup (`server/index.ts`)
+
 - Express app with CORS enabled
 - JSON and URL-encoded body parsing
 - API routes registration
@@ -539,12 +587,14 @@ Only the health profile endpoints require authentication:
 - Demo endpoint (`GET /api/demo`)
 
 ### Environment Variables
+
 ```
 JWT_SECRET=supersecret_change_me  (default)
 PING_MESSAGE=ping                 (optional)
 ```
 
 ### Data Storage
+
 - **Users:** In-memory Map structure
 - **Health Profiles:** In-memory Map structure
 - **Note:** Not production-ready; requires database implementation
@@ -553,22 +603,23 @@ PING_MESSAGE=ping                 (optional)
 
 ## Key Components & Their Responsibilities
 
-| Component | Purpose | Key Props/State |
-|-----------|---------|-----------------|
-| **Header** | Navigation & auth status | token, user, logout callback |
-| **Login** | User authentication | email, password, loading, error |
-| **Register** | New user creation | form fields, validation, error |
-| **CreatePlan** | Health questionnaire | currentStep, answers, progress |
-| **Analyzing** | API integration & analysis | progress, error, health data |
-| **Footer** | Site footer | - |
-| **Hero** | Landing page hero | - |
-| **Features** | Feature showcase | - |
+| Component      | Purpose                    | Key Props/State                 |
+| -------------- | -------------------------- | ------------------------------- |
+| **Header**     | Navigation & auth status   | token, user, logout callback    |
+| **Login**      | User authentication        | email, password, loading, error |
+| **Register**   | New user creation          | form fields, validation, error  |
+| **CreatePlan** | Health questionnaire       | currentStep, answers, progress  |
+| **Analyzing**  | API integration & analysis | progress, error, health data    |
+| **Footer**     | Site footer                | -                               |
+| **Hero**       | Landing page hero          | -                               |
+| **Features**   | Feature showcase           | -                               |
 
 ---
 
 ## Browser Storage
 
 ### LocalStorage Usage
+
 - **User Data:** Persists across sessions
 - **Health Questionnaire:** Temporary, cleared after API success
 - **Token:** Used for API authentication
@@ -578,10 +629,12 @@ PING_MESSAGE=ping                 (optional)
 ## Validation Rules
 
 ### Login Form
+
 - Email: Valid email format
 - Password: At least 1 character (server requires, client flexible)
 
 ### Registration Form
+
 - Email: Valid email format
 - Password: Minimum 6 characters
 - Full Name: Required, non-empty
@@ -591,6 +644,7 @@ PING_MESSAGE=ping                 (optional)
 - Birthday: Optional (date format)
 
 ### Health Profile
+
 - Goal: Required string
 - Height: Required number (cm)
 - Current Weight: Required number (kg)
@@ -605,6 +659,7 @@ PING_MESSAGE=ping                 (optional)
 ## Current Implementation Status
 
 ✅ **Completed:**
+
 - User registration and login flow
 - JWT authentication
 - Health questionnaire (15 steps)
@@ -615,12 +670,14 @@ PING_MESSAGE=ping                 (optional)
 - Header with auth status
 
 ⚠️ **In Development:**
+
 - Health profile results page
 - Recipe recommendations
 - User profile management
 - Plan customization
 
 ❌ **Not Yet Implemented:**
+
 - Password reset functionality
 - Database integration (currently in-memory)
 - Password hashing (currently plain text)
@@ -634,6 +691,7 @@ PING_MESSAGE=ping                 (optional)
 ## Future Improvements
 
 ### Security
+
 1. Implement password hashing (bcrypt)
 2. Add email verification
 3. Implement refresh tokens
@@ -641,6 +699,7 @@ PING_MESSAGE=ping                 (optional)
 5. Rate limiting on auth endpoints
 
 ### Features
+
 1. Database integration (PostgreSQL/Supabase)
 2. Recipe recommendations engine
 3. Personalized meal plans
@@ -648,12 +707,14 @@ PING_MESSAGE=ping                 (optional)
 5. Social features (sharing, challenges)
 
 ### Performance
+
 1. Add caching layers
 2. Implement pagination
 3. Optimize bundle size
 4. Add API response compression
 
 ### Testing
+
 1. Add unit tests for components
 2. Add integration tests for API
 3. Add E2E tests for user flows
