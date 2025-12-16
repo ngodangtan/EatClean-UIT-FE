@@ -373,23 +373,24 @@ export default function Analyzing() {
                             </div>
 
                             {/* Ingredients */}
-                            {meal.ingredients && meal.ingredients.length > 0 && (
-                              <div className="mb-4">
-                                <p className="text-sm font-bold text-black mb-2 font-satoshi">
-                                  Ingredients:
-                                </p>
-                                <div className="flex flex-wrap gap-2">
-                                  {meal.ingredients.map((ingredient, idx) => (
-                                    <span
-                                      key={idx}
-                                      className="inline-block bg-gray-100 rounded-[10px] px-3 py-1 text-sm text-gray-700 font-satoshi"
-                                    >
-                                      {ingredient}
-                                    </span>
-                                  ))}
+                            {meal.ingredients &&
+                              meal.ingredients.length > 0 && (
+                                <div className="mb-4">
+                                  <p className="text-sm font-bold text-black mb-2 font-satoshi">
+                                    Ingredients:
+                                  </p>
+                                  <div className="flex flex-wrap gap-2">
+                                    {meal.ingredients.map((ingredient, idx) => (
+                                      <span
+                                        key={idx}
+                                        className="inline-block bg-gray-100 rounded-[10px] px-3 py-1 text-sm text-gray-700 font-satoshi"
+                                      >
+                                        {ingredient}
+                                      </span>
+                                    ))}
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
 
                             {/* Benefits */}
                             {meal.benefits && meal.benefits.length > 0 && (
