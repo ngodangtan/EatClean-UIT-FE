@@ -22,7 +22,7 @@ export default function Header() {
         return;
       }
 
-      const response = await fetch("/api/auth/logout", {
+      const response = await fetch(`${API_BASE}/api/auth/logout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
