@@ -65,9 +65,7 @@ export default function Analyzing() {
         }
 
         // Step 1: Get health profile data from localStorage
-        const healthProfileDataJson = localStorage.getItem(
-          "healthProfileData",
-        );
+        const healthProfileDataJson = localStorage.getItem("healthProfileData");
         if (!healthProfileDataJson) {
           throw new Error("Health profile data not found. Please start over.");
         }
@@ -106,9 +104,7 @@ export default function Analyzing() {
         console.log("✓ Health profile saved successfully:", profileResult);
 
         // Step 3: Generate meal plan
-        console.log(
-          "=== Step 2: Calling /api/meal-plans/generate ===",
-        );
+        console.log("=== Step 2: Calling /api/meal-plans/generate ===");
 
         const controller = new AbortController();
         timeoutId = setTimeout(() => {
