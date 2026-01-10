@@ -50,7 +50,10 @@ function serializeUser(user: StoredUser) {
 // Middleware to extract and verify JWT token
 function verifyToken(req: Request): string | null {
   const authHeader = req.headers.authorization;
-  console.log("verifyToken - authHeader:", authHeader?.substring(0, 30) + "...");
+  console.log(
+    "verifyToken - authHeader:",
+    authHeader?.substring(0, 30) + "...",
+  );
 
   if (!authHeader) {
     console.error("verifyToken - No authorization header");
@@ -72,10 +75,16 @@ function verifyToken(req: Request): string | null {
 
   try {
     const decoded = jwt.verify(token, secret) as { userId: string };
-    console.log("verifyToken - Token decoded successfully. userId:", decoded.userId);
+    console.log(
+      "verifyToken - Token decoded successfully. userId:",
+      decoded.userId,
+    );
     return decoded.userId;
   } catch (error) {
-    console.error("verifyToken - JWT verification failed:", error instanceof Error ? error.message : error);
+    console.error(
+      "verifyToken - JWT verification failed:",
+      error instanceof Error ? error.message : error,
+    );
     return null;
   }
 }

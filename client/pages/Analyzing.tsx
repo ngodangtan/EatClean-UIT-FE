@@ -112,13 +112,16 @@ export default function Analyzing() {
           controller.abort();
         }, timeout);
 
-        const mealPlanResponse = await fetch(`${API_BASE}/api/meal-plans/generate`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const mealPlanResponse = await fetch(
+          `${API_BASE}/api/meal-plans/generate`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            signal: controller.signal,
           },
-          signal: controller.signal,
-        });
+        );
 
         clearTimeout(timeoutId);
 
