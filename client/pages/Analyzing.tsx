@@ -78,7 +78,7 @@ export default function Analyzing() {
         console.log("Health profile data:", healthProfileData);
 
         // Step 2: Save health profile
-        const profileResponse = await fetch("/api/health-profile", {
+        const profileResponse = await fetch(`${API_BASE}/api/health-profile`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
