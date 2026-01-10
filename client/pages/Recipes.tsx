@@ -159,61 +159,108 @@ export default function Recipes() {
 
       <main className="flex-grow px-4 sm:px-8 lg:px-16 xl:px-32 py-8 sm:py-12 lg:py-16 mt-32 sm:mt-40 lg:mt-48">
         <div className="max-w-[1728px] mx-auto">
+          <div className="flex items-center justify-between mb-8 gap-4">
+            <button
+              onClick={() =>
+                setCurrentDayIndex((prev) =>
+                  prev > 0 ? prev - 1 : mealPlan.days.length - 1
+                )
+              }
+              className="px-6 py-2 rounded-[14px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white font-bold font-satoshi hover:shadow-lg transition-all"
+            >
+              ← Previous
+            </button>
+            <p className="text-lg font-bold text-gray-600 font-satoshi">
+              {currentDay.title}
+            </p>
+            <button
+              onClick={() =>
+                setCurrentDayIndex((prev) =>
+                  prev < mealPlan.days.length - 1 ? prev + 1 : 0
+                )
+              }
+              className="px-6 py-2 rounded-[14px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white font-bold font-satoshi hover:shadow-lg transition-all"
+            >
+              Next →
+            </button>
+          </div>
+
           <div className="bg-white rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] p-6 sm:p-8 lg:p-12 relative">
             <h2 className="text-xl sm:text-2xl lg:text-[32px] font-black bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] bg-clip-text text-transparent font-satoshi mb-6 sm:mb-8">
-              {recipeDay.theme}
+              {currentDay.theme}
             </h2>
 
             <div className="flex flex-wrap gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
               <div className="flex-1 min-w-[200px] bg-white rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] px-6 py-4 text-center">
                 <span className="text-xl sm:text-2xl lg:text-[27px] font-bold text-black font-satoshi">
-                  {recipeDay.protein}
+                  P {currentDay.macros.protein}g
                 </span>
               </div>
               <div className="flex-1 min-w-[200px] bg-white rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] px-6 py-4 text-center">
                 <span className="text-xl sm:text-2xl lg:text-[27px] font-bold text-black font-satoshi">
-                  {recipeDay.carbs}
+                  C {currentDay.macros.carbs}g
                 </span>
               </div>
               <div className="flex-1 min-w-[200px] bg-white rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] px-6 py-4 text-center">
                 <span className="text-xl sm:text-2xl lg:text-[27px] font-bold text-black font-satoshi">
-                  {recipeDay.fat}
+                  F {currentDay.macros.fat}g
                 </span>
               </div>
             </div>
-
-            <p className="text-base sm:text-lg lg:text-[27px] text-black leading-relaxed lg:leading-[64px] font-satoshi mb-8 sm:mb-10 lg:mb-12 whitespace-pre-line">
-              {recipeDay.description}
-            </p>
 
             <div className="space-y-6 sm:space-y-8">
-              {Object.values(recipeDay.meals).map((meal, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6"
-                >
-                  <img
-                    src={meal.image}
-                    alt={meal.name}
-                    className="w-full sm:w-32 md:w-40 lg:w-48 h-32 sm:h-32 md:h-40 lg:h-48 object-cover rounded-[30px] flex-shrink-0"
-                  />
-                  <div className="flex-1">
-                    <p className="text-base sm:text-lg lg:text-[27px] leading-relaxed lg:leading-[64px] font-satoshi">
-                      <span className="font-bold text-black">{meal.name}</span>
-                      <br />
-                      <span className="text-black">{meal.description}</span>
-                      <br />
-                      <span className="text-black">{meal.benefits}</span>
-                    </p>
+              {["breakfast", "lunch", "dinner"].map((mealType) => {
+                const meal = mealsByType[mealType];
+                if (!meal) return null;
+
+                return (
+                  <div
+                    key={mealType}
+                    className="bg-white rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6"
+                  >
+                    <img
+                      src={getPlaceholderImage(mealType)}
+                      alt={meal.name}
+                      className="w-full sm:w-32 md:w-40 lg:w-48 h-32 sm:h-32 md:h-40 lg:h-48 object-cover rounded-[30px] flex-shrink-0"
+                    />
+                    <div className="flex-1">
+                      <p className="text-base sm:text-lg lg:text-[27px] leading-relaxed lg:leading-[64px] font-satoshi">
+                        <span className="font-bold text-black">
+                          {meal.name}
+                        </span>
+                        <br />
+                        <span className="text-black">{meal.description}</span>
+                        <br />
+                        <span className="text-black">
+                          Benefits: {meal.benefits.join("; ")}.
+                        </span>
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
+
+            {currentDay.tips && currentDay.tips.length > 0 && (
+              <div className="mt-8 sm:mt-10 lg:mt-12 pt-6 sm:pt-8 border-t border-gray-200">
+                <p className="text-base sm:text-lg lg:text-[27px] font-bold text-black font-satoshi mb-4">
+                  Tips:
+                </p>
+                <ul className="space-y-2 text-base sm:text-lg lg:text-[27px] text-black font-satoshi">
+                  {currentDay.tips.map((tip, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <div className="absolute bottom-6 sm:bottom-8 lg:bottom-12 right-6 sm:right-8 lg:right-12">
               <div className="bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] rounded-[18px] px-4 sm:px-6 py-2 sm:py-3">
                 <span className="text-xl sm:text-2xl lg:text-[36px] font-black text-white font-satoshi">
-                  {recipeDay.calories}
+                  ~{currentDay.totalCalories}kcal
                 </span>
               </div>
             </div>
