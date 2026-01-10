@@ -1,65 +1,156 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { API_BASE } from "@shared/api";
+
+interface MealMacros {
+  protein: number;
+  carbs: number;
+  fat: number;
+}
 
 interface Meal {
+  mealType: string;
   name: string;
   description: string;
-  benefits: string;
-  image: string;
+  benefits: string[];
+  calories: number;
+  macros: MealMacros;
 }
 
-interface RecipeDay {
+interface MealPlanDay {
+  day: number;
+  title: string;
   theme: string;
-  protein: string;
-  carbs: string;
-  fat: string;
-  description: string;
-  meals: {
-    breakfast: Meal;
-    lunch: Meal;
-    dinner: Meal;
-  };
-  calories: string;
+  macros: MealMacros;
+  totalCalories: number;
+  meals: Meal[];
+  tips: string[];
 }
+
+interface MealPlan {
+  _id: string;
+  userId: string;
+  title: string;
+  days: MealPlanDay[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+const placeholderImages = {
+  breakfast:
+    "https://api.builder.io/api/v1/image/assets/TEMP/46e92b799fb5ad3b19df51abdb9d9e139651dac3?width=386",
+  lunch:
+    "https://api.builder.io/api/v1/image/assets/TEMP/75f7665a79e8e874dd19c1341ef172c09bafa0bd?width=386",
+  dinner:
+    "https://api.builder.io/api/v1/image/assets/TEMP/886ba8306b11283548115d746ec36b7534bbc0f5?width=386",
+};
 
 export default function Recipes() {
-  const recipeDay: RecipeDay = {
-    theme: "Olive oil & colorful greens",
-    protein: "P 110g",
-    carbs: "C 220g",
-    fat: "F 70g",
-    description:
-      "Classic start: extra‑virgin olive oil, vegetables, seafood or poultry, and whole grains.\nUse extra‑virgin olive oil as the main fat\nBuild plates around vegetables, legumes and whole grains\nFish or seafood 2–3× weekly",
-    meals: {
-      breakfast: {
-        name: "Breakfast — tomato toast & feta",
-        description:
-          "Whole‑grain toast rubbed with tomato + olive oil; crumble of feta; fruit.",
-        benefits:
-          "Benefits: Olive oil polyphenols and lycopene; dairy calcium; fiber. Vitamins: A, E, K, C, calcium.",
-        image:
-          "https://api.builder.io/api/v1/image/assets/TEMP/46e92b799fb5ad3b19df51abdb9d9e139651dac3?width=386",
-      },
-      lunch: {
-        name: "Lunch — Greek chickpea salad",
-        description:
-          "Chickpeas, tomato, cucumber, olives, red onion, feta; olive oil & lemon.",
-        benefits:
-          "Benefits: Plant protein and fiber; heart‑healthy fats; antioxidants. Vitamins: Folate, K, C, E.",
-        image:
-          "https://api.builder.io/api/v1/image/assets/TEMP/75f7665a79e8e874dd19c1341ef172c09bafa0bd?width=386",
-      },
-      dinner: {
-        name: "Dinner — baked salmon & bulgur",
-        description:
-          "Oven salmon with herbs; bulgur; arugula salad with olive oil & lemon.",
-        benefits:
-          "Benefits: Omega‑3s; whole‑grain carbs; leafy greens for micronutrients. Vitamins: D, B12.",
-        image:
-          "https://api.builder.io/api/v1/image/assets/TEMP/886ba8306b11283548115d746ec36b7534bbc0f5?width=386",
-      },
+  const navigate = useNavigate();
+  const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentDayIndex, setCurrentDayIndex] = useState(0);
+
+  useEffect(() => {
+    const fetchMealPlan = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+
+        const response = await fetch(`${API_BASE}/api/meal-plans/latest`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            localStorage.removeItem("token");
+            navigate("/login");
+            return;
+          }
+          if (response.status === 404) {
+            setError("No meal plan found. Please create one first.");
+            return;
+          }
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setMealPlan(data);
+      } catch (err) {
+        console.error("Error fetching meal plan:", err);
+        setError(
+          err instanceof Error ? err.message : "Failed to fetch meal plan"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMealPlan();
+  }, [navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
+        <Header />
+        <main className="flex-grow flex items-center justify-center mt-32">
+          <div className="text-center">
+            <div className="w-12 h-12 border-4 border-blue-300 border-t-blue-600 rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-lg font-satoshi text-gray-600">
+              Loading your meal plan...
+            </p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error || !mealPlan) {
+    return (
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
+        <Header />
+        <main className="flex-grow flex items-center justify-center mt-32 px-4">
+          <div className="text-center max-w-md">
+            <p className="text-lg font-satoshi text-gray-800 mb-6">
+              {error || "No meal plan available"}
+            </p>
+            <button
+              onClick={() => navigate("/create-plan")}
+              className="px-8 py-3 rounded-[14px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white font-black font-satoshi hover:shadow-lg transition-all"
+            >
+              Create Your Plan
+            </button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  const currentDay = mealPlan.days[currentDayIndex];
+  const mealsByType = currentDay.meals.reduce(
+    (acc, meal) => {
+      acc[meal.mealType] = meal;
+      return acc;
     },
-    calories: "~2000kcal",
+    {} as Record<string, Meal>
+  );
+
+  const getPlaceholderImage = (mealType: string) => {
+    const type = mealType.toLowerCase();
+    return placeholderImages[type as keyof typeof placeholderImages] ||
+      placeholderImages.breakfast;
   };
 
   return (
