@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { API_BASE } from "@shared/api";
 
 export default function Header() {
   const location = useLocation();
