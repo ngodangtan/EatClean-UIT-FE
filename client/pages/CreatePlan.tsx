@@ -242,6 +242,20 @@ export default function CreatePlan() {
 
   const handleNext = () => {
     if (currentStep === 15) {
+      // Parse sleepDuration from string to number
+      const sleepHours = {
+        "< 6h": 5,
+        "6 - 8h": 7,
+        "> 8h": 9,
+      }[answers[10] as string] || 7;
+
+      // Parse mealsPerDay from string to number
+      const mealsCount = {
+        "2 meals": 2,
+        "3 meals": 3,
+        "4+ meals": 4,
+      }[answers[13] as string] || 3;
+
       // After completing step 15, save data to localStorage and navigate to analyzing page
       const healthProfileData = {
         goal: selectedGoal,
@@ -253,12 +267,18 @@ export default function CreatePlan() {
         desiredWeight: parseFloat(desiredWeight),
         activityLevel: answers[7],
         averageDay: answers[8],
-        workSchedule: answers[9],
-        sleepDuration: answers[10],
-        diseases: answers[11],
+        workSchedule: Array.isArray(answers[9])
+          ? (answers[9] as string[]).join(", ")
+          : (answers[9] as string),
+        sleepDuration: sleepHours,
+        diseases: Array.isArray(answers[11])
+          ? (answers[11] as string[])
+          : [answers[11] as string],
         dietPreference: answers[12],
-        mealsPerDay: answers[13],
-        cuisinePreference: answers[14],
+        mealsPerDay: mealsCount,
+        cuisinePreference: Array.isArray(answers[14])
+          ? (answers[14] as string[])
+          : [answers[14] as string],
       };
 
       localStorage.setItem(
