@@ -40,6 +40,24 @@ function serializeUser(user: StoredUser) {
   return userWithoutPassword;
 }
 
+// Middleware to extract and verify JWT token
+function verifyToken(req: Request): string | null {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return null;
+  }
+
+  const token = authHeader.substring(7);
+  const secret = process.env.JWT_SECRET || "supersecret_change_me";
+
+  try {
+    const decoded = jwt.verify(token, secret) as { userId: string };
+    return decoded.userId;
+  } catch (error) {
+    return null;
+  }
+}
+
 // Login route
 router.post("/login", (req: Request, res: Response) => {
   try {
