@@ -115,11 +115,7 @@ function generateMockMealPlan(): MealPlan {
               "Cucumber",
               "Olive oil",
             ],
-            benefits: [
-              "Lean protein",
-              "Rich in vitamins",
-              "Low in calories",
-            ],
+            benefits: ["Lean protein", "Rich in vitamins", "Low in calories"],
             calories: 520,
             macros: {
               protein: 45,
@@ -203,11 +199,7 @@ function generateMockMealPlan(): MealPlan {
               "Olive oil",
               "Garlic",
             ],
-            benefits: [
-              "Complex carbs",
-              "Antioxidants",
-              "Heart-healthy fats",
-            ],
+            benefits: ["Complex carbs", "Antioxidants", "Heart-healthy fats"],
             calories: 480,
             macros: {
               protein: 18,
@@ -226,11 +218,7 @@ function generateMockMealPlan(): MealPlan {
               "Fresh herbs",
               "Olive oil",
             ],
-            benefits: [
-              "Lean protein",
-              "Complex carbs",
-              "Iron and vitamins",
-            ],
+            benefits: ["Lean protein", "Complex carbs", "Iron and vitamins"],
             calories: 600,
             macros: {
               protein: 55,
@@ -246,8 +234,7 @@ function generateMockMealPlan(): MealPlan {
         ],
       },
     ],
-    prompt:
-      "Generate a personalized meal plan based on user health profile",
+    prompt: "Generate a personalized meal plan based on user health profile",
     rawAiResponse: "{}",
     notes: null,
     createdAt: now,
