@@ -171,19 +171,29 @@ router.post("/register", (req: Request, res: Response) => {
 // Get profile route
 router.get("/profile", (req: Request, res: Response) => {
   try {
+    console.log("=== GET /profile request ===");
+    console.log("Authorization header:", req.headers.authorization?.substring(0, 30) + "...");
+
     // Verify token
     const userId = verifyToken(req);
+    console.log("Verified userId:", userId);
+
     if (!userId) {
+      console.error("Token verification failed - no userId extracted");
       return res.status(401).json({
-        message: "Unauthorized",
+        message: "Unauthorized - invalid or missing token",
       });
     }
 
     // Get user from store
     const user = users.get(userId);
+    console.log("User found in store:", !!user);
+    console.log("Total users in store:", users.size);
+
     if (!user) {
+      console.error(`User ${userId} not found in store. Available users: ${Array.from(users.keys()).join(", ")}`);
       return res.status(404).json({
-        message: "User not found",
+        message: "User not found - please log in again",
       });
     }
 
