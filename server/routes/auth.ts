@@ -50,17 +50,32 @@ function serializeUser(user: StoredUser) {
 // Middleware to extract and verify JWT token
 function verifyToken(req: Request): string | null {
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  console.log("verifyToken - authHeader:", authHeader?.substring(0, 30) + "...");
+
+  if (!authHeader) {
+    console.error("verifyToken - No authorization header");
+    return null;
+  }
+
+  if (!authHeader.startsWith("Bearer ")) {
+    console.error(
+      "verifyToken - Header doesn't start with Bearer. Actual:",
+      authHeader.substring(0, 20),
+    );
     return null;
   }
 
   const token = authHeader.substring(7);
   const secret = process.env.JWT_SECRET || "supersecret_change_me";
+  console.log("verifyToken - JWT_SECRET from env:", !!process.env.JWT_SECRET);
+  console.log("verifyToken - Using secret:", secret);
 
   try {
     const decoded = jwt.verify(token, secret) as { userId: string };
+    console.log("verifyToken - Token decoded successfully. userId:", decoded.userId);
     return decoded.userId;
   } catch (error) {
+    console.error("verifyToken - JWT verification failed:", error instanceof Error ? error.message : error);
     return null;
   }
 }
