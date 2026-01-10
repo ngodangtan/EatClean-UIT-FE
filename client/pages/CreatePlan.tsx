@@ -243,18 +243,20 @@ export default function CreatePlan() {
   const handleNext = () => {
     if (currentStep === 15) {
       // Parse sleepDuration from string to number
-      const sleepHours = {
-        "< 6h": 5,
-        "6 - 8h": 7,
-        "> 8h": 9,
-      }[answers[10] as string] || 7;
+      const sleepHours =
+        {
+          "< 6h": 5,
+          "6 - 8h": 7,
+          "> 8h": 9,
+        }[answers[10] as string] || 7;
 
       // Parse mealsPerDay from string to number
-      const mealsCount = {
-        "2 meals": 2,
-        "3 meals": 3,
-        "4+ meals": 4,
-      }[answers[13] as string] || 3;
+      const mealsCount =
+        {
+          "2 meals": 2,
+          "3 meals": 3,
+          "4+ meals": 4,
+        }[answers[13] as string] || 3;
 
       // After completing step 15, save data to localStorage and navigate to analyzing page
       const healthProfileData = {
