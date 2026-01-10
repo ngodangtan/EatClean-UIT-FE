@@ -1,7 +1,14 @@
 import { Router, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, User, ApiError } from "@shared/api";
+import {
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+  RegisterResponse,
+  User,
+  ApiError,
+} from "@shared/api";
 
 const router = Router();
 
