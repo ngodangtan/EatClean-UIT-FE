@@ -117,17 +117,19 @@ export default function Hero() {
               is your perfect fit.
             </p>
 
-            <Link
-              to="/create-plan"
-              className="inline-flex items-center gap-4 px-8 sm:px-12 lg:px-14 py-4 sm:py-6 lg:py-7 rounded-[28px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-2xl sm:text-4xl lg:text-[56px] font-black font-satoshi hover:shadow-2xl transition-all hover:scale-105 relative group"
-            >
-              Create your plan
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/f3bec9aa701a6b227489d7d933c7aeab821ed8ed?width=170"
-                alt=""
-                className="w-16 h-16 sm:w-20 sm:h-20 lg:w-[85px] lg:h-[85px] absolute -top-2 -right-2 group-hover:rotate-12 transition-transform"
-              />
-            </Link>
+            {isLoggedIn && (
+              <Link
+                to="/create-plan"
+                className="inline-flex items-center gap-4 px-8 sm:px-12 lg:px-14 py-4 sm:py-6 lg:py-7 rounded-[28px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-2xl sm:text-4xl lg:text-[56px] font-black font-satoshi hover:shadow-2xl transition-all hover:scale-105 relative group"
+              >
+                Create your plan
+                <img
+                  src="https://api.builder.io/api/v1/image/assets/TEMP/f3bec9aa701a6b227489d7d933c7aeab821ed8ed?width=170"
+                  alt=""
+                  className="w-16 h-16 sm:w-20 sm:h-20 lg:w-[85px] lg:h-[85px] absolute -top-2 -right-2 group-hover:rotate-12 transition-transform"
+                />
+              </Link>
+            )}
           </div>
 
           <div className="relative">
