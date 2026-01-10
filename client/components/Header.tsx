@@ -70,14 +70,14 @@ export default function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-6 lg:gap-12">
-            <Link
-              to="/"
-              className="text-base lg:text-[25px] font-bold text-[#404040] hover:text-[#2596BE] transition-colors relative group"
-            >
-              Home
-            </Link>
             {isLoggedIn && (
               <>
+                <Link
+                  to="/"
+                  className="text-base lg:text-[25px] font-bold text-[#404040] hover:text-[#2596BE] transition-colors relative group"
+                >
+                  Home
+                </Link>
                 <Link
                   to="/create-plan"
                   className="text-base lg:text-[25px] font-normal text-black hover:text-[#2596BE] transition-colors font-inter"
