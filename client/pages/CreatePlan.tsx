@@ -11,7 +11,7 @@ const goals = [
       "https://api.builder.io/api/v1/image/assets/TEMP/26290d555037b126d255fc9c92941c163d16504b?width=786",
   },
   {
-    id: "muscle-gain",
+    id: "gain-weight",
     title: "Muscle gain",
     image:
       "https://api.builder.io/api/v1/image/assets/TEMP/c7335ba142e27a035c622aec69c3f81d227a8083?width=788",
