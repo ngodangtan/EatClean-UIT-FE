@@ -76,19 +76,21 @@ export default function Header() {
               Home
             </Link>
             {isLoggedIn && (
-              <Link
-                to="/create-plan"
-                className="text-base lg:text-[25px] font-normal text-black hover:text-[#2596BE] transition-colors font-inter"
-              >
-                Create plan
-              </Link>
+              <>
+                <Link
+                  to="/create-plan"
+                  className="text-base lg:text-[25px] font-normal text-black hover:text-[#2596BE] transition-colors font-inter"
+                >
+                  Create plan
+                </Link>
+                <Link
+                  to="/recipes"
+                  className="text-base lg:text-[25px] font-normal text-black hover:text-[#2596BE] transition-colors font-inter"
+                >
+                  Recipes
+                </Link>
+              </>
             )}
-            <Link
-              to="/recipes"
-              className="text-base lg:text-[25px] font-normal text-black hover:text-[#2596BE] transition-colors font-inter"
-            >
-              Recipes
-            </Link>
           </nav>
 
           <div className="flex items-center gap-4 lg:gap-6">
