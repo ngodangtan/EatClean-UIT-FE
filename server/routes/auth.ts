@@ -172,7 +172,10 @@ router.post("/register", (req: Request, res: Response) => {
 router.get("/profile", (req: Request, res: Response) => {
   try {
     console.log("=== GET /profile request ===");
-    console.log("Authorization header:", req.headers.authorization?.substring(0, 30) + "...");
+    console.log(
+      "Authorization header:",
+      req.headers.authorization?.substring(0, 30) + "...",
+    );
 
     // Verify token
     const userId = verifyToken(req);
@@ -191,7 +194,9 @@ router.get("/profile", (req: Request, res: Response) => {
     console.log("Total users in store:", users.size);
 
     if (!user) {
-      console.error(`User ${userId} not found in store. Available users: ${Array.from(users.keys()).join(", ")}`);
+      console.error(
+        `User ${userId} not found in store. Available users: ${Array.from(users.keys()).join(", ")}`,
+      );
       return res.status(404).json({
         message: "User not found - please log in again",
       });
