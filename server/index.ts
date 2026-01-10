@@ -28,5 +28,8 @@ export function createServer() {
   // Health profile routes
   app.use("/api/health-profile", healthProfileRouter);
 
+  // Meal plans routes
+  app.use("/api/meal-plans", mealPlansRouter);
+
   return app;
 }
