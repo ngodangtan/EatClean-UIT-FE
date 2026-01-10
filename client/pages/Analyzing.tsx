@@ -112,7 +112,7 @@ export default function Analyzing() {
           controller.abort();
         }, timeout);
 
-        const mealPlanResponse = await fetch("/api/meal-plans/generate", {
+        const mealPlanResponse = await fetch(`${API_BASE}/api/meal-plans/generate`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
