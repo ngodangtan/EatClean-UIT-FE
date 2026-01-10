@@ -89,7 +89,7 @@ export default function Recipes() {
       } catch (err) {
         console.error("Error fetching meal plan:", err);
         setError(
-          err instanceof Error ? err.message : "Failed to fetch meal plan"
+          err instanceof Error ? err.message : "Failed to fetch meal plan",
         );
       } finally {
         setLoading(false);
@@ -144,13 +144,15 @@ export default function Recipes() {
       acc[meal.mealType] = meal;
       return acc;
     },
-    {} as Record<string, Meal>
+    {} as Record<string, Meal>,
   );
 
   const getPlaceholderImage = (mealType: string) => {
     const type = mealType.toLowerCase();
-    return placeholderImages[type as keyof typeof placeholderImages] ||
-      placeholderImages.breakfast;
+    return (
+      placeholderImages[type as keyof typeof placeholderImages] ||
+      placeholderImages.breakfast
+    );
   };
 
   return (
@@ -163,7 +165,7 @@ export default function Recipes() {
             <button
               onClick={() =>
                 setCurrentDayIndex((prev) =>
-                  prev > 0 ? prev - 1 : mealPlan.days.length - 1
+                  prev > 0 ? prev - 1 : mealPlan.days.length - 1,
                 )
               }
               className="px-6 py-2 rounded-[14px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white font-bold font-satoshi hover:shadow-lg transition-all"
@@ -176,7 +178,7 @@ export default function Recipes() {
             <button
               onClick={() =>
                 setCurrentDayIndex((prev) =>
-                  prev < mealPlan.days.length - 1 ? prev + 1 : 0
+                  prev < mealPlan.days.length - 1 ? prev + 1 : 0,
                 )
               }
               className="px-6 py-2 rounded-[14px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white font-bold font-satoshi hover:shadow-lg transition-all"
