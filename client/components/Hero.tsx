@@ -138,17 +138,6 @@ export default function Hero() {
               alt="Healthy food ingredients"
               className="w-full h-auto rounded-[30px] shadow-2xl opacity-90"
             />
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none rounded-[30px]">
-              <span
-                className="text-white text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-wider font-satoshi"
-                style={{
-                  WebkitTextStroke: "2px white",
-                  textShadow: "-2px -2px 0 rgba(0,0,0,0.5), 2px -2px 0 rgba(0,0,0,0.5), -2px 2px 0 rgba(0,0,0,0.5), 2px 2px 0 rgba(0,0,0,0.5)",
-                }}
-              >
-                eat clean
-              </span>
-            </div>
           </div>
         </div>
       </div>
