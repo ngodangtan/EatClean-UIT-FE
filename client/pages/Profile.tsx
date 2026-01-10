@@ -87,12 +87,23 @@ export default function Profile() {
               alt="Profile"
               className="w-32 h-32 sm:w-40 sm:h-40 lg:w-[264px] lg:h-[264px] rounded-full object-cover mb-6 sm:mb-8"
             />
-            <h1 className="text-3xl sm:text-4xl lg:text-[45px] font-bold text-[#0D141C] text-center mb-2 sm:mb-3 font-inter">
-              Songoku
-            </h1>
-            <p className="text-xl sm:text-2xl lg:text-[33px] text-[#4A739C] text-center font-inter">
-              Customer ID: 12345
-            </p>
+            {loading ? (
+              <>
+                <div className="w-40 h-10 bg-gray-200 rounded-lg mb-2 animate-pulse" />
+                <div className="w-32 h-6 bg-gray-200 rounded-lg animate-pulse" />
+              </>
+            ) : error ? (
+              <p className="text-red-500 text-center">{error}</p>
+            ) : profile ? (
+              <>
+                <h1 className="text-3xl sm:text-4xl lg:text-[45px] font-bold text-[#0D141C] text-center mb-2 sm:mb-3 font-inter">
+                  {profile.fullName}
+                </h1>
+                <p className="text-xl sm:text-2xl lg:text-[33px] text-[#4A739C] text-center font-inter">
+                  Customer ID: {profile.id.substring(0, 8)}
+                </p>
+              </>
+            ) : null}
           </div>
 
           <div className="max-w-3xl mx-auto space-y-8 sm:space-y-10 lg:space-y-12">
