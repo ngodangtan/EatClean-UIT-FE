@@ -45,7 +45,15 @@ export default function Profile() {
         const data = await response.json();
         setProfile(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
+        console.error("Error fetching profile:", err);
+        const errorMsg =
+          err instanceof Error ? err.message : "An error occurred";
+        setError(errorMsg);
+        // Redirect to login after 3 seconds if profile fetch fails
+        setTimeout(() => {
+          localStorage.removeItem("token");
+          navigate("/login");
+        }, 3000);
       } finally {
         setLoading(false);
       }
