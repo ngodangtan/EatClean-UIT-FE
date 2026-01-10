@@ -33,9 +33,10 @@ export default function Profile() {
           return;
         }
 
-        const response = await fetch("/api/auth/profile", {
+        const response = await fetch(`${API_BASE}/api/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
