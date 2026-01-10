@@ -120,7 +120,15 @@ export default function Profile() {
                   >
                     Email
                   </label>
-                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200"></div>
+                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                    {loading ? (
+                      <div className="w-full h-6 bg-gray-300 rounded animate-pulse" />
+                    ) : (
+                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                        {profile?.email}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <div>
@@ -130,7 +138,15 @@ export default function Profile() {
                   >
                     FullName
                   </label>
-                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200"></div>
+                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                    {loading ? (
+                      <div className="w-full h-6 bg-gray-300 rounded animate-pulse" />
+                    ) : (
+                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                        {profile?.fullName}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <div>
@@ -140,7 +156,15 @@ export default function Profile() {
                   >
                     Gender
                   </label>
-                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200"></div>
+                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                    {loading ? (
+                      <div className="w-full h-6 bg-gray-300 rounded animate-pulse" />
+                    ) : (
+                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                        {profile?.gender || "Not specified"}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <div>
@@ -150,7 +174,15 @@ export default function Profile() {
                   >
                     Birthday
                   </label>
-                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200"></div>
+                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                    {loading ? (
+                      <div className="w-full h-6 bg-gray-300 rounded animate-pulse" />
+                    ) : (
+                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                        {profile?.birthday ? new Date(profile.birthday).toLocaleDateString() : "Not specified"}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
