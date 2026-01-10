@@ -50,7 +50,7 @@ export default function Analyzing() {
   const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
 
   useEffect(() => {
-    const generateMealPlan = async () => {
+    const processHealthProfileAndGenerateMealPlan = async () => {
       const timeout = 3 * 60 * 1000; // 3 minutes in milliseconds
       let timeoutId: NodeJS.Timeout;
 
@@ -64,20 +64,58 @@ export default function Analyzing() {
           return;
         }
 
-        console.log("=== Sending API request to /api/meal-plans/generate ===");
+        // Step 1: Get health profile data from localStorage
+        const healthProfileDataJson = localStorage.getItem(
+          "healthProfileData",
+        );
+        if (!healthProfileDataJson) {
+          throw new Error("Health profile data not found. Please start over.");
+        }
+
+        const healthProfileData = JSON.parse(healthProfileDataJson);
         console.log(
-          "Authorization header:",
-          `Bearer ${token.substring(0, 50)}...`,
+          "=== Step 1: Sending health profile to /api/health-profile ===",
+        );
+        console.log("Health profile data:", healthProfileData);
+
+        // Step 2: Save health profile
+        const profileResponse = await fetch("/api/health-profile", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(healthProfileData),
+        });
+
+        if (!profileResponse.ok) {
+          let profileErrorData;
+          try {
+            profileErrorData = await profileResponse.json();
+          } catch {
+            throw new Error(
+              `Failed to save health profile: ${profileResponse.status}`,
+            );
+          }
+          throw new Error(
+            profileErrorData.message || "Failed to save health profile",
+          );
+        }
+
+        const profileResult = await profileResponse.json();
+        console.log("✓ Health profile saved successfully:", profileResult);
+
+        // Step 3: Generate meal plan
+        console.log(
+          "=== Step 2: Calling /api/meal-plans/generate ===",
         );
 
-        // Create an abort controller for the fetch request
         const controller = new AbortController();
         timeoutId = setTimeout(() => {
           controller.abort();
         }, timeout);
 
-        // Call the meal plan generation API with timeout
-        const response = await fetch("/api/meal-plans/generate", {
+        const mealPlanResponse = await fetch("/api/meal-plans/generate", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -87,48 +125,47 @@ export default function Analyzing() {
 
         clearTimeout(timeoutId);
 
-        console.log("API Response status:", response.status);
-        console.log("API Response ok:", response.ok);
+        console.log("API Response status:", mealPlanResponse.status);
+        console.log("API Response ok:", mealPlanResponse.ok);
 
-        // Check response status first
-        if (!response.ok) {
-          let responseData;
+        // Check response status
+        if (!mealPlanResponse.ok) {
+          let mealPlanErrorData;
           try {
-            responseData = await response.json();
+            mealPlanErrorData = await mealPlanResponse.json();
           } catch {
             throw new Error(
-              `Server returned ${response.status}: ${response.statusText}`,
+              `Server returned ${mealPlanResponse.status}: ${mealPlanResponse.statusText}`,
             );
           }
           throw new Error(
-            responseData.message || "Failed to generate meal plan",
+            mealPlanErrorData.message || "Failed to generate meal plan",
           );
         }
 
         // Parse successful response
-        let responseData;
+        let mealPlanData;
         try {
-          responseData = await response.json();
+          mealPlanData = await mealPlanResponse.json();
         } catch (err) {
           console.error("Failed to parse response:", err);
           throw new Error("Invalid response format from server");
         }
 
-        console.log("Meal plan generated successfully:", responseData);
+        console.log("✓ Meal plan generated successfully:", mealPlanData);
 
-        // Store the meal plan data
-        if (responseData.mealPlan) {
-          setMealPlan(responseData.mealPlan);
+        // Step 4: Store and display meal plan
+        if (mealPlanData.mealPlan) {
+          setMealPlan(mealPlanData.mealPlan);
         }
 
         // Clean up localStorage
         localStorage.removeItem("healthProfileData");
 
-        // Set loading to false
         setIsLoading(false);
       } catch (err) {
         clearTimeout(timeoutId);
-        console.error("Error generating meal plan:", err);
+        console.error("Error in meal plan process:", err);
 
         if (err instanceof Error) {
           if (err.name === "AbortError") {
@@ -145,8 +182,8 @@ export default function Analyzing() {
       }
     };
 
-    // Start the API call immediately
-    generateMealPlan();
+    // Start the process immediately
+    processHealthProfileAndGenerateMealPlan();
 
     return () => {
       // Cleanup if component unmounts
