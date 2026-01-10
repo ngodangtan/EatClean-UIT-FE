@@ -161,4 +161,57 @@ router.post("/register", (req: Request, res: Response) => {
   }
 });
 
+// Get profile route
+router.get("/profile", (req: Request, res: Response) => {
+  try {
+    // Verify token
+    const userId = verifyToken(req);
+    if (!userId) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
+    // Get user from store
+    const user = users.get(userId);
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    // Return user profile (without password)
+    return res.status(200).json(serializeUser(user));
+  } catch (error) {
+    console.error("Profile error:", error);
+    return res.status(500).json({
+      message: "An error occurred while retrieving profile",
+    });
+  }
+});
+
+// Logout route
+router.post("/logout", (req: Request, res: Response) => {
+  try {
+    // Verify token exists
+    const userId = verifyToken(req);
+    if (!userId) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
+    // In a real app, you might invalidate the token on the server
+    // For now, just return success - client removes token from localStorage
+    return res.status(200).json({
+      ok: true,
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
+    return res.status(500).json({
+      message: "An error occurred during logout",
+    });
+  }
+});
+
 export default router;
