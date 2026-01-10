@@ -87,19 +87,19 @@ const questions = [
     type: "image-cards",
     answers: [
       {
-        id: "low",
+        id: "sedentary",
         title: "Low activity",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/8e722f44e5e08cc154f1010ccae69ba25e79791b?width=786",
       },
       {
-        id: "moderate",
+        id: "moderately-active",
         title: "Moderate",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/f57a8d75b7e4971692eb5797a5b92e87ddbf3e42?width=788",
       },
       {
-        id: "high",
+        id: "very-active",
         title: "High",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/1123ffad6277af0767c1aed3f914d9e3e8f31b41?width=786",
