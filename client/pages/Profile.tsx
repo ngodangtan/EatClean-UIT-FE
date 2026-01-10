@@ -179,7 +179,9 @@ export default function Profile() {
                       <div className="w-full h-6 bg-gray-300 rounded animate-pulse" />
                     ) : (
                       <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
-                        {profile?.birthday ? new Date(profile.birthday).toLocaleDateString() : "Not specified"}
+                        {profile?.birthday
+                          ? new Date(profile.birthday).toLocaleDateString()
+                          : "Not specified"}
                       </p>
                     )}
                   </div>
