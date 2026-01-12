@@ -11,7 +11,7 @@ const goals = [
       "https://api.builder.io/api/v1/image/assets/TEMP/26290d555037b126d255fc9c92941c163d16504b?width=786",
   },
   {
-    id: "muscle-gain",
+    id: "gain-weight",
     title: "Muscle gain",
     image:
       "https://api.builder.io/api/v1/image/assets/TEMP/c7335ba142e27a035c622aec69c3f81d227a8083?width=788",
@@ -87,19 +87,19 @@ const questions = [
     type: "image-cards",
     answers: [
       {
-        id: "low",
+        id: "sedentary",
         title: "Low activity",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/8e722f44e5e08cc154f1010ccae69ba25e79791b?width=786",
       },
       {
-        id: "moderate",
+        id: "moderately-active",
         title: "Moderate",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/f57a8d75b7e4971692eb5797a5b92e87ddbf3e42?width=788",
       },
       {
-        id: "high",
+        id: "very-active",
         title: "High",
         image:
           "https://api.builder.io/api/v1/image/assets/TEMP/1123ffad6277af0767c1aed3f914d9e3e8f31b41?width=786",
@@ -242,6 +242,22 @@ export default function CreatePlan() {
 
   const handleNext = () => {
     if (currentStep === 15) {
+      // Parse sleepDuration from string to number
+      const sleepHours =
+        {
+          "< 6h": 5,
+          "6 - 8h": 7,
+          "> 8h": 9,
+        }[answers[10] as string] || 7;
+
+      // Parse mealsPerDay from string to number
+      const mealsCount =
+        {
+          "2 meals": 2,
+          "3 meals": 3,
+          "4+ meals": 4,
+        }[answers[13] as string] || 3;
+
       // After completing step 15, save data to localStorage and navigate to analyzing page
       const healthProfileData = {
         goal: selectedGoal,
@@ -253,12 +269,18 @@ export default function CreatePlan() {
         desiredWeight: parseFloat(desiredWeight),
         activityLevel: answers[7],
         averageDay: answers[8],
-        workSchedule: answers[9],
-        sleepDuration: answers[10],
-        diseases: answers[11],
+        workSchedule: Array.isArray(answers[9])
+          ? (answers[9] as string[]).join(", ")
+          : (answers[9] as string),
+        sleepDuration: sleepHours,
+        diseases: Array.isArray(answers[11])
+          ? (answers[11] as string[])
+          : [answers[11] as string],
         dietPreference: answers[12],
-        mealsPerDay: answers[13],
-        cuisinePreference: answers[14],
+        mealsPerDay: mealsCount,
+        cuisinePreference: Array.isArray(answers[14])
+          ? (answers[14] as string[])
+          : [answers[14] as string],
       };
 
       localStorage.setItem(

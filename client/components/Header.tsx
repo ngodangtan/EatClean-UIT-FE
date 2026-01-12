@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { API_BASE } from "@shared/api";
 
 export default function Header() {
   const location = useLocation();
@@ -21,7 +22,7 @@ export default function Header() {
         return;
       }
 
-      const response = await fetch("/api/auth/logout", {
+      const response = await fetch(`${API_BASE}/api/auth/logout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -87,6 +88,7 @@ export default function Header() {
             >
               Recipes
             </Link>
+
           </nav>
 
           <div className="flex items-center gap-4 lg:gap-6">

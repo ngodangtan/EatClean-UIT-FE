@@ -1,9 +1,68 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { API_BASE } from "@shared/api";
+
+interface UserProfile {
+  id: string;
+  email: string;
+  username: string;
+  fullName: string;
+  phone: string;
+  birthday: string;
+  gender: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default function Profile() {
   const navigate = useNavigate();
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        setLoading(true);
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+
+        const response = await fetch(`${API_BASE}/api/auth/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch profile");
+        }
+
+        const data = await response.json();
+        setProfile(data);
+      } catch (err) {
+        console.error("Error fetching profile:", err);
+        const errorMsg =
+          err instanceof Error ? err.message : "An error occurred";
+        setError(errorMsg);
+        // Redirect to login after 3 seconds if profile fetch fails
+        setTimeout(() => {
+          localStorage.removeItem("token");
+          navigate("/login");
+        }, 3000);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [navigate]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
@@ -38,12 +97,23 @@ export default function Profile() {
               alt="Profile"
               className="w-32 h-32 sm:w-40 sm:h-40 lg:w-[264px] lg:h-[264px] rounded-full object-cover mb-6 sm:mb-8"
             />
-            <h1 className="text-3xl sm:text-4xl lg:text-[45px] font-bold text-[#0D141C] text-center mb-2 sm:mb-3 font-inter">
-              Songoku
-            </h1>
-            <p className="text-xl sm:text-2xl lg:text-[33px] text-[#4A739C] text-center font-inter">
-              Customer ID: 12345
-            </p>
+            {loading ? (
+              <>
+                <div className="w-40 h-10 bg-gray-200 rounded-lg mb-2 animate-pulse" />
+                <div className="w-32 h-6 bg-gray-200 rounded-lg animate-pulse" />
+              </>
+            ) : error ? (
+              <p className="text-red-500 text-center">{error}</p>
+            ) : profile ? (
+              <>
+                <h1 className="text-3xl sm:text-4xl lg:text-[45px] font-bold text-[#0D141C] text-center mb-2 sm:mb-3 font-inter">
+                  {profile.fullName}
+                </h1>
+                <p className="text-xl sm:text-2xl lg:text-[33px] text-[#4A739C] text-center font-inter">
+                  Customer ID: {profile.id.substring(0, 8)}
+                </p>
+              </>
+            ) : null}
           </div>
 
           <div className="max-w-3xl mx-auto space-y-8 sm:space-y-10 lg:space-y-12">
@@ -60,7 +130,15 @@ export default function Profile() {
                   >
                     Email
                   </label>
-                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200"></div>
+                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                    {loading ? (
+                      <div className="w-full h-6 bg-gray-300 rounded animate-pulse" />
+                    ) : (
+                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                        {profile?.email}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <div>
@@ -70,7 +148,15 @@ export default function Profile() {
                   >
                     FullName
                   </label>
-                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200"></div>
+                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                    {loading ? (
+                      <div className="w-full h-6 bg-gray-300 rounded animate-pulse" />
+                    ) : (
+                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                        {profile?.fullName}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <div>
@@ -80,7 +166,15 @@ export default function Profile() {
                   >
                     Gender
                   </label>
-                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200"></div>
+                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                    {loading ? (
+                      <div className="w-full h-6 bg-gray-300 rounded animate-pulse" />
+                    ) : (
+                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                        {profile?.gender || "Not specified"}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <div>
@@ -90,7 +184,17 @@ export default function Profile() {
                   >
                     Birthday
                   </label>
-                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200"></div>
+                  <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                    {loading ? (
+                      <div className="w-full h-6 bg-gray-300 rounded animate-pulse" />
+                    ) : (
+                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                        {profile?.birthday
+                          ? new Date(profile.birthday).toLocaleDateString()
+                          : "Not specified"}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

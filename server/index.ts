@@ -4,6 +4,7 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import authRouter from "./routes/auth";
 import healthProfileRouter from "./routes/health-profile";
+import mealPlansRouter from "./routes/meal-plans";
 
 export function createServer() {
   const app = express();
@@ -26,6 +27,9 @@ export function createServer() {
 
   // Health profile routes
   app.use("/api/health-profile", healthProfileRouter);
+
+  // Meal plans routes
+  app.use("/api/meal-plans", mealPlansRouter);
 
   return app;
 }

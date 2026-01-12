@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
   return (
     <section className="relative pt-40 sm:pt-48 lg:pt-56 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -120,6 +128,7 @@ export default function Hero() {
                 className="w-14 h-14 sm:w-18 sm:h-18 lg:w-[60px] lg:h-[60px] absolute -top-2 -right-2 group-hover:rotate-12 transition-transform"
               />
             </Link>
+
           </div>
 
           <div className="relative">
@@ -130,6 +139,7 @@ export default function Hero() {
             />
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             </div>
+
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { API_BASE } from "@shared/api";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default function Register() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch(`${API_BASE}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
