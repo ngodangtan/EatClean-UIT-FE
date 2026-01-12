@@ -311,7 +311,7 @@ export default function Login() {
                   <button
                     type="submit"
                     disabled={isLoading || success}
-                    className="w-full py-4 lg:py-5 rounded-[14.5px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-base sm:text-lg lg:text-[19px] font-bold tracking-wide font-satoshi hover:shadow-xl transition-all hover:scale-[1.02] shadow-[0_11.8px_20.66px_3.935px_rgba(68,97,242,0.15)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="w-full py-4 lg:py-5 rounded-[14.5px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-base sm:text-lg lg:text-xl font-bold tracking-wide font-satoshi hover:shadow-xl transition-all hover:scale-[1.02] shadow-[0_11.8px_20.66px_3.935px_rgba(68,97,242,0.15)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
                     {isLoading ? (
                       <span className="flex items-center justify-center gap-2">

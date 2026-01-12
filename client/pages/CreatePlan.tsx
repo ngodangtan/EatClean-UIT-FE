@@ -473,7 +473,7 @@ export default function CreatePlan() {
 
           {currentStep === 1 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi">
                 Select your goal ?
               </h1>
 
@@ -499,7 +499,7 @@ export default function CreatePlan() {
                       )}
                     </div>
                     <div className="p-4 sm:p-6">
-                      <h3 className="text-2xl sm:text-3xl lg:text-[42px] font-bold text-black text-left font-satoshi leading-tight">
+                      <h3 className="text-2xl sm:text-3xl lg:text-[30px] font-bold text-black text-left font-satoshi leading-tight">
                         {goal.title}
                       </h3>
                     </div>
@@ -511,7 +511,7 @@ export default function CreatePlan() {
 
           {currentStep === 2 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[0].question}
               </h1>
 
@@ -526,7 +526,7 @@ export default function CreatePlan() {
                         : "bg-white text-black hover:bg-gray-50"
                     }`}
                   >
-                    <span className="text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi tracking-wide">
+                    <span className="text-2xl sm:text-3xl lg:text-3xl font-bold font-satoshi tracking-wide">
                       {answer}
                     </span>
                   </button>
@@ -537,7 +537,7 @@ export default function CreatePlan() {
 
           {currentStep === 3 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[1].question}
               </h1>
 
@@ -563,7 +563,7 @@ export default function CreatePlan() {
                       )}
                     </div>
                     <div className="p-4 sm:p-6 bg-[#E8F4F8] rounded-b-[20px]">
-                      <h3 className="text-2xl sm:text-3xl lg:text-[42px] font-bold text-black text-left font-satoshi leading-tight">
+                      <h3 className="text-2xl sm:text-3xl lg:text-[30px] font-bold text-black text-left font-satoshi leading-tight">
                         {option.title}
                       </h3>
                     </div>
@@ -575,7 +575,7 @@ export default function CreatePlan() {
 
           {currentStep === 4 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[2].question}
               </h1>
 
@@ -601,7 +601,7 @@ export default function CreatePlan() {
                       )}
                     </div>
                     <div className="p-4 sm:p-6 bg-[#E8F4F8] rounded-b-[20px]">
-                      <h3 className="text-2xl sm:text-3xl lg:text-[42px] font-bold text-black text-left font-satoshi leading-tight">
+                      <h3 className="text-2xl sm:text-3xl lg:text-[30px] font-bold text-black text-left font-satoshi leading-tight">
                         {option.title}
                       </h3>
                     </div>
@@ -615,7 +615,7 @@ export default function CreatePlan() {
             <>
               <div className="max-w-2xl mx-auto space-y-8 sm:space-y-12">
                 <div>
-                  <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-6 sm:mb-8 font-satoshi leading-tight">
+                  <h2 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-6 sm:mb-8 font-satoshi leading-tight">
                     How tall are you?
                   </h2>
                   <div className="relative max-w-md mx-auto">
@@ -624,16 +624,16 @@ export default function CreatePlan() {
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                       placeholder=""
-                      className="w-full px-6 py-6 sm:py-7 rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] text-center text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-[#2596BE]/30 transition-all"
+                      className="w-full px-6 py-6 sm:py-7 rounded-[30px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] text-center text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-[#2596BE]/30 transition-all"
                     />
-                    <span className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi text-black pointer-events-none">
+                    <span className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi text-black pointer-events-none">
                       cm
                     </span>
                   </div>
                 </div>
 
                 <div>
-                  <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-6 sm:mb-8 font-satoshi leading-tight">
+                  <h2 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-6 sm:mb-8 font-satoshi leading-tight">
                     What is your current weight?
                   </h2>
                   <div className="relative max-w-md mx-auto">
@@ -642,9 +642,9 @@ export default function CreatePlan() {
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
                       placeholder=""
-                      className="w-full px-6 py-6 sm:py-7 rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] text-center text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-[#2596BE]/30 transition-all"
+                      className="w-full px-6 py-6 sm:py-7 rounded-[30px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] text-center text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-[#2596BE]/30 transition-all"
                     />
-                    <span className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi text-black pointer-events-none">
+                    <span className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi text-black pointer-events-none">
                       kg
                     </span>
                   </div>
@@ -654,7 +654,7 @@ export default function CreatePlan() {
                   <button
                     onClick={handleNext}
                     disabled={!height || !weight}
-                    className={`px-8 py-4 rounded-[18px] text-2xl sm:text-3xl lg:text-[36px] font-black font-satoshi transition-all ${
+                    className={`px-8 py-4 rounded-[18px] text-2xl sm:text-3xl lg:text-4xl font-black font-satoshi transition-all ${
                       height && weight
                         ? "bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white hover:shadow-2xl hover:scale-105"
                         : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -670,7 +670,7 @@ export default function CreatePlan() {
           {currentStep === 6 && (
             <>
               <div className="max-w-2xl mx-auto">
-                <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-6 sm:mb-8 font-satoshi leading-tight">
+                <h2 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-6 sm:mb-8 font-satoshi leading-tight">
                   What is your desired weight?
                 </h2>
                 <div className="relative max-w-md mx-auto">
@@ -679,9 +679,9 @@ export default function CreatePlan() {
                     value={desiredWeight}
                     onChange={(e) => setDesiredWeight(e.target.value)}
                     placeholder=""
-                    className="w-full px-6 py-6 sm:py-7 rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] text-center text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-[#2596BE]/30 transition-all"
+                    className="w-full px-6 py-6 sm:py-7 rounded-[33px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] text-center text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-[#2596BE]/30 transition-all"
                   />
-                  <span className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi text-black pointer-events-none">
+                  <span className="absolute right-8 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi text-black pointer-events-none">
                     kg
                   </span>
                 </div>
@@ -690,7 +690,7 @@ export default function CreatePlan() {
                   <button
                     onClick={handleNext}
                     disabled={!desiredWeight}
-                    className={`px-8 py-4 rounded-[18px] text-2xl sm:text-3xl lg:text-[36px] font-black font-satoshi transition-all ${
+                    className={`px-8 py-4 rounded-[18px] text-2xl sm:text-3xl lg:text-4xl font-black font-satoshi transition-all ${
                       desiredWeight
                         ? "bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white hover:shadow-2xl hover:scale-105"
                         : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -706,7 +706,7 @@ export default function CreatePlan() {
           {currentStep === 7 && (
             <>
               <div className="max-w-4xl mx-auto">
-                <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 font-satoshi leading-tight">
+                <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 font-satoshi leading-tight">
                   You will reach {desiredWeight} kg on{" "}
                   {(() => {
                     const today = new Date();
@@ -732,22 +732,22 @@ export default function CreatePlan() {
 
                   <div className="absolute left-8 sm:left-12 bottom-8 sm:bottom-12 flex flex-col items-center">
                     <div className="px-6 py-3 rounded-[18px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white mb-2">
-                      <span className="text-2xl sm:text-3xl lg:text-[36px] font-black font-satoshi">
+                      <span className="text-2xl sm:text-3xl lg:text-4xl font-black font-satoshi">
                         {weight}kg
                       </span>
                     </div>
-                    <span className="text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi text-black">
+                    <span className="text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi text-black">
                       Today
                     </span>
                   </div>
 
                   <div className="absolute right-8 sm:right-12 top-8 sm:top-12 flex flex-col items-center">
                     <div className="px-6 py-3 rounded-[18px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white mb-2">
-                      <span className="text-2xl sm:text-3xl lg:text-[36px] font-black font-satoshi">
+                      <span className="text-2xl sm:text-3xl lg:text-4xl font-black font-satoshi">
                         {desiredWeight}kg
                       </span>
                     </div>
-                    <span className="text-2xl sm:text-3xl lg:text-[42px] font-bold font-satoshi text-black">
+                    <span className="text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi text-black">
                       Goal
                     </span>
                   </div>
@@ -756,7 +756,7 @@ export default function CreatePlan() {
                 <div className="flex justify-center">
                   <button
                     onClick={handleNext}
-                    className="px-8 py-4 rounded-[18px] text-2xl sm:text-3xl lg:text-[36px] font-black font-satoshi bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white hover:shadow-2xl hover:scale-105 transition-all"
+                    className="px-8 py-4 rounded-[18px] text-2xl sm:text-3xl lg:text-4xl font-black font-satoshi bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white hover:shadow-2xl hover:scale-105 transition-all"
                   >
                     Continue
                   </button>
@@ -767,7 +767,7 @@ export default function CreatePlan() {
 
           {currentStep === 8 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[3].question}
               </h1>
 
@@ -793,7 +793,7 @@ export default function CreatePlan() {
                       )}
                     </div>
                     <div className="p-4 sm:p-6 bg-[#E8F4F8] rounded-b-[20px]">
-                      <h3 className="text-2xl sm:text-3xl lg:text-[42px] font-bold text-black text-left font-satoshi leading-tight">
+                      <h3 className="text-2xl sm:text-3xl lg:text-[30px] font-bold text-black text-left font-satoshi leading-tight">
                         {option.title}
                       </h3>
                     </div>
@@ -805,7 +805,7 @@ export default function CreatePlan() {
 
           {currentStep === 9 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[4].question}
               </h1>
 
@@ -843,7 +843,7 @@ export default function CreatePlan() {
 
           {currentStep === 10 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[5].question}
               </h1>
 
@@ -863,7 +863,7 @@ export default function CreatePlan() {
                           : "bg-white text-black hover:bg-gray-50"
                       }`}
                     >
-                      <span className="text-2xl sm:text-3xl lg:text-[40px] font-bold font-satoshi tracking-wide">
+                      <span className="text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi tracking-wide">
                         {answer}
                       </span>
                     </button>
@@ -889,7 +889,7 @@ export default function CreatePlan() {
 
           {currentStep === 11 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[6].question}
               </h1>
 
@@ -904,7 +904,7 @@ export default function CreatePlan() {
                         : "bg-white text-black hover:bg-gray-50"
                     }`}
                   >
-                    <span className="text-2xl sm:text-3xl lg:text-[40px] font-bold font-satoshi tracking-wide">
+                    <span className="text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi tracking-wide">
                       {answer}
                     </span>
                   </button>
@@ -915,7 +915,7 @@ export default function CreatePlan() {
 
           {currentStep === 12 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[7].question}
               </h1>
 
@@ -935,7 +935,7 @@ export default function CreatePlan() {
                           : "bg-white text-black hover:bg-gray-50"
                       }`}
                     >
-                      <span className="text-2xl sm:text-3xl lg:text-[40px] font-bold font-satoshi tracking-wide">
+                      <span className="text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi tracking-wide">
                         {answer}
                       </span>
                     </button>
@@ -961,7 +961,7 @@ export default function CreatePlan() {
 
           {currentStep === 13 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[8].question}
               </h1>
 
@@ -976,7 +976,7 @@ export default function CreatePlan() {
                         : "bg-white text-black hover:bg-gray-50"
                     }`}
                   >
-                    <span className="text-2xl sm:text-3xl lg:text-[40px] font-bold font-satoshi tracking-wide flex-1 text-left pl-4 sm:pl-8">
+                    <span className="text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi tracking-wide flex-1 text-left pl-4 sm:pl-8">
                       {option.title}
                     </span>
                     <img
@@ -992,7 +992,7 @@ export default function CreatePlan() {
 
           {currentStep === 14 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[9].question}
               </h1>
 
@@ -1007,7 +1007,7 @@ export default function CreatePlan() {
                         : "bg-white text-black hover:bg-gray-50"
                     }`}
                   >
-                    <span className="text-2xl sm:text-3xl lg:text-[40px] font-bold font-satoshi tracking-wide">
+                    <span className="text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi tracking-wide">
                       {answer}
                     </span>
                   </button>
@@ -1018,7 +1018,7 @@ export default function CreatePlan() {
 
           {currentStep === 15 && (
             <>
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi leading-tight max-w-3xl mx-auto">
                 {questions[10].question}
               </h1>
 
@@ -1038,7 +1038,7 @@ export default function CreatePlan() {
                           : "bg-white text-black hover:bg-gray-50"
                       }`}
                     >
-                      <span className="text-2xl sm:text-3xl lg:text-[40px] font-bold font-satoshi tracking-wide">
+                      <span className="text-2xl sm:text-3xl lg:text-[30px] font-bold font-satoshi tracking-wide">
                         {answer}
                       </span>
                     </button>
@@ -1064,7 +1064,7 @@ export default function CreatePlan() {
 
           {currentStep > 15 && (
             <div className="text-center">
-              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black mb-8 font-satoshi">
+              <h1 className="text-3xl sm:text-4xl lg:text-[30px] font-bold text-black mb-8 font-satoshi">
                 Step {currentStep}
               </h1>
               <p className="text-xl text-gray-600 font-satoshi">

@@ -8,10 +8,10 @@ export default function Features() {
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           <div className="space-y-6 sm:space-y-8">
-            <h4 className="text-4xl sm:text-5xl lg:text-[60px] font-bold leading-tight lg:leading-[105px] text-black font-satoshi">
+            <h4 className="text-4xl sm:text-5xl lg:text-[50px] font-bold leading-tight lg:leading-[80px] text-black font-satoshi">
               Calculating BMI is easier with AI
             </h4>
-            <p className="text-xl sm:text-2xl lg:text-[32px] font-bold text-[#8A8585] leading-normal font-satoshi">
+            <p className="text-xl sm:text-2xl lg:text-[28px] font-bold text-[#8A8585] leading-normal font-satoshi">
               We calculate your BMI index from data like age, height, weight.
             </p>
           </div>
@@ -25,10 +25,10 @@ export default function Features() {
                   className="w-full h-full"
                 />
               </div>
-              <h5 className="text-2xl sm:text-3xl lg:text-[34px] font-bold leading-[40px] text-black font-satoshi">
+              <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi">
                 Food Recomendation
               </h5>
-              <p className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#8A8585] leading-normal font-satoshi">
+              <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi">
                 We provide food recomendation according to your calorie
                 requirements.
               </p>
@@ -42,10 +42,10 @@ export default function Features() {
                   className="w-full h-full"
                 />
               </div>
-              <h5 className="text-2xl sm:text-3xl lg:text-[34px] font-bold leading-[40px] text-black font-satoshi">
+              <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi">
                 Nutritional Value
               </h5>
-              <p className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#8A8585] leading-normal font-satoshi">
+              <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi">
                 Get all the nutritional values of your preferred dish.
               </p>
             </div>
@@ -58,10 +58,10 @@ export default function Features() {
                   className="w-full h-full"
                 />
               </div>
-              <h5 className="text-2xl sm:text-3xl lg:text-[34px] font-bold leading-[40px] text-black font-satoshi">
+              <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi">
                 AI Nutrition Coach
               </h5>
-              <p className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#8A8585] leading-normal font-satoshi">
+              <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi">
                 Get instant answers and personalized meal suggestions.
               </p>
             </div>

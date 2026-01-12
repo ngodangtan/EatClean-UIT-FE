@@ -45,10 +45,10 @@ export default function PopularMeals() {
   return (
     <section className="py-12 sm:py-16 lg:py-20">
       <div className="max-w-[1728px] mx-auto px-4 sm:px-8 lg:px-16 xl:px-32">
-        <h3 className="text-3xl sm:text-4xl lg:text-[49px] font-bold tracking-[0.23em] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] bg-clip-text text-transparent font-satoshi mb-4 sm:mb-6">
+        <h3 className="text-3xl sm:text-4xl lg:text-[45px] font-bold tracking-[0.23em] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] bg-clip-text text-transparent font-satoshi mb-4 sm:mb-6">
           MOST POPULAR
         </h3>
-        <h4 className="text-4xl sm:text-5xl lg:text-[70px] font-bold leading-tight lg:leading-[105px] text-black font-satoshi mb-8 sm:mb-12 lg:mb-16">
+        <h4 className="text-4xl sm:text-5xl lg:text-[40px] font-bold leading-tight lg:leading-[105px] text-black font-satoshi mb-8 sm:mb-12 lg:mb-16">
           Enhance Your Lifestyle
         </h4>
 
@@ -65,7 +65,7 @@ export default function PopularMeals() {
                   className="w-full aspect-[309/370] object-cover group-hover:scale-110 transition-transform duration-300"
                 />
               </div>
-              <h5 className="text-2xl sm:text-3xl lg:text-[34px] font-bold leading-[40px] text-black font-satoshi whitespace-pre-line">
+              <h5 className="text-2xl sm:text-3xl lg:text-[20px] font-bold leading-[40px] text-black font-satoshi whitespace-pre-line">
                 {meal.name}
               </h5>
             </div>
@@ -85,7 +85,7 @@ export default function PopularMeals() {
                   className="w-full aspect-[309/370] object-cover group-hover:scale-110 transition-transform duration-300"
                 />
               </div>
-              <h5 className="text-2xl sm:text-3xl lg:text-[34px] font-bold leading-[40px] text-black font-satoshi whitespace-pre-line">
+              <h5 className="text-2xl sm:text-3xl lg:text-[20px] font-bold leading-[40px] text-black font-satoshi whitespace-pre-line">
                 {meal.name}
               </h5>
             </div>
