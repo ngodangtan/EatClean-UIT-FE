@@ -427,7 +427,7 @@ export default function CreatePlan() {
         </defs>
       </svg>
 
-      <main className="pt-32 sm:pt-40 lg:pt-48 pb-12 relative z-10">
+      <main className="pt-40 sm:pt-48 lg:pt-56 pb-12 relative z-10">
         <div className="max-w-[1728px] mx-auto px-4 sm:px-8 lg:px-16 xl:px-32">
           <div className="flex items-center justify-center gap-4 sm:gap-8 mb-6 sm:mb-8">
             {currentStep > 1 && (

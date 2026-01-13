@@ -72,19 +72,19 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-6 lg:gap-12">
             <Link
               to="/"
-              className="text-base lg:text-lg font-bold text-[#404040] hover:text-[#2596BE] transition-colors relative group"
+              className="text-base lg:text-xl font-bold text-[#404040] hover:text-[#2596BE] transition-colors relative group"
             >
               Home
             </Link>
             <Link
               to="/create-plan"
-              className="text-base lg:text-lg font-normal text-black hover:text-[#2596BE] transition-colors font-inter"
+              className="text-base lg:text-xl font-normal text-black hover:text-[#2596BE] transition-colors font-inter"
             >
               Create plan
             </Link>
             <Link
               to="/recipes"
-              className="text-base lg:text-lg font-normal text-black hover:text-[#2596BE] transition-colors font-inter"
+              className="text-base lg:text-xl font-normal text-black hover:text-[#2596BE] transition-colors font-inter"
             >
               Recipes
             </Link>
