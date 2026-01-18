@@ -9,12 +9,12 @@ export default function Footer() {
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/d92e4e1a4800ca215661e5b325be9735851b3348?width=353"
               alt="EatClean"
-              className="w-32 h-32 sm:w-40 sm:h-40 lg:w-[177px] lg:h-[177px]"
+              className="w-32 h-32 sm:w-40 sm:h-40 lg:w-[100px] lg:h-[100px]"
             />
-            <h2 className="text-3xl sm:text-4xl lg:text-[57px] font-black bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] bg-clip-text text-transparent font-satoshi">
+            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-black bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] bg-clip-text text-transparent font-satoshi">
               EatClean
             </h2>
-            <p className="text-lg sm:text-xl lg:text-[28px] font-normal text-[#6F6C90] leading-relaxed lg:leading-[47px] font-satoshi">
+            <p className="text-lg sm:text-xl lg:text-[16px] font-normal text-[#6F6C90] leading-relaxed lg:leading-[47px] font-satoshi">
               Đồ án tốt nghiệp
               <br />
               Trường Đại Học Công Nghệ Thông Tin
@@ -111,21 +111,21 @@ export default function Footer() {
           </div>
 
           <div className="space-y-6 sm:space-y-8">
-            <h3 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#1678F2] font-satoshi">
+            <h3 className="text-2xl sm:text-3xl lg:text-[30px] font-bold text-[#1678F2] font-satoshi">
               Sinh viên thực hiện
             </h3>
             <div className="space-y-4 sm:space-y-6">
-              <p className="text-lg sm:text-xl lg:text-[30px] font-normal text-[#4F555A] font-satoshi">
+              <p className="text-lg sm:text-xl lg:text-lg font-normal text-[#4F555A] font-satoshi">
                 Chử Quốc Hưng - MSSV: 24210128
               </p>
-              <p className="text-lg sm:text-xl lg:text-[30px] font-normal text-[#4F555A] font-satoshi">
+              <p className="text-lg sm:text-xl lg:text-lg font-normal text-[#4F555A] font-satoshi">
                 Ngô Đăng Tân - MSSV : 24210173
               </p>
             </div>
           </div>
 
           <div className="space-y-6 sm:space-y-8">
-            <h3 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#1678F2] font-satoshi">
+            <h3 className="text-2xl sm:text-3xl lg:text-[30px] font-bold text-[#1678F2] font-satoshi">
               Contacts us
             </h3>
             <div className="space-y-4 sm:space-y-6">
@@ -196,7 +196,7 @@ export default function Footer() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="text-base sm:text-lg lg:text-[30px] text-[#4F555A] font-normal leading-relaxed font-satoshi">
+                <span className="text-base sm:text-lg lg:text-[16px] text-[#4F555A] font-normal leading-relaxed font-satoshi">
                   University of Information Technology - HCM City- VietNam
                 </span>
               </div>

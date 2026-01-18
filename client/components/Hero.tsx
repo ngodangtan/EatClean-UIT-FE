@@ -104,7 +104,7 @@ export default function Hero() {
               </svg>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl lg:text-7xl xl:text-[90px] font-bold leading-tight lg:leading-[105px] font-satoshi">
+            <h2 className="text-4xl sm:text-5xl lg:text-7xl xl:text-[55px] font-bold leading-tight lg:leading-[75px] font-satoshi">
               <span className="bg-gradient-to-r from-[#2596BE] to-[#1678F2] bg-clip-text text-transparent">
                 One Step Solution
               </span>
@@ -138,6 +138,9 @@ export default function Hero() {
               alt="Healthy food ingredients"
               className="w-full h-auto rounded-[30px] shadow-2xl opacity-90"
             />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            </div>
+
           </div>
         </div>
       </div>

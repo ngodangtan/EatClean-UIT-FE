@@ -118,7 +118,7 @@ export default function Profile() {
 
           <div className="max-w-3xl mx-auto space-y-8 sm:space-y-10 lg:space-y-12">
             <div>
-              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#0D141C] mb-6 sm:mb-8 font-inter">
+              <h2 className="text-2xl sm:text-3xl lg:text-[35px] font-bold text-[#0D141C] mb-6 sm:mb-8 font-inter">
                 Contact Information
               </h2>
 
@@ -126,7 +126,7 @@ export default function Profile() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-lg sm:text-xl lg:text-[38px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
+                    className="block text-lg sm:text-xl lg:text-[25px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
                   >
                     Email
                   </label>
@@ -144,7 +144,7 @@ export default function Profile() {
                 <div>
                   <label
                     htmlFor="fullname"
-                    className="block text-lg sm:text-xl lg:text-[38px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
+                    className="block text-lg sm:text-xl lg:text-[25px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
                   >
                     FullName
                   </label>
@@ -162,7 +162,7 @@ export default function Profile() {
                 <div>
                   <label
                     htmlFor="gender"
-                    className="block text-lg sm:text-xl lg:text-[38px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
+                    className="block text-lg sm:text-xl lg:text-[25px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
                   >
                     Gender
                   </label>
@@ -180,7 +180,7 @@ export default function Profile() {
                 <div>
                   <label
                     htmlFor="birthday"
-                    className="block text-lg sm:text-xl lg:text-[38px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
+                    className="block text-lg sm:text-xl lg:text-[25px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
                   >
                     Birthday
                   </label>
@@ -200,7 +200,7 @@ export default function Profile() {
             </div>
 
             <div>
-              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#0D141C] mb-6 sm:mb-8 font-inter">
+              <h2 className="text-2xl sm:text-3xl lg:text-[35px] font-bold text-[#0D141C] mb-6 sm:mb-8 font-inter">
                 Security
               </h2>
 
@@ -208,7 +208,7 @@ export default function Profile() {
                 onClick={() => navigate("/change-password")}
                 className="w-full flex items-center justify-between p-4 sm:p-6 hover:bg-gray-50 rounded-lg transition-colors group"
               >
-                <span className="text-lg sm:text-xl lg:text-[38px] font-medium text-[#0D141C] font-inter">
+                <span className="text-lg sm:text-xl lg:text-[25px] font-medium text-[#0D141C] font-inter">
                   Change Password
                 </span>
                 <svg
