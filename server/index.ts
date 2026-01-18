@@ -2,6 +2,9 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import authRouter from "./routes/auth";
+import healthProfileRouter from "./routes/health-profile";
+import mealPlansRouter from "./routes/meal-plans";
 
 export function createServer() {
   const app = express();
@@ -18,6 +21,15 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
+
+  // Authentication routes
+  app.use("/api/auth", authRouter);
+
+  // Health profile routes
+  app.use("/api/health-profile", healthProfileRouter);
+
+  // Meal plans routes
+  app.use("/api/meal-plans", mealPlansRouter);
 
   return app;
 }

@@ -57,6 +57,13 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        brand: {
+          blue: "hsl(var(--brand-blue))",
+          purple: "hsl(var(--brand-purple))",
+        },
+        "gray-text": "hsl(var(--gray-text))",
+        "gray-light": "hsl(var(--gray-light))",
+        "page-bg": "hsl(var(--page-bg))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -84,6 +91,10 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        satoshi: ["Satoshi", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
     },
   },
