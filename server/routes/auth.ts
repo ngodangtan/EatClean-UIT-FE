@@ -121,11 +121,12 @@ router.post("/login", (req: Request, res: Response) => {
     }
 
     // Generate token
-    const token = generateToken(user.id);
+    const accessToken = generateToken(user.id);
 
     // Return success response
     return res.status(200).json({
-      token,
+      accessToken,
+      refreshToken: accessToken,
       user: serializeUser(user),
     });
   } catch (error) {
@@ -177,11 +178,12 @@ router.post("/register", (req: Request, res: Response) => {
     users.set(userId, newUser);
 
     // Generate token
-    const token = generateToken(userId);
+    const accessToken = generateToken(userId);
 
     // Return success response
     return res.status(201).json({
-      token,
+      accessToken,
+      refreshToken: accessToken,
       user: serializeUser(newUser),
     });
   } catch (error) {

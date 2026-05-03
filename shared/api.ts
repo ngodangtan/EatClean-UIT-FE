@@ -24,11 +24,15 @@ export interface DemoResponse {
 export interface User {
   id: string;
   email: string;
-  fullName: string;
+  fullName?: string;
   username?: string;
   phone?: string;
   gender?: string;
   birthday?: string;
+  role?: string;
+  height?: number;
+  currentWeight?: number;
+  createdAt?: string;
 }
 
 /**
@@ -43,7 +47,8 @@ export interface LoginRequest {
  * Login response
  */
 export interface LoginResponse {
-  token: string;
+  accessToken: string;
+  refreshToken: string;
   user: User;
 }
 
@@ -53,18 +58,21 @@ export interface LoginResponse {
 export interface RegisterRequest {
   email: string;
   password: string;
-  fullName: string;
+  fullName?: string;
   username?: string;
   phone?: string;
   gender?: string;
   birthday?: string;
+  height?: number;
+  currentWeight?: number;
 }
 
 /**
  * Register response
  */
 export interface RegisterResponse {
-  token: string;
+  accessToken: string;
+  refreshToken: string;
   user: User;
 }
 

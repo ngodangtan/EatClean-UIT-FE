@@ -61,8 +61,11 @@ export default function Login() {
 
       // Store token and user info
       const successData = data as LoginResponse;
-      if (successData.token) {
-        localStorage.setItem("token", successData.token);
+      if (successData.accessToken) {
+        localStorage.setItem("token", successData.accessToken);
+        if (successData.refreshToken) {
+          localStorage.setItem("refreshToken", successData.refreshToken);
+        }
         if (successData.user) {
           localStorage.setItem("user", JSON.stringify(successData.user));
         }

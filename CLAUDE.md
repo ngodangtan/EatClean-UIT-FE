@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-pnpm dev            # Start dev server on port 4000 (client + server unified)
+pnpm dev            # Start dev server on port 5173 (client + server unified)
 pnpm build          # Full production build (client → dist/spa/, server → dist/server/)
 pnpm build:client   # Client build only
 pnpm build:server   # Server build only (vite.config.server.ts)
