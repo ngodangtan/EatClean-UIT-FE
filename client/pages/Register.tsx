@@ -14,6 +14,8 @@ export default function Register() {
     fullName: "",
     gender: "",
     birthday: "",
+    height: "",
+    currentWeight: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -67,6 +69,8 @@ export default function Register() {
           fullName: formData.fullName,
           gender: formData.gender || undefined,
           birthday: formData.birthday || undefined,
+          height: formData.height ? Number(formData.height) : undefined,
+          currentWeight: formData.currentWeight ? Number(formData.currentWeight) : undefined,
         }),
       });
 
@@ -95,9 +99,8 @@ export default function Register() {
       }
 
       setSuccess(true);
-      // Redirect to login or home after 1.5 seconds
       setTimeout(() => {
-        navigate("/login");
+        navigate("/");
       }, 1500);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -224,7 +227,7 @@ export default function Register() {
               {success && (
                 <div className="mb-4 p-4 rounded-[10px] bg-green-50 border border-green-200">
                   <p className="text-green-600 text-sm sm:text-base font-satoshi">
-                    Registration successful! Redirecting to login...
+                    Registration successful! Redirecting...
                   </p>
                 </div>
               )}
@@ -599,6 +602,39 @@ export default function Register() {
                         strokeLinejoin="round"
                       />
                     </svg>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="relative">
+                    <label className="block text-sm sm:text-base lg:text-[18px] font-medium text-[#4F555A] mb-2 tracking-wide font-satoshi">
+                      Height (cm) <span className="text-[#C7C7C7] text-sm font-normal">Optional</span>
+                    </label>
+                    <input
+                      type="number"
+                      name="height"
+                      value={formData.height}
+                      onChange={handleChange}
+                      min={50}
+                      max={300}
+                      placeholder="e.g. 170"
+                      className="w-full px-5 py-4 lg:py-5 rounded-[10px] bg-[#EAF0F7] text-black font-satoshi text-base focus:outline-none focus:ring-2 focus:ring-[#2596BE]"
+                    />
+                  </div>
+                  <div className="relative">
+                    <label className="block text-sm sm:text-base lg:text-[18px] font-medium text-[#4F555A] mb-2 tracking-wide font-satoshi">
+                      Weight (kg) <span className="text-[#C7C7C7] text-sm font-normal">Optional</span>
+                    </label>
+                    <input
+                      type="number"
+                      name="currentWeight"
+                      value={formData.currentWeight}
+                      onChange={handleChange}
+                      min={20}
+                      max={500}
+                      placeholder="e.g. 65"
+                      className="w-full px-5 py-4 lg:py-5 rounded-[10px] bg-[#EAF0F7] text-black font-satoshi text-base focus:outline-none focus:ring-2 focus:ring-[#2596BE]"
+                    />
                   </div>
                 </div>
 
