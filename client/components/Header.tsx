@@ -88,7 +88,14 @@ export default function Header() {
             >
               Recipes
             </Link>
-
+            {isLoggedIn && (
+              <Link
+                to="/health-profile"
+                className="text-base lg:text-xl font-normal text-black hover:text-[#2596BE] transition-colors font-inter"
+              >
+                Health Profile
+              </Link>
+            )}
           </nav>
 
           <div className="flex items-center gap-4 lg:gap-6">
@@ -129,6 +136,12 @@ export default function Header() {
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       Profile
+                    </Link>
+                    <Link
+                      to="/health-profile"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Health Profile
                     </Link>
                     <button
                       onClick={handleLogout}

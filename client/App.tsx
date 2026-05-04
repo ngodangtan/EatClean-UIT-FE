@@ -15,6 +15,7 @@ import Recipes from "./pages/Recipes";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import HealthProfile from "./pages/HealthProfile";
 import ChangePassword from "./pages/ChangePassword";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/results" element={<Results />} />
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/health-profile" element={<HealthProfile />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

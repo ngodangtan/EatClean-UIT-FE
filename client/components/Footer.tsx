@@ -126,7 +126,7 @@ export default function Footer() {
 
           <div className="space-y-6 sm:space-y-8">
             <h3 className="text-2xl sm:text-3xl lg:text-[30px] font-bold text-[#1678F2] font-satoshi">
-              Contacts us
+              Liên hệ chúng tôi
             </h3>
             <div className="space-y-4 sm:space-y-6">
               <div className="flex items-center gap-3">
@@ -197,7 +197,7 @@ export default function Footer() {
                   />
                 </svg>
                 <span className="text-base sm:text-lg lg:text-[16px] text-[#4F555A] font-normal leading-relaxed font-satoshi">
-                  University of Information Technology - HCM City- VietNam
+                  Trường Đại Học Công Nghệ Thông Tin - TP.HCM - Việt Nam
                 </span>
               </div>
             </div>
@@ -210,19 +210,19 @@ export default function Footer() {
               Copyright © 2025
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2 text-base sm:text-lg lg:text-[22px] font-normal font-satoshi">
-              <span className="text-[#6F6C90]">All Rights Reserved |</span>
+              <span className="text-[#6F6C90]">Bảo lưu mọi quyền |</span>
               <Link
                 to="/terms"
                 className="text-[#4A3AFF] underline hover:text-[#2596BE] transition-colors"
               >
-                Terms and Conditions
+                Điều khoản & Điều kiện
               </Link>
               <span className="text-[#6F6C90]">|</span>
               <Link
                 to="/privacy"
                 className="text-[#4A3AFF] underline hover:text-[#2596BE] transition-colors"
               >
-                Privacy Policy
+                Chính sách bảo mật
               </Link>
             </div>
           </div>

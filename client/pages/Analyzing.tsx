@@ -51,13 +51,12 @@ export default function Analyzing() {
   const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
 
   useEffect(() => {
-    const processHealthProfileAndGenerateMealPlan = async () => {
-      const timeout = 3 * 60 * 1000; // 3 minutes in milliseconds
+    const generateMealPlan = async () => {
+      const timeout = 3 * 60 * 1000;
       let timeoutId: NodeJS.Timeout;
 
       try {
         const token = localStorage.getItem("token");
-
         if (!token) {
           setError("Please log in to continue");
           setIsLoading(false);
@@ -65,125 +64,71 @@ export default function Analyzing() {
           return;
         }
 
-        // Step 1: Get health profile data from localStorage
-        const healthProfileDataJson = localStorage.getItem("healthProfileData");
-        if (!healthProfileDataJson) {
-          throw new Error("Health profile data not found. Please start over.");
+        const requestJson = localStorage.getItem("mealPlanRequest");
+        if (!requestJson) {
+          throw new Error("No plan request found. Please go back and configure your plan.");
         }
 
-        const healthProfileData = JSON.parse(healthProfileDataJson);
-        console.log(
-          "=== Step 1: Sending health profile to /api/health-profile ===",
-        );
-        console.log("Health profile data:", healthProfileData);
+        const requestBody = JSON.parse(requestJson);
 
-        // Step 2: Save health profile
-        const profileResponse = await fetch(`${API_BASE}/api/health-profile`, {
+        const controller = new AbortController();
+        timeoutId = setTimeout(() => controller.abort(), timeout);
+
+        const mealPlanResponse = await fetch(`${API_BASE}/api/meal-plans/generate`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(healthProfileData),
+          body: JSON.stringify(requestBody),
+          signal: controller.signal,
         });
-
-        if (!profileResponse.ok) {
-          let profileErrorData;
-          try {
-            profileErrorData = await profileResponse.json();
-          } catch {
-            throw new Error(
-              `Failed to save health profile: ${profileResponse.status}`,
-            );
-          }
-          throw new Error(
-            profileErrorData.message || "Failed to save health profile",
-          );
-        }
-
-        const profileResult = await profileResponse.json();
-        console.log("✓ Health profile saved successfully:", profileResult);
-
-        // Step 3: Generate meal plan
-        console.log("=== Step 2: Calling /api/meal-plans/generate ===");
-
-        const controller = new AbortController();
-        timeoutId = setTimeout(() => {
-          controller.abort();
-        }, timeout);
-
-        const mealPlanResponse = await fetch(
-          `${API_BASE}/api/meal-plans/generate`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            signal: controller.signal,
-          },
-        );
 
         clearTimeout(timeoutId);
 
-        console.log("API Response status:", mealPlanResponse.status);
-        console.log("API Response ok:", mealPlanResponse.ok);
-
-        // Check response status
         if (!mealPlanResponse.ok) {
-          let mealPlanErrorData;
-          try {
-            mealPlanErrorData = await mealPlanResponse.json();
-          } catch {
+          let errData: { message?: string; reason?: string; conflicts?: string[] } = {};
+          try { errData = await mealPlanResponse.json(); } catch { /* ignore */ }
+
+          if (errData.reason === "weight_goal_contraindication" && errData.conflicts) {
             throw new Error(
-              `Server returned ${mealPlanResponse.status}: ${mealPlanResponse.statusText}`,
+              `Your weight goal is medically incompatible with: ${errData.conflicts.join(", ")}. Please update your goal or health profile.`
             );
           }
-          throw new Error(
-            mealPlanErrorData.message || "Failed to generate meal plan",
-          );
+          if (mealPlanResponse.status === 404) {
+            throw new Error("Health profile not found. Please fill in your Health Profile before generating a plan.");
+          }
+          throw new Error(errData.message || `Server error ${mealPlanResponse.status}`);
         }
 
-        // Parse successful response
         let mealPlanData;
         try {
           mealPlanData = await mealPlanResponse.json();
-        } catch (err) {
-          console.error("Failed to parse response:", err);
+        } catch {
           throw new Error("Invalid response format from server");
         }
 
-        console.log("✓ Meal plan generated successfully:", mealPlanData);
-
-        // Step 4: Store and display meal plan
         if (mealPlanData.mealPlan) {
           setMealPlan(mealPlanData.mealPlan);
         }
 
-        // Clean up localStorage
-        localStorage.removeItem("healthProfileData");
-
+        localStorage.removeItem("mealPlanRequest");
         setIsLoading(false);
       } catch (err) {
-        clearTimeout(timeoutId);
-        console.error("Error in meal plan process:", err);
-
+        clearTimeout(timeoutId!);
         if (err instanceof Error) {
-          if (err.name === "AbortError") {
-            setError(
-              "Request timeout. The meal plan generation took too long. Please try again.",
-            );
-          } else {
-            setError(err.message);
-          }
+          setError(err.name === "AbortError"
+            ? "Request timed out. The meal plan generation took too long. Please try again."
+            : err.message
+          );
         } else {
-          setError("An error occurred");
+          setError("An unexpected error occurred");
         }
         setIsLoading(false);
       }
     };
 
-    // Start the process immediately
-    processHealthProfileAndGenerateMealPlan();
+    generateMealPlan();
 
     return () => {
       // Cleanup if component unmounts

@@ -5,21 +5,19 @@ import { z } from "zod";
 const router = Router();
 
 // In-memory health profile store (in production, use a database)
+interface DiseaseEntry {
+  key: string;
+  diagnosedAt?: string;
+  stage?: number;
+  indicators: { key: string; value: number; unit?: string; measuredAt?: string; note?: string }[];
+}
+
 interface HealthProfile {
   id: string;
   userId: string;
-  goal: string;
-  triedHealthyBefore: boolean;
-  hungryTime: string;
-  favoriteMeal: string;
-  height: number;
-  currentWeight: number;
-  desiredWeight: number;
   activityLevel: string;
-  averageDay: string;
-  workSchedule: string;
   sleepDuration: number;
-  diseases: string[];
+  diseases: DiseaseEntry[];
   dietPreference: string;
   mealsPerDay: number;
   cuisinePreference: string[];
@@ -29,23 +27,31 @@ interface HealthProfile {
 
 const healthProfiles: Map<string, HealthProfile> = new Map();
 
-// Validation schema
+const diseaseEntrySchema = z.object({
+  key: z.string(),
+  diagnosedAt: z.string().optional(),
+  stage: z.number().int().min(1).max(5).optional(),
+  indicators: z.array(
+    z.object({
+      key: z.string(),
+      value: z.number(),
+      unit: z.string().optional(),
+      measuredAt: z.string().optional(),
+      note: z.string().optional(),
+    })
+  ).default([]),
+});
+
+// Validation schema — all fields optional for partial updates
 const healthProfileSchema = z.object({
-  goal: z.string(),
-  triedHealthyBefore: z.boolean(),
-  hungryTime: z.string(),
-  favoriteMeal: z.string(),
-  height: z.number(),
-  currentWeight: z.number(),
-  desiredWeight: z.number(),
-  activityLevel: z.string(),
-  averageDay: z.string(),
-  workSchedule: z.string(),
-  sleepDuration: z.number(),
-  diseases: z.array(z.string()),
-  dietPreference: z.string(),
-  mealsPerDay: z.number(),
-  cuisinePreference: z.array(z.string()),
+  activityLevel: z
+    .enum(["sedentary", "lightly-active", "moderately-active", "very-active", "extremely-active"])
+    .optional(),
+  sleepDuration: z.number().min(0).max(24).optional(),
+  diseases: z.array(diseaseEntrySchema).optional(),
+  dietPreference: z.string().optional(),
+  mealsPerDay: z.number().int().min(1).max(6).optional(),
+  cuisinePreference: z.array(z.string()).max(10).optional(),
 });
 
 // Middleware to extract userId from JWT token
@@ -120,10 +126,12 @@ router.post("/", (req: Request, res: Response) => {
     );
 
     if (existingProfile) {
-      // Update existing profile
+      // Merge partial update — omitted fields are preserved
       const updatedProfile: HealthProfile = {
         ...existingProfile,
-        ...validation.data,
+        ...Object.fromEntries(
+          Object.entries(validation.data).filter(([, v]) => v !== undefined)
+        ),
         updatedAt: now,
       };
       healthProfiles.set(existingProfile.id, updatedProfile);
@@ -140,11 +148,16 @@ router.post("/", (req: Request, res: Response) => {
       });
     }
 
-    // Create new profile
+    // Create new profile with defaults for omitted fields
     const newProfile: HealthProfile = {
       id,
       userId,
-      ...validation.data,
+      activityLevel: validation.data.activityLevel ?? "sedentary",
+      sleepDuration: validation.data.sleepDuration ?? 7,
+      diseases: (validation.data.diseases ?? []) as DiseaseEntry[],
+      dietPreference: validation.data.dietPreference ?? "balanced",
+      mealsPerDay: validation.data.mealsPerDay ?? 3,
+      cuisinePreference: validation.data.cuisinePreference ?? [],
       createdAt: now,
       updatedAt: now,
     };

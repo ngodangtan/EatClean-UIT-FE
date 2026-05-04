@@ -3,16 +3,16 @@ export default function Features() {
     <section className="py-12 sm:py-16 lg:py-20">
       <div className="max-w-[1728px] mx-auto px-4 sm:px-8 lg:px-16 xl:px-32">
         <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-black tracking-[0.23em] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] bg-clip-text text-transparent font-satoshi mb-8 sm:mb-12 lg:mb-16">
-          FEATURES WE PROVIDE
+          TÍNH NĂNG CHÚNG TÔI CUNG CẤP
         </h3>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           <div className="space-y-6 sm:space-y-8">
             <h4 className="text-4xl sm:text-5xl lg:text-[50px] font-bold leading-tight lg:leading-[80px] text-black font-satoshi">
-              Calculating BMI is easier with AI
+              Tính BMI dễ dàng hơn với AI
             </h4>
             <p className="text-xl sm:text-2xl lg:text-[28px] font-bold text-[#8A8585] leading-normal font-satoshi">
-              We calculate your BMI index from data like age, height, weight.
+              Chúng tôi tính chỉ số BMI từ dữ liệu như tuổi, chiều cao, cân nặng.
             </p>
           </div>
 
@@ -26,11 +26,10 @@ export default function Features() {
                 />
               </div>
               <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi">
-                Food Recomendation
+                Gợi Ý Thực Phẩm
               </h5>
               <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi">
-                We provide food recomendation according to your calorie
-                requirements.
+                Chúng tôi gợi ý thực phẩm phù hợp với nhu cầu calo của bạn.
               </p>
             </div>
 
@@ -43,10 +42,10 @@ export default function Features() {
                 />
               </div>
               <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi">
-                Nutritional Value
+                Giá Trị Dinh Dưỡng
               </h5>
               <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi">
-                Get all the nutritional values of your preferred dish.
+                Xem đầy đủ giá trị dinh dưỡng của món ăn yêu thích.
               </p>
             </div>
 
@@ -59,10 +58,10 @@ export default function Features() {
                 />
               </div>
               <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi">
-                AI Nutrition Coach
+                Huấn Luyện Viên Dinh Dưỡng AI
               </h5>
               <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi">
-                Get instant answers and personalized meal suggestions.
+                Nhận câu trả lời tức thì và gợi ý bữa ăn cá nhân hóa.
               </p>
             </div>
           </div>

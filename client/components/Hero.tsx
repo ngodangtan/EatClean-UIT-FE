@@ -76,7 +76,7 @@ export default function Hero() {
           <div className="space-y-6 sm:space-y-8">
             <div className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 rounded-full border border-[#B4B4B4] bg-white/25 backdrop-blur-sm">
               <span className="text-lg sm:text-2xl lg:text-[32px] font-bold text-[#525252] font-satoshi">
-                Healthy And Clean
+                Lành Mạnh & Sạch
               </span>
               <svg
                 className="w-12 h-12 sm:w-16 sm:h-16 lg:w-[71px] lg:h-[46px]"
@@ -106,22 +106,22 @@ export default function Hero() {
 
             <h2 className="text-4xl sm:text-5xl lg:text-7xl xl:text-[55px] font-bold leading-tight lg:leading-[75px] font-satoshi">
               <span className="bg-gradient-to-r from-[#2596BE] to-[#1678F2] bg-clip-text text-transparent">
-                One Step Solution
+                Giải Pháp Toàn Diện
               </span>
               <br />
-              <span className="text-black">for all your dietary needs.</span>
+              <span className="text-black">cho mọi nhu cầu dinh dưỡng của bạn.</span>
             </h2>
 
             <p className="text-xl sm:text-2xl lg:text-[32px] font-bold text-[#8A8585] leading-relaxed lg:leading-[43px] font-satoshi max-w-2xl">
-              Smart Nutrition Starts Here. We use your BMI to ensure every dish
-              is your perfect fit.
+              Dinh dưỡng thông minh bắt đầu từ đây. Chúng tôi dùng chỉ số BMI
+              của bạn để đảm bảo mỗi bữa ăn đều phù hợp với bạn.
             </p>
 
             <Link
               to="/create-plan"
               className="inline-flex items-center gap-4 px-8 sm:px-12 lg:px-14 py-4 sm:py-6 lg:py-7 rounded-[28px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-2xl sm:text-4xl lg:text-[40px] font-black font-satoshi hover:shadow-2xl transition-all hover:scale-100 relative group"
             >
-              Create your plan
+              Tạo kế hoạch của bạn
               <img
                 src="https://api.builder.io/api/v1/image/assets/TEMP/f3bec9aa701a6b227489d7d933c7aeab821ed8ed?width=170"
                 alt=""
