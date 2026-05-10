@@ -78,7 +78,7 @@ export default function Recipes() {
             return;
           }
           if (response.status === 404) {
-            setError("No meal plan found. Please create one first.");
+            setError("Không tìm thấy kế hoạch bữa ăn. Vui lòng tạo một kế hoạch trước.");
             return;
           }
           throw new Error(`HTTP error! status: ${response.status}`);
