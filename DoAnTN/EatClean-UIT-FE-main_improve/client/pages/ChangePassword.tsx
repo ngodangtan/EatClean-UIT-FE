@@ -52,13 +52,13 @@ export default function ChangePassword() {
               Songoku
             </h1>
             <p className="text-xl sm:text-2xl lg:text-[33px] text-[#4A739C] text-center font-inter">
-              Customer ID: 12345
+              Mã khách hàng: 12345
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
             <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#0D141C] mb-6 sm:mb-8 font-inter text-center">
-              Change your password
+              Đổi mật khẩu của bạn
             </h2>
 
             <div className="space-y-6 sm:space-y-8 mb-8 sm:mb-12">
@@ -67,7 +67,7 @@ export default function ChangePassword() {
                   htmlFor="old-password"
                   className="block text-lg sm:text-xl lg:text-[38px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
                 >
-                  Old - Password
+                  Mật khẩu cũ
                 </label>
                 <input
                   type="password"
@@ -75,7 +75,7 @@ export default function ChangePassword() {
                   value={oldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
                   className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 px-6 sm:px-8 text-base sm:text-lg lg:text-xl focus:outline-none focus:ring-2 focus:ring-[#2596BE] focus:border-transparent"
-                  placeholder="Enter your old password"
+                  placeholder="Nhập mật khẩu cũ"
                 />
               </div>
 
@@ -84,7 +84,7 @@ export default function ChangePassword() {
                   htmlFor="new-password"
                   className="block text-lg sm:text-xl lg:text-[38px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
                 >
-                  New - Password
+                  Mật khẩu mới
                 </label>
                 <input
                   type="password"
@@ -92,7 +92,7 @@ export default function ChangePassword() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 px-6 sm:px-8 text-base sm:text-lg lg:text-xl focus:outline-none focus:ring-2 focus:ring-[#2596BE] focus:border-transparent"
-                  placeholder="Enter your new password"
+                  placeholder="Nhập mật khẩu mới"
                 />
               </div>
 
@@ -101,7 +101,7 @@ export default function ChangePassword() {
                   htmlFor="confirm-password"
                   className="block text-lg sm:text-xl lg:text-[38px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
                 >
-                  Re-enter New Password
+                  Nhập lại mật khẩu mới
                 </label>
                 <input
                   type="password"
@@ -109,7 +109,7 @@ export default function ChangePassword() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 px-6 sm:px-8 text-base sm:text-lg lg:text-xl focus:outline-none focus:ring-2 focus:ring-[#2596BE] focus:border-transparent"
-                  placeholder="Re-enter your new password"
+                  placeholder="Nhập lại mật khẩu mới của bạn"
                 />
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function ChangePassword() {
                 type="submit"
                 className="px-8 sm:px-12 py-3 sm:py-4 lg:px-16 lg:py-5 bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-xl sm:text-2xl lg:text-[36px] font-black font-satoshi rounded-[18px] hover:shadow-lg transition-all hover:scale-105"
               >
-                Confirm
+                Xác nhận
               </button>
             </div>
           </form>

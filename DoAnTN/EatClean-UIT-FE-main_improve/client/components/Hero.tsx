@@ -121,7 +121,7 @@ export default function Hero() {
               to="/create-plan"
               className="inline-flex items-center gap-4 px-8 sm:px-12 lg:px-14 py-4 sm:py-6 lg:py-7 rounded-[32px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-2xl sm:text-4xl lg:text-[32px] font-black font-satoshi hover:shadow-2xl transition-all hover:scale-100 relative group"
             >
-              Tạo kế hoạch
+              Tạo thực đơn
               <img
                 src="https://api.builder.io/api/v1/image/assets/TEMP/f3bec9aa701a6b227489d7d933c7aeab821ed8ed?width=170"
                 alt=""

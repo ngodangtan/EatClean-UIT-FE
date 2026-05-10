@@ -86,7 +86,7 @@ export default function Header() {
               to="/create-plan"
               className={getNavClass("/create-plan")}
             >
-              Tạo kế hoạch
+              Tạo thực đơn
             </Link>
             <Link
               to="/recipes"

@@ -110,7 +110,7 @@ export default function Profile() {
                   {profile.fullName}
                 </h1>
                 <p className="text-xl sm:text-2xl lg:text-[33px] text-[#4A739C] text-center font-inter">
-                  Customer ID: {profile.id.substring(0, 8)}
+                  Mã khách hàng: {profile.id.substring(0, 8)}
                 </p>
               </>
             ) : null}
@@ -119,7 +119,7 @@ export default function Profile() {
           <div className="max-w-3xl mx-auto space-y-8 sm:space-y-10 lg:space-y-12">
             <div>
               <h2 className="text-2xl sm:text-3xl lg:text-[35px] font-bold text-[#0D141C] mb-6 sm:mb-8 font-inter">
-                Contact Information
+                Thông tin liên lạc
               </h2>
 
               <div className="space-y-6 sm:space-y-8">
@@ -146,7 +146,7 @@ export default function Profile() {
                     htmlFor="fullname"
                     className="block text-lg sm:text-xl lg:text-[25px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
                   >
-                    FullName
+                    Họ và tên
                   </label>
                   <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
                     {loading ? (
@@ -164,14 +164,14 @@ export default function Profile() {
                     htmlFor="gender"
                     className="block text-lg sm:text-xl lg:text-[25px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
                   >
-                    Gender
+                    Giới tính
                   </label>
                   <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
                     {loading ? (
                       <div className="w-full h-6 bg-gray-300 rounded animate-pulse" />
                     ) : (
                       <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
-                        {profile?.gender || "Not specified"}
+                        {profile?.gender === "male" ? "Nam" : profile?.gender === "female" ? "Nữ" : profile?.gender === "other" ? "Khác" : "Chưa cập nhật"}
                       </p>
                     )}
                   </div>
@@ -182,7 +182,7 @@ export default function Profile() {
                     htmlFor="birthday"
                     className="block text-lg sm:text-xl lg:text-[25px] font-medium text-[#0D141C] mb-2 sm:mb-3 font-inter"
                   >
-                    Birthday
+                    Ngày sinh
                   </label>
                   <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
                     {loading ? (
@@ -190,8 +190,8 @@ export default function Profile() {
                     ) : (
                       <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
                         {profile?.birthday
-                          ? new Date(profile.birthday).toLocaleDateString()
-                          : "Not specified"}
+                          ? new Date(profile.birthday).toLocaleDateString("vi-VN")
+                          : "Chưa cập nhật"}
                       </p>
                     )}
                   </div>
@@ -201,7 +201,7 @@ export default function Profile() {
 
             <div>
               <h2 className="text-2xl sm:text-3xl lg:text-[35px] font-bold text-[#0D141C] mb-6 sm:mb-8 font-inter">
-                Security
+                Bảo mật
               </h2>
 
               <button
@@ -209,7 +209,7 @@ export default function Profile() {
                 className="w-full flex items-center justify-between p-4 sm:p-6 hover:bg-gray-50 rounded-lg transition-colors group"
               >
                 <span className="text-lg sm:text-xl lg:text-[25px] font-medium text-[#0D141C] font-inter">
-                  Change Password
+                  Đổi mật khẩu
                 </span>
                 <svg
                   className="w-8 h-8 sm:w-10 sm:h-10 transition-transform group-hover:translate-x-2"

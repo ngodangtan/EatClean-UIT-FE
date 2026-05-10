@@ -207,7 +207,7 @@ export default function Footer() {
         <div className="border-t border-[#D9DBE9] pt-6 sm:pt-8 mt-8 sm:mt-12">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-base sm:text-lg lg:text-[22px] font-normal text-[#6F6C90] font-satoshi">
-              Copyright © 2025
+              Copyright © 2026
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2 text-base sm:text-lg lg:text-[22px] font-normal font-satoshi">
               <span className="text-[#6F6C90]">Bảo lưu mọi quyền |</span>

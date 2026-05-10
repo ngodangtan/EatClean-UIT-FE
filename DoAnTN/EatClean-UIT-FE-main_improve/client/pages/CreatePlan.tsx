@@ -106,32 +106,29 @@ export default function CreatePlan() {
               <button
                 key={p.id}
                 onClick={() => setPurpose(p.id)}
-                className={`relative flex flex-col items-start p-6 rounded-2xl text-left transition-all duration-200 border-2 ${
-                  isSelected
-                    ? "bg-white border-[#10B981]"
-                    : "bg-[#F3F4F6] border-transparent hover:bg-gray-200"
-                }`}
+                className={`relative flex flex-col items-start p-6 rounded-2xl text-left transition-all duration-200 border-2 ${isSelected
+                  ? "bg-white border-[#2596BE]"
+                  : "bg-[#F3F4F6] border-transparent hover:bg-gray-200"
+                  }`}
               >
                 <div className="absolute top-4 right-4">
                   {isSelected ? (
-                    <CheckCircle2 className="w-6 h-6 text-[#10B981] fill-[#10B981] text-white/90 stroke-white" />
+                    <CheckCircle2 className="w-6 h-6 text-[#2596BE] fill-[#2596BE] text-white/90 stroke-white" />
                   ) : (
                     <Circle className="w-6 h-6 text-gray-300" />
                   )}
                 </div>
-                
+
                 <div
-                  className={`p-3 rounded-xl mb-4 ${
-                    isSelected ? "bg-green-100" : "bg-white"
-                  }`}
+                  className={`p-3 rounded-xl mb-4 ${isSelected ? "bg-blue-50" : "bg-white"
+                    }`}
                 >
                   <p.Icon
-                    className={`w-6 h-6 ${
-                      isSelected ? "text-[#10B981]" : "text-gray-400"
-                    }`}
+                    className={`w-6 h-6 ${isSelected ? "text-[#2596BE]" : "text-gray-400"
+                      }`}
                   />
                 </div>
-                
+
                 <h3 className="text-lg font-bold text-gray-900 mb-1">
                   {p.title}
                 </h3>
@@ -158,11 +155,10 @@ export default function CreatePlan() {
                         <button
                           key={g.id}
                           onClick={() => setWeightGoal(g.id)}
-                          className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                            isSelected
-                              ? "bg-[#10B981] text-white"
-                              : "bg-[#F3F4F6] text-gray-600 hover:bg-gray-200"
-                          }`}
+                          className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-colors ${isSelected
+                            ? "bg-[#2596BE] text-white"
+                            : "bg-[#F3F4F6] text-gray-600 hover:bg-gray-200"
+                            }`}
                         >
                           {g.label}
                         </button>
@@ -181,7 +177,7 @@ export default function CreatePlan() {
                       max={500}
                       value={desiredWeight}
                       onChange={(e) => setDesiredWeight(e.target.value)}
-                      className="w-full bg-[#FAFAFA] border border-gray-200 rounded-xl px-4 py-3 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-[#10B981] focus:border-transparent transition-all pr-12"
+                      className="w-full bg-[#FAFAFA] border border-gray-200 rounded-xl px-4 py-3 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-[#2596BE] focus:border-transparent transition-all pr-12"
                     />
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium pointer-events-none">
                       kg
@@ -200,11 +196,10 @@ export default function CreatePlan() {
                       <button
                         key={d.weeks}
                         onClick={() => setDurationWeeks(d.weeks)}
-                        className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-colors w-[100px] ${
-                          isSelected
-                            ? "bg-[#10B981] text-white"
-                            : "bg-[#F3F4F6] text-gray-600 hover:bg-gray-200"
-                        }`}
+                        className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-colors w-[100px] ${isSelected
+                          ? "bg-[#2596BE] text-white"
+                          : "bg-[#F3F4F6] text-gray-600 hover:bg-gray-200"
+                          }`}
                       >
                         {d.label}
                       </button>
@@ -226,11 +221,10 @@ export default function CreatePlan() {
                   <button
                     key={d.weeks}
                     onClick={() => setDiseaseDuration(d.weeks)}
-                    className={`px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${
-                      isSelected
-                        ? "bg-[#10B981] text-white"
-                        : "bg-[#F3F4F6] text-gray-600 hover:bg-gray-200"
-                    }`}
+                    className={`px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${isSelected
+                      ? "bg-[#2596BE] text-white"
+                      : "bg-[#F3F4F6] text-gray-600 hover:bg-gray-200"
+                      }`}
                   >
                     {d.label}
                   </button>
@@ -256,11 +250,10 @@ export default function CreatePlan() {
           <button
             onClick={submitPlan}
             disabled={!isValid}
-            className={`px-8 py-3.5 rounded-xl font-bold text-base transition-all ${
-              isValid
-                ? "bg-[#10B981] text-white hover:bg-[#059669] shadow-md hover:shadow-lg"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
-            }`}
+            className={`px-8 py-3.5 rounded-xl font-bold text-base transition-all ${isValid
+              ? "bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white hover:shadow-lg hover:scale-[1.02]"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              }`}
           >
             Tạo thực đơn
           </button>
