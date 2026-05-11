@@ -128,10 +128,10 @@ const DISEASE_CATALOG: CatalogDisease[] = [
 ];
 
 const CUISINE_OPTIONS = [
-  { value: "vietnamese", label: "Vietnamese" },
-  { value: "asian", label: "Asian" },
-  { value: "western", label: "Western" },
-  { value: "mediterranean", label: "Mediterranean" },
+  { value: "vietnamese", label: "Việt Nam" },
+  { value: "asian", label: "Châu Á" },
+  { value: "western", label: "Đồ Âu" },
+  { value: "mediterranean", label: "Địa Trung Hải" },
 ];
 
 const DIET_PREFERENCES = [
@@ -305,7 +305,7 @@ function DiseaseDetailCard({
         </h3>
         {catalog.supported && (
           <span className="ml-auto text-xs px-2 py-1 rounded-full bg-green-50 text-green-600 font-inter border border-green-200">
-            Macro-aware
+            Hỗ trợ Macro
           </span>
         )}
       </div>
@@ -314,7 +314,7 @@ function DiseaseDetailCard({
         {/* Date Diagnosed */}
         <div>
           <label className="block text-sm font-medium text-gray-600 mb-1.5 font-inter">
-            Date Diagnosed
+            Ngày chẩn đoán
           </label>
           <input
             type="date"
@@ -330,7 +330,7 @@ function DiseaseDetailCard({
         {catalog.hasStage && (
           <div>
             <label className="block text-sm font-medium text-gray-600 mb-1.5 font-inter">
-              CKD Stage (1–5)
+              Giai đoạn bệnh (1–5)
             </label>
             <select
               value={entry.stage ?? ""}
@@ -342,15 +342,15 @@ function DiseaseDetailCard({
               }
               className="w-full h-12 bg-[#F3F3FD] rounded-xl border border-gray-200 px-4 text-base text-gray-700 font-inter outline-none focus:border-[#2596BE] focus:ring-2 focus:ring-[#2596BE]/20 transition-all"
             >
-              <option value="">Not specified</option>
+              <option value="">Chưa xác định</option>
               {[1, 2, 3, 4, 5].map((s) => (
                 <option key={s} value={s}>
-                  Stage {s}
+                  Giai đoạn {s}
                 </option>
               ))}
             </select>
             <p className="mt-1 text-xs text-amber-600 font-inter">
-              Stage 4+ may restrict AI meal plan generation.
+              Giai đoạn 4+ có thể hạn chế AI tạo thực đơn.
             </p>
           </div>
         )}
@@ -360,7 +360,7 @@ function DiseaseDetailCard({
       {catalog.indicators.length > 0 && (
         <div>
           <p className="text-sm font-semibold text-gray-700 mb-3 font-inter">
-            Lab Values <span className="font-normal text-gray-400">(optional — helps personalise your plan)</span>
+            Chỉ số xét nghiệm <span className="font-normal text-gray-400">(tùy chọn — giúp cá nhân hóa thực đơn)</span>
           </p>
           <div className="space-y-4">
             {catalog.indicators.map((ci) => {
@@ -372,19 +372,19 @@ function DiseaseDetailCard({
                       {ci.name}
                     </span>
                     <span className="text-xs text-gray-400 font-inter">
-                      Normal: {ci.normalRange}
+                      Bình thường: {ci.normalRange}
                     </span>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs text-gray-500 mb-1 font-inter">
-                        Value ({ci.unit})
+                        Giá trị ({ci.unit})
                       </label>
                       <div className="relative">
                         <input
                           type="number"
                           step="any"
-                          placeholder="e.g. 6.8"
+                          placeholder="VD: 6.8"
                           value={ind?.value ?? ""}
                           onChange={(e) => updateIndicator(ci.key, "value", e.target.value)}
                           className="w-full h-10 bg-white rounded-lg border border-gray-200 px-3 pr-12 text-sm text-gray-700 font-inter outline-none focus:border-[#2596BE] focus:ring-2 focus:ring-[#2596BE]/20 transition-all"
@@ -396,7 +396,7 @@ function DiseaseDetailCard({
                     </div>
                     <div>
                       <label className="block text-xs text-gray-500 mb-1 font-inter">
-                        Measured On
+                        Ngày đo
                       </label>
                       <input
                         type="date"
@@ -456,10 +456,10 @@ export default function HealthProfile() {
         localStorage.removeItem("token");
         navigate("/login");
       } else {
-        setError("Failed to load health profile.");
+        setError("Không thể tải hồ sơ sức khỏe.");
       }
     } catch {
-      setError("Network error. Please try again.");
+      setError("Lỗi kết nối mạng. Vui lòng thử lại.");
     } finally {
       setLoading(false);
     }
@@ -496,10 +496,10 @@ export default function HealthProfile() {
         setTimeout(() => setSuccess(false), 3000);
       } else {
         const data = await res.json().catch(() => ({})) as { message?: string };
-        setError(data.message ?? "Failed to save health profile.");
+        setError(data.message ?? "Không thể lưu hồ sơ sức khỏe.");
       }
     } catch {
-      setError("Network error. Please try again.");
+      setError("Lỗi kết nối mạng. Vui lòng thử lại.");
     } finally {
       setSaving(false);
     }
@@ -588,7 +588,7 @@ export default function HealthProfile() {
           {success && (
             <div className="max-w-3xl mx-auto mb-6 px-6 py-4 bg-green-50 border border-green-200 rounded-2xl">
               <p className="text-green-700 font-inter text-base sm:text-lg">
-                Health profile saved successfully!
+                Đã lưu hồ sơ sức khỏe thành công!
               </p>
             </div>
           )}
@@ -695,7 +695,7 @@ export default function HealthProfile() {
               <div>
                 <h2 className={sectionClass}>Tình trạng sức khỏe</h2>
                 <p className="text-gray-500 font-inter text-base mb-6 -mt-4">
-                  Select any conditions you have been diagnosed with, then fill in your lab values.
+                  Chọn các tình trạng bệnh bạn đã được chẩn đoán, sau đó điền các chỉ số xét nghiệm (nếu có).
                 </p>
 
                 {/* Disease selector */}
@@ -723,7 +723,7 @@ export default function HealthProfile() {
                         <span className="flex-1">{d.name}</span>
                         {d.supported && (
                           <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-600 border border-green-200 font-inter flex-shrink-0">
-                            Active
+                            Đang chọn
                           </span>
                         )}
                       </button>
@@ -735,7 +735,7 @@ export default function HealthProfile() {
                 {form.diseases.length > 0 && (
                   <div className="space-y-4">
                     <p className="text-sm font-semibold text-gray-500 font-inter uppercase tracking-wide">
-                      Condition Details
+                      Chi tiết bệnh lý
                     </p>
                     {form.diseases.map((entry) => (
                       <DiseaseDetailCard
@@ -761,7 +761,7 @@ export default function HealthProfile() {
                     type="button" onClick={handleEditCancel}
                     className="px-8 h-16 sm:h-[77px] rounded-[29px] border-2 border-gray-300 text-gray-600 text-xl sm:text-2xl font-bold font-inter hover:bg-gray-50 transition-colors"
                   >
-                    Cancel
+                    Hủy
                   </button>
                 )}
               </div>
@@ -809,8 +809,8 @@ export default function HealthProfile() {
                   <div>
                     <label className={labelClass}>Chế độ ăn ưu tiên</label>
                     <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
-                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter capitalize">
-                        {profile.dietPreference}
+                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                        {DIET_PREFERENCES.find(d => d.value === profile.dietPreference)?.label || profile.dietPreference}
                       </p>
                     </div>
                   </div>
@@ -839,7 +839,7 @@ export default function HealthProfile() {
                 <h2 className={sectionClass}>Tình trạng sức khỏe</h2>
                 {profile.diseases.length === 0 ? (
                   <p className="text-gray-400 font-inter text-base sm:text-lg italic">
-                    No health conditions recorded
+                    Chưa có dữ liệu bệnh lý
                   </p>
                 ) : (
                   <div className="space-y-4">
@@ -854,7 +854,7 @@ export default function HealthProfile() {
                             </span>
                             {catalog?.supported && (
                               <span className="text-xs px-2 py-0.5 rounded-full bg-green-50 text-green-600 border border-green-200 font-inter">
-                                Macro-aware
+                                Hỗ trợ Macro
                               </span>
                             )}
                             {d.diagnosedAt && (
@@ -866,7 +866,7 @@ export default function HealthProfile() {
 
                           {catalog?.hasStage && d.stage && (
                             <p className="text-sm text-gray-600 font-inter">
-                              CKD Stage: <span className="font-semibold">{d.stage}</span>
+                              Giai đoạn bệnh: <span className="font-semibold">{d.stage}</span>
                             </p>
                           )}
 
