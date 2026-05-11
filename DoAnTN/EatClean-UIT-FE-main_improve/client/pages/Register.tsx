@@ -184,7 +184,7 @@ export default function Register() {
         <div className="max-w-[1728px] mx-auto px-4 sm:px-8 lg:px-16 xl:px-32">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="space-y-6 sm:space-y-8 relative z-10">
-              <h1 className="text-4xl sm:text-5xl lg:text-[64px] font-bold leading-tight lg:leading-[76px] text-black font-satoshi">
+              <h1 className="text-4xl sm:text-5xl lg:text-[60px] font-bold leading-tight lg:leading-[76px] text-black font-satoshi">
                 Đăng ký để
                 <br />
                 nhận thực đơn của bạn
