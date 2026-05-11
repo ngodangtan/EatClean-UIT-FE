@@ -160,21 +160,6 @@ export default function Header() {
               </div>
             ) : (
               <>
-                {(isRegisterPage || isLoginPage) && (
-                  <>
-
-                    <Link
-                      to="/login"
-                      className={`text-base lg:text-[25px] font-bold font-satoshi transition-colors relative ${isLoginPage ? "text-[#4461F2]" : "text-black"
-                        }`}
-                    >
-                      Đăng nhập
-                      {isLoginPage && (
-                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-[#4461F2]" />
-                      )}
-                    </Link>
-                  </>
-                )}
 
                 {!isLoggedIn && (
                   <Link
