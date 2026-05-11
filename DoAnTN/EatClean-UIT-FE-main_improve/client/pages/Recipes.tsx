@@ -72,7 +72,7 @@ export default function Recipes() {
           return;
         }
 
-        const response = await fetch(`${API_BASE}/api/meal-plans/latest`, {
+        const response = await fetch(`${API_BASE}/api/meal-plans`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
