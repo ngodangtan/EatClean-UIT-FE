@@ -47,6 +47,15 @@ const placeholderImages = {
     "https://api.builder.io/api/v1/image/assets/TEMP/886ba8306b11283548115d746ec36b7534bbc0f5?width=386",
 };
 
+function translateTitle(title: string) {
+  if (!title) return title;
+  return title
+    .replace('Daily Meal Plan', 'Thực đơn Hàng ngày')
+    .replace(/(\d+)-Day Meal Plan/, 'Thực đơn $1 ngày')
+    .replace(/(\d+)-Week Meal Plan/, 'Thực đơn $1 tuần')
+    .replace(/Day (\d+)/i, 'Ngày $1');
+}
+
 export default function Recipes() {
   const navigate = useNavigate();
   const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
@@ -89,7 +98,7 @@ export default function Recipes() {
       } catch (err) {
         console.error("Error fetching meal plan:", err);
         setError(
-          err instanceof Error ? err.message : "Failed to fetch meal plan",
+          err instanceof Error ? err.message : "Không thể tải thực đơn",
         );
       } finally {
         setLoading(false);
@@ -173,7 +182,7 @@ export default function Recipes() {
               ← Trước đó
             </button>
             <p className="text-lg lg:text-[25px] font-black text-gray-600 font-satoshi">
-              {currentDay.title}
+              {translateTitle(currentDay.title)}
             </p>
             <button
               onClick={() =>
