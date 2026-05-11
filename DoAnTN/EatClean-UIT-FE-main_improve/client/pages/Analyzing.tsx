@@ -44,6 +44,22 @@ interface MealPlan {
   updatedAt: string;
 }
 
+const MEAL_TYPE_VI: Record<string, string> = {
+  breakfast: "Bữa sáng",
+  lunch: "Bữa trưa",
+  dinner: "Bữa tối",
+  snack: "Bữa phụ"
+};
+
+function translateTitle(title: string) {
+  if (!title) return title;
+  return title
+    .replace('Daily Meal Plan', 'Thực đơn Hàng ngày')
+    .replace(/(\d+)-Day Meal Plan/, 'Thực đơn $1 ngày')
+    .replace(/(\d+)-Week Meal Plan/, 'Thực đơn $1 tuần')
+    .replace(/Day (\d+)/i, 'Ngày $1');
+}
+
 export default function Analyzing() {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
@@ -58,7 +74,7 @@ export default function Analyzing() {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          setError("Please log in to continue");
+          setError("Vui lòng đăng nhập để tiếp tục");
           setIsLoading(false);
           setTimeout(() => navigate("/login"), 2000);
           return;
@@ -66,7 +82,7 @@ export default function Analyzing() {
 
         const requestJson = localStorage.getItem("mealPlanRequest");
         if (!requestJson) {
-          throw new Error("No plan request found. Please go back and configure your plan.");
+          throw new Error("Không tìm thấy yêu cầu tạo thực đơn. Vui lòng quay lại và cấu hình thực đơn của bạn.");
         }
 
         const requestBody = JSON.parse(requestJson);
@@ -92,11 +108,11 @@ export default function Analyzing() {
 
           if (errData.reason === "weight_goal_contraindication" && errData.conflicts) {
             throw new Error(
-              `Your weight goal is medically incompatible with: ${errData.conflicts.join(", ")}. Please update your goal or health profile.`
+              `Mục tiêu cân nặng của bạn không phù hợp y tế với: ${errData.conflicts.join(", ")}. Vui lòng cập nhật mục tiêu hoặc hồ sơ sức khỏe.`
             );
           }
           if (mealPlanResponse.status === 404) {
-            throw new Error("Health profile not found. Please fill in your Health Profile before generating a plan.");
+            throw new Error("Không tìm thấy hồ sơ sức khỏe. Vui lòng điền Hồ sơ sức khỏe trước khi tạo thực đơn.");
           }
           throw new Error(errData.message || `Server error ${mealPlanResponse.status}`);
         }
@@ -105,7 +121,7 @@ export default function Analyzing() {
         try {
           mealPlanData = await mealPlanResponse.json();
         } catch {
-          throw new Error("Invalid response format from server");
+          throw new Error("Định dạng phản hồi từ máy chủ không hợp lệ");
         }
 
         if (mealPlanData.mealPlan) {
@@ -118,11 +134,11 @@ export default function Analyzing() {
         clearTimeout(timeoutId!);
         if (err instanceof Error) {
           setError(err.name === "AbortError"
-            ? "Request timed out. The meal plan generation took too long. Please try again."
+            ? "Yêu cầu quá hạn. Quá trình tạo thực đơn mất quá nhiều thời gian. Vui lòng thử lại."
             : err.message
           );
         } else {
-          setError("An unexpected error occurred");
+          setError("Đã xảy ra lỗi không xác định");
         }
         setIsLoading(false);
       }
@@ -142,7 +158,7 @@ export default function Analyzing() {
       <main className="flex-grow flex items-center justify-center px-4 py-8 sm:py-12 lg:py-16 mt-32 sm:mt-40 lg:mt-48">
         <div className="w-full max-w-6xl mx-auto">
           {/* Error message */}
-          {error && (
+          {error && !mealPlan && (
             <div className="mb-8 p-6 rounded-[20px] bg-red-50 border-2 border-red-200 max-w-2xl mx-auto">
               <p className="text-red-600 text-lg sm:text-xl font-satoshi text-center">
                 {error}
@@ -152,8 +168,7 @@ export default function Analyzing() {
 
           {/* Main heading */}
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi max-w-4xl mx-auto leading-tight">
-            We are analyzing your profile to create a personalized muscle gain
-            plan
+            Chúng tôi đang phân tích hồ sơ của bạn để tạo ra một thực đơn cá nhân hóa
           </h1>
 
           {/* Loading indicator */}
@@ -218,10 +233,10 @@ export default function Analyzing() {
                 {/* Loading text */}
                 <div className="absolute inset-0 flex items-center justify-center flex-col gap-2">
                   <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2596BE] font-satoshi">
-                    Analyzing...
+                    Đang phân tích...
                   </span>
                   <span className="text-xs sm:text-sm lg:text-base text-gray-500 font-satoshi">
-                    This may take up to 3 minutes
+                    Quá trình này có thể mất tối đa 3 phút
                   </span>
                 </div>
               </div>
@@ -234,10 +249,10 @@ export default function Analyzing() {
               {/* Meal Plan Title */}
               <div className="text-center mb-12">
                 <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-bold text-black mb-4 font-satoshi">
-                  {mealPlan.title}
+                  {translateTitle(mealPlan.title)}
                 </h2>
                 <p className="text-lg sm:text-xl text-gray-600 font-satoshi">
-                  AI-Generated by {mealPlan.aiModel}
+                  Tạo bởi AI: {mealPlan.aiModel}
                 </p>
               </div>
 
@@ -251,7 +266,7 @@ export default function Analyzing() {
                     {/* Day Header */}
                     <div className="bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] p-6 sm:p-8 lg:p-10">
                       <h3 className="text-2xl sm:text-3xl lg:text-[36px] font-bold text-white mb-2 font-satoshi">
-                        {day.title}
+                        {translateTitle(day.title)}
                       </h3>
                       <p className="text-white/90 text-lg sm:text-xl font-satoshi mb-4">
                         {day.theme}
@@ -261,7 +276,7 @@ export default function Analyzing() {
                       <div className="grid grid-cols-3 gap-4">
                         <div className="bg-white/20 rounded-[15px] p-3 sm:p-4">
                           <p className="text-white/80 text-xs sm:text-sm font-satoshi">
-                            Protein
+                            Chất đạm
                           </p>
                           <p className="text-white text-lg sm:text-xl lg:text-2xl font-bold font-satoshi">
                             {day.macros.protein}g
@@ -269,7 +284,7 @@ export default function Analyzing() {
                         </div>
                         <div className="bg-white/20 rounded-[15px] p-3 sm:p-4">
                           <p className="text-white/80 text-xs sm:text-sm font-satoshi">
-                            Carbs
+                            Tinh bột
                           </p>
                           <p className="text-white text-lg sm:text-xl lg:text-2xl font-bold font-satoshi">
                             {day.macros.carbs}g
@@ -277,7 +292,7 @@ export default function Analyzing() {
                         </div>
                         <div className="bg-white/20 rounded-[15px] p-3 sm:p-4">
                           <p className="text-white/80 text-xs sm:text-sm font-satoshi">
-                            Fat
+                            Chất béo
                           </p>
                           <p className="text-white text-lg sm:text-xl lg:text-2xl font-bold font-satoshi">
                             {day.macros.fat}g
@@ -287,7 +302,7 @@ export default function Analyzing() {
 
                       <div className="mt-6 pt-6 border-t border-white/20">
                         <p className="text-white text-lg sm:text-xl lg:text-2xl font-bold font-satoshi">
-                          Total Calories: {day.totalCalories} kcal
+                          Tổng calo: {day.totalCalories} kcal
                         </p>
                       </div>
                     </div>
@@ -295,7 +310,7 @@ export default function Analyzing() {
                     {/* Meals Section */}
                     <div className="p-6 sm:p-8 lg:p-10">
                       <h4 className="text-xl sm:text-2xl lg:text-[28px] font-bold text-black mb-6 font-satoshi">
-                        Meals
+                        Các bữa ăn
                       </h4>
 
                       <div className="space-y-6">
@@ -308,7 +323,7 @@ export default function Analyzing() {
                             <div className="flex items-start justify-between mb-4">
                               <div>
                                 <p className="text-xs sm:text-sm font-bold text-[#2596BE] uppercase font-satoshi tracking-wide">
-                                  {meal.mealType}
+                                  {MEAL_TYPE_VI[meal.mealType?.toLowerCase()] || meal.mealType}
                                 </p>
                                 <h5 className="text-xl sm:text-2xl lg:text-[28px] font-bold text-black mt-2 font-satoshi">
                                   {meal.name}
@@ -330,7 +345,7 @@ export default function Analyzing() {
                             <div className="grid grid-cols-3 gap-3 mb-4">
                               <div className="bg-blue-50 rounded-[12px] p-2 sm:p-3">
                                 <p className="text-xs text-gray-600 font-satoshi">
-                                  Protein
+                                  Chất đạm
                                 </p>
                                 <p className="text-base sm:text-lg font-bold text-[#2596BE] font-satoshi">
                                   {meal.macros.protein}g
@@ -338,7 +353,7 @@ export default function Analyzing() {
                               </div>
                               <div className="bg-blue-50 rounded-[12px] p-2 sm:p-3">
                                 <p className="text-xs text-gray-600 font-satoshi">
-                                  Carbs
+                                  Tinh bột
                                 </p>
                                 <p className="text-base sm:text-lg font-bold text-[#2596BE] font-satoshi">
                                   {meal.macros.carbs}g
@@ -346,7 +361,7 @@ export default function Analyzing() {
                               </div>
                               <div className="bg-blue-50 rounded-[12px] p-2 sm:p-3">
                                 <p className="text-xs text-gray-600 font-satoshi">
-                                  Fat
+                                  Chất béo
                                 </p>
                                 <p className="text-base sm:text-lg font-bold text-[#2596BE] font-satoshi">
                                   {meal.macros.fat}g
@@ -359,7 +374,7 @@ export default function Analyzing() {
                               meal.ingredients.length > 0 && (
                                 <div className="mb-4">
                                   <p className="text-sm font-bold text-black mb-2 font-satoshi">
-                                    Ingredients:
+                                    Thành phần:
                                   </p>
                                   <div className="flex flex-wrap gap-2">
                                     {meal.ingredients.map((ingredient, idx) => (
@@ -378,7 +393,7 @@ export default function Analyzing() {
                             {meal.benefits && meal.benefits.length > 0 && (
                               <div>
                                 <p className="text-sm font-bold text-black mb-2 font-satoshi">
-                                  Benefits:
+                                  Lợi ích:
                                 </p>
                                 <ul className="space-y-1">
                                   {meal.benefits.map((benefit, idx) => (
@@ -403,7 +418,7 @@ export default function Analyzing() {
                       {day.tips && day.tips.length > 0 && (
                         <div className="mt-8 pt-8 border-t-2 border-gray-200">
                           <h5 className="text-lg sm:text-xl font-bold text-black mb-4 font-satoshi">
-                            Tips for {day.title}
+                            Mẹo cho {translateTitle(day.title).toLowerCase()}
                           </h5>
                           <ul className="space-y-2">
                             {day.tips.map((tip, idx) => (
@@ -431,7 +446,7 @@ export default function Analyzing() {
                   onClick={() => navigate("/")}
                   className="px-8 py-4 rounded-[18px] bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] text-white text-lg sm:text-xl lg:text-[20px] font-bold font-satoshi hover:shadow-2xl hover:scale-105 transition-all"
                 >
-                  Back to Home
+                  Về Trang chủ
                 </button>
               </div>
             </div>
