@@ -197,7 +197,7 @@ function toInputDate(isoStr?: string) {
 function buildDiseaseEntry(catalogKey: string, existing?: DiseaseEntry): DiseaseEntry {
   const catalog = DISEASE_CATALOG.find((d) => d.key === catalogKey);
   const indicators: IndicatorEntry[] = (catalog?.indicators ?? []).map((ci) => {
-    const existingInd = existing?.indicators.find((i) => i.key === ci.key);
+    const existingInd = (existing?.indicators || []).find((i) => i.key === ci.key);
     return {
       key: ci.key,
       value: existingInd ? String(existingInd.value) : "",

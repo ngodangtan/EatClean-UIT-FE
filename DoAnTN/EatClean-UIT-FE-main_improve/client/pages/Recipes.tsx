@@ -17,6 +17,7 @@ interface Meal {
   benefits: string[];
   calories: number;
   macros: MealMacros;
+  ingredients?: string[];
 }
 
 interface MealPlanDay {
@@ -45,6 +46,13 @@ const placeholderImages = {
     "https://api.builder.io/api/v1/image/assets/TEMP/75f7665a79e8e874dd19c1341ef172c09bafa0bd?width=386",
   dinner:
     "https://api.builder.io/api/v1/image/assets/TEMP/886ba8306b11283548115d746ec36b7534bbc0f5?width=386",
+};
+
+const MEAL_TYPE_VI: Record<string, string> = {
+  breakfast: "Bữa sáng",
+  lunch: "Bữa trưa",
+  dinner: "Bữa tối",
+  snack: "Bữa phụ"
 };
 
 function translateTitle(title: string) {
@@ -227,26 +235,75 @@ export default function Recipes() {
                 return (
                   <div
                     key={mealType}
-                    className="bg-white rounded-[25px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6"
+                    className="bg-white rounded-[25px] shadow-[0_27px_47px_9px_rgba(68,97,242,0.15)] p-4 sm:p-6 flex flex-col gap-4"
                   >
-                    <img
-                      src={getPlaceholderImage(mealType)}
-                      alt={meal.name}
-                      className="w-full sm:w-32 md:w-40 lg:w-48 h-32 sm:h-32 md:h-40 lg:h-48 object-cover rounded-[25px] flex-shrink-0"
-                    />
-                    <div className="flex-1">
-                      <p className="text-base sm:text-lg lg:text-[20px] leading-relaxed lg:leading-[50px] font-satoshi">
-                        <span className="font-bold text-black">
-                          {meal.name}
-                        </span>
-                        <br />
-                        <span className="text-black">{meal.description}</span>
-                        <br />
-                        <span className="text-black">
-                          Lợi ích: {meal.benefits.join("; ")}.
-                        </span>
-                      </p>
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
+                      <img
+                        src={getPlaceholderImage(mealType)}
+                        alt={meal.name}
+                        className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 object-cover rounded-[15px] flex-shrink-0 shadow-sm"
+                      />
+                      <div className="flex-1 w-full">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <p className="text-[#2596BE] text-sm sm:text-base font-bold font-satoshi">
+                              {MEAL_TYPE_VI[mealType] || mealType}
+                            </p>
+                            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-black font-satoshi mt-1">
+                              {meal.name}
+                            </h3>
+                          </div>
+                          {meal.calories && (
+                            <div className="bg-green-50 px-3 py-1 rounded-full flex-shrink-0 ml-4 border border-green-100">
+                              <span className="text-green-600 font-bold text-sm sm:text-base">
+                                {meal.calories} kcal
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-gray-500 text-sm sm:text-base font-satoshi leading-relaxed">
+                          {meal.description}
+                        </p>
+                      </div>
                     </div>
+
+                    {/* Ingredients */}
+                    {meal.ingredients && meal.ingredients.length > 0 && (
+                      <div className="mt-2">
+                        <p className="text-sm sm:text-base font-bold text-gray-700 mb-2 font-satoshi">
+                          Nguyên liệu
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {meal.ingredients.map((ingredient, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-block bg-orange-50 text-orange-500 border border-orange-100 rounded-full px-4 py-1.5 text-xs sm:text-sm font-satoshi font-medium"
+                            >
+                              {ingredient}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Benefits */}
+                    {meal.benefits && meal.benefits.length > 0 && (
+                      <div className="mt-2">
+                        <p className="text-sm sm:text-base font-bold text-gray-700 mb-2 font-satoshi">
+                          Lợi ích
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {meal.benefits.map((benefit, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-block bg-green-50 text-green-600 border border-green-100 rounded-full px-4 py-1.5 text-xs sm:text-sm font-satoshi font-medium"
+                            >
+                              {benefit}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -268,10 +325,10 @@ export default function Recipes() {
               </div>
             )}
 
-            <div className="absolute bottom-6 sm:bottom-8 lg:bottom-12 right-6 sm:right-8 lg:right-12">
-              <div className="bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] rounded-[18px] px-4 sm:px-6 py-2 sm:py-3">
+            <div className="mt-8 flex justify-end">
+              <div className="bg-gradient-to-r from-[#2596BE] to-[#6F3AFA] rounded-[18px] px-4 sm:px-6 py-2 sm:py-3 shadow-md inline-block">
                 <span className="text-xl sm:text-2xl lg:text-[20px] font-black text-white font-satoshi">
-                  ~{currentDay.totalCalories}kcal
+                  Tổng cộng: {currentDay.totalCalories} kcal
                 </span>
               </div>
             </div>
