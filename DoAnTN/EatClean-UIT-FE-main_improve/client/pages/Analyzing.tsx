@@ -68,7 +68,7 @@ export default function Analyzing() {
 
   useEffect(() => {
     const generateMealPlan = async () => {
-      const timeout = 3 * 60 * 1000;
+      const timeout = 20 * 60 * 1000; // 20 minutes
       let timeoutId: NodeJS.Timeout;
 
       try {
@@ -167,9 +167,11 @@ export default function Analyzing() {
           )}
 
           {/* Main heading */}
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi max-w-4xl mx-auto leading-tight">
-            Chúng tôi đang phân tích hồ sơ của bạn để tạo ra một thực đơn cá nhân hóa
-          </h1>
+          {isLoading && (
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black text-center mb-8 sm:mb-12 lg:mb-16 font-satoshi max-w-4xl mx-auto leading-tight">
+              Chúng tôi đang phân tích hồ sơ của bạn để tạo ra một thực đơn cá nhân hóa
+            </h1>
+          )}
 
           {/* Loading indicator */}
           {isLoading && (
