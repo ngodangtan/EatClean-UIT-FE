@@ -16,51 +16,51 @@ export default function Features() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
-            <div className="space-y-4">
-              <div className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
+          <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-10">
+            <div className="flex flex-col h-full space-y-4">
+              <div className="flex items-center justify-start w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
                 <img
                   src="https://api.builder.io/api/v1/image/assets/TEMP/6923b6a2bf14e9e3170c62058ae136dd9070b56f?width=218"
                   alt="Food recommendation"
-                  className="w-full h-full"
+                  className="max-w-full max-h-full object-contain"
                 />
               </div>
-              <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi">
+              <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi lg:min-h-[80px]">
                 Gợi Ý Thực Phẩm
               </h5>
-              <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi">
+              <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi flex-1">
                 Chúng tôi gợi ý thực phẩm phù hợp với nhu cầu calo của bạn.
               </p>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32">
+            <div className="flex flex-col h-full space-y-4">
+              <div className="flex items-center justify-start w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
                 <img
                   src="https://api.builder.io/api/v1/image/assets/TEMP/202e3525c022f152d0f4618cd91a046dd1969821?width=256"
                   alt="Nutritional value"
-                  className="w-full h-full"
+                  className="max-w-full max-h-full object-contain"
                 />
               </div>
-              <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi">
+              <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi lg:min-h-[80px]">
                 Giá Trị Dinh Dưỡng
               </h5>
-              <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi">
+              <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi flex-1">
                 Xem đầy đủ giá trị dinh dưỡng của món ăn yêu thích.
               </p>
             </div>
 
-            <div className="space-y-4 sm:col-span-2 lg:col-span-1">
-              <div className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32">
+            <div className="flex flex-col h-full space-y-4">
+              <div className="flex items-center justify-start w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
                 <img
                   src="https://api.builder.io/api/v1/image/assets/TEMP/49429acffbddc07753dc4381bcd2cdf24c8ced79?width=258"
                   alt="AI nutrition coach"
-                  className="w-full h-full"
+                  className="max-w-full max-h-full object-contain"
                 />
               </div>
-              <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi">
+              <h5 className="text-2xl sm:text-3xl lg:text-2xl font-bold leading-[40px] text-black font-satoshi lg:min-h-[80px]">
                 Huấn Luyện Viên Dinh Dưỡng AI
               </h5>
-              <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi">
+              <p className="text-xl sm:text-2xl lg:text-base font-medium text-[#8A8585] leading-normal font-satoshi flex-1">
                 Nhận câu trả lời tức thì và gợi ý bữa ăn cá nhân hóa.
               </p>
             </div>
