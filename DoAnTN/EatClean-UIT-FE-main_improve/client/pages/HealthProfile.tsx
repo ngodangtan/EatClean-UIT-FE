@@ -167,6 +167,8 @@ interface HealthProfileData {
   dietPreference: string;
   mealsPerDay: number;
   cuisinePreference: string[];
+  currentWeight?: number;
+  height?: number;
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
@@ -178,6 +180,8 @@ const defaultForm: HealthProfileData = {
   dietPreference: "balanced",
   mealsPerDay: 3,
   cuisinePreference: [],
+  currentWeight: undefined,
+  height: undefined,
 };
 
 function activityLabel(value: string) {
@@ -256,6 +260,8 @@ function normalizeFromApi(data: Record<string, unknown>): HealthProfileData {
     dietPreference: (data.dietPreference as string) ?? "balanced",
     mealsPerDay: (data.mealsPerDay as number) ?? 3,
     cuisinePreference: Array.isArray(data.cuisinePreference) ? data.cuisinePreference as string[] : [],
+    height: data.height as number | undefined,
+    currentWeight: data.currentWeight as number | undefined,
   };
 }
 
@@ -446,6 +452,22 @@ export default function HealthProfile() {
       if (res.status === 404) {
         setProfile(null);
         setIsEditing(true);
+        // Lấy thông tin user để tự động điền height, weight từ lúc đăng ký
+        try {
+          const authRes = await fetch(`${API_BASE}/api/auth/profile`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          if (authRes.ok) {
+            const authData = await authRes.json();
+            setForm((prev) => ({
+              ...prev,
+              height: authData.height,
+              currentWeight: authData.currentWeight,
+            }));
+          }
+        } catch (e) {
+          // Bỏ qua lỗi nếu không lấy được
+        }
       } else if (res.ok) {
         const data = await res.json();
         const normalized = normalizeFromApi(data);
@@ -640,14 +662,27 @@ export default function HealthProfile() {
                     />
                   </div>
 
-                  <div>
-                    <label className={labelClass}>Số bữa mỗi ngày</label>
-                    <input
-                      type="number" min={1} max={6}
-                      value={form.mealsPerDay}
-                      onChange={(e) => setForm((p) => ({ ...p, mealsPerDay: Number(e.target.value) }))}
-                      className={inputClass}
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+                    <div>
+                      <label className={labelClass}>Chiều cao hiện tại (cm)</label>
+                      <input
+                        type="number" min={50} max={300}
+                        value={form.height ?? ""}
+                        onChange={(e) => setForm((p) => ({ ...p, height: e.target.value ? Number(e.target.value) : undefined }))}
+                        className={inputClass}
+                        placeholder="VD: 170"
+                      />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Cân nặng hiện tại (kg)</label>
+                      <input
+                        type="number" min={20} max={500} step="0.1"
+                        value={form.currentWeight ?? ""}
+                        onChange={(e) => setForm((p) => ({ ...p, currentWeight: e.target.value ? Number(e.target.value) : undefined }))}
+                        className={inputClass}
+                        placeholder="VD: 65.5"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -667,6 +702,16 @@ export default function HealthProfile() {
                         <option key={d.value} value={d.value}>{d.label}</option>
                       ))}
                     </select>
+                  </div>
+
+                  <div>
+                    <label className={labelClass}>Số bữa mỗi ngày</label>
+                    <input
+                      type="number" min={1} max={6}
+                      value={form.mealsPerDay}
+                      onChange={(e) => setForm((p) => ({ ...p, mealsPerDay: Number(e.target.value) }))}
+                      className={inputClass}
+                    />
                   </div>
 
                   <div>
@@ -791,12 +836,22 @@ export default function HealthProfile() {
                       </p>
                     </div>
                   </div>
-                  <div>
-                    <label className={labelClass}>Số bữa mỗi ngày</label>
-                    <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
-                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
-                        {profile.mealsPerDay} bữa
-                      </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+                    <div>
+                      <label className={labelClass}>Chiều cao hiện tại</label>
+                      <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                        <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                          {profile.height ? `${profile.height} cm` : "Chưa cập nhật"}
+                        </p>
+                      </div>
+                    </div>
+                    <div>
+                      <label className={labelClass}>Cân nặng hiện tại</label>
+                      <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                        <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                          {profile.currentWeight ? `${profile.currentWeight} kg` : "Chưa cập nhật"}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -811,6 +866,14 @@ export default function HealthProfile() {
                     <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
                       <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
                         {DIET_PREFERENCES.find(d => d.value === profile.dietPreference)?.label || profile.dietPreference}
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <label className={labelClass}>Số bữa mỗi ngày</label>
+                    <div className="w-full h-16 sm:h-20 lg:h-[77px] bg-[#F3F3FD] rounded-[29px] border border-gray-200 flex items-center px-6 sm:px-8">
+                      <p className="text-base sm:text-lg lg:text-2xl text-gray-700 font-inter">
+                        {profile.mealsPerDay} bữa
                       </p>
                     </div>
                   </div>
